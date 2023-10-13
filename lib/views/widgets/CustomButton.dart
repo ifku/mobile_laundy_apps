@@ -26,7 +26,11 @@ class CustomButton {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: Text(label),
+        child: Text(label,
+            style: const TextStyle(
+                fontFamily: "Inter",
+                fontSize: 14,
+                fontWeight: FontWeight.w700)),
       ),
     );
   }

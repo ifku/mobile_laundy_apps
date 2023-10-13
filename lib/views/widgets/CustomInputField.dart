@@ -8,6 +8,8 @@ class CustomInputField {
   bool obscureText = false;
   Icon icon = const Icon(Icons.abc);
 
+  double sizedBoxHeight = 0;
+
   CustomInputField setController(TextEditingController controller) {
     this.controller = controller;
     return this;
@@ -33,6 +35,11 @@ class CustomInputField {
     return this;
   }
 
+  CustomInputField setSizedBoxHeight(double height) {
+    this.sizedBoxHeight = height;
+    return this;
+  }
+
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,11 +50,22 @@ class CustomInputField {
           obscureText: obscureText,
           decoration: InputDecoration(
               hintText: label,
+              hintStyle: TextStyle(
+                  fontSize: 12,
+                  fontFamily: "Lato",
+                  fontWeight: FontWeight.normal,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onBackground
+                      .withOpacity(0.5)),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
               enabledBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 borderSide: BorderSide(
                     width: 1,
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.5)),
+                    color:
+                        Theme.of(context).colorScheme.primary.withOpacity(0.5)),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -61,8 +79,8 @@ class CustomInputField {
                 child: icon,
               )),
         ),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: sizedBoxHeight,
         )
       ],
     );

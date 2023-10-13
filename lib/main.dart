@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_laundy_apps/Theme.dart';
-import 'package:mobile_laundy_apps/views/user/auth/Register.dart';
+import 'package:mobile_laundy_apps/views/user/auth/UserLogin.dart';
+import 'package:mobile_laundy_apps/views/user/auth/UserRegister.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,15 +16,16 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: "Lato",
         colorScheme: ColorScheme.light(
           primary: CustomTheme().primaryColor,
           secondary: CustomTheme().secondaryColor,
-          onSecondary: Colors.white,
+          onSecondary: CustomTheme().textWhite,
+          onPrimary: CustomTheme().textWhite,
+          onBackground: CustomTheme().textBlack,
         ),
         brightness: Brightness.light,
       ),
-      home: const Register(),
+      home: const Login(),
     );
   }
 }

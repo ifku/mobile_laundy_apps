@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_laundy_apps/const/Constants.dart';
 import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
-import 'package:mobile_laundy_apps/views/user/auth/AuthCheck.dart';
+import 'package:mobile_laundy_apps/views/user/auth/UserAuthCheck.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomDividerWithText.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomInputField.dart';
+import 'package:mobile_laundy_apps/views/widgets/CustomOutlinedButton.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -37,7 +39,7 @@ class _RegisterState extends State<Register> {
               height: GetScreenSize().getScreenHeight(context),
             ),
             Positioned(
-              top: 25,
+              top: 40,
               width: 165,
               height: 165,
               child: Image.asset("lib/assets/images/wireframe.png",
@@ -52,7 +54,7 @@ class _RegisterState extends State<Register> {
                 color: Colors.white,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(36.0),
+                padding: const EdgeInsets.only(top: 36, left: 36, right: 36),
                 child: LayoutBuilder(builder: (context, constraints) {
                   if (constraints.maxWidth > 300) {
                     return SingleChildScrollView(
@@ -63,6 +65,7 @@ class _RegisterState extends State<Register> {
                           Text(
                             "Yuk, Daftar Akun Barumu!",
                             style: TextStyle(
+                                fontFamily: "Lato",
                                 fontWeight: FontWeight.w700,
                                 fontSize: 18,
                                 color: Theme.of(context).colorScheme.primary),
@@ -71,9 +74,13 @@ class _RegisterState extends State<Register> {
                           Text(
                             "Mohon isi semua kolom dengan benar",
                             style: TextStyle(
+                                fontFamily: "Inter",
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
-                                color: Theme.of(context).colorScheme.error),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onBackground
+                                    .withOpacity(0.5)),
                           ),
                           const SizedBox(height: 15),
                           CustomInputField()
@@ -81,19 +88,21 @@ class _RegisterState extends State<Register> {
                               .setLabel("Nama")
                               .setLabelFontSize(15)
                               .setIcon(const Icon(Icons.person_outline))
+                              .setSizedBoxHeight(20)
                               .build(context),
                           CustomInputField()
                               .setController(emailController)
                               .setLabel("Email")
                               .setLabelFontSize(15)
                               .setIcon(const Icon(Icons.email_outlined))
+                              .setSizedBoxHeight(20)
                               .build(context),
                           CustomInputField()
                               .setController(passwordController)
                               .setLabel("Password")
                               .setLabelFontSize(15)
-                              .setIcon(const Icon(Icons.lock_outline))
                               .setObscureText(true)
+                              .setSizedBoxHeight(20)
                               .build(context),
                           SizedBox(
                             width: GetScreenSize().getScreenWidth(context),
@@ -105,19 +114,45 @@ class _RegisterState extends State<Register> {
                                   MaterialPageRoute(
                                       builder: (context) => AuthCheck(
                                           name: nameController.text,
-                                          email: emailController.text)));
+                                          email: emailController.text,
+                                          password: passwordController.text)));
                             }).build(context),
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 20),
                           CustomDividerWithText()
                               .setLabel("Atau masuk dengan email")
-                              .build(context)
+                              .build(context),
+                          const SizedBox(height: 20),
+                          CustomOutlinedButton()
+                              .setLabel("Masuk dengan Google")
+                              .build(context),
+                          // const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Sudah punya akun? Masuk aja",
+                                  style: TextStyle(
+                                      fontFamily: "Inter",
+                                      fontSize: 13,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground
+                                          .withOpacity(0.5))),
+                              TextButton(
+                                  onPressed: () {},
+                                  style: TextButton.styleFrom(
+                                      padding: const EdgeInsets.all(0)),
+                                  child: const Text("di sini",
+                                      style: TextStyle(
+                                          fontFamily: "Inter", fontSize: 13)))
+                            ],
+                          ),
                         ],
                       ),
                     );
                   } else {
                     /*Implement bigger screen size*/
-                    return TextLorem(context);
+                    return const Text("Wide");
                   }
                 }),
               ),
@@ -127,13 +162,4 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
-}
-
-Widget TextLorem(BuildContext context) {
-  return Column(
-    children: [
-      Container(child: Text(Constants().loremIpsum)),
-      Container(child: Text(Constants().loremIpsum)),
-    ],
-  );
 }

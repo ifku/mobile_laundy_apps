@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomTheme{
+class CustomTheme {
   MaterialColor primaryColor = const MaterialColor(
     0xFF5483ED,
     <int, Color>{
@@ -31,4 +31,7 @@ class CustomTheme{
       900: Color(0XFFFFB61B),
     },
   );
+  Color backgroundColor = const Color(0xFFFFFFFF);
+  Color textWhite = const Color(0xFFFFFFFF);
+  Color textBlack = const Color(0xFF000000);
 }
