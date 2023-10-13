@@ -42,7 +42,7 @@ class CustomInputField {
 
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         TextField(
           maxLines: 1,
@@ -53,11 +53,11 @@ class CustomInputField {
               hintStyle: TextStyle(
                   fontSize: 12,
                   fontFamily: "Lato",
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.w600,
                   color: Theme.of(context)
                       .colorScheme
                       .onBackground
-                      .withOpacity(0.5)),
+                      .withOpacity(0.4)),
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
               enabledBorder: OutlineInputBorder(

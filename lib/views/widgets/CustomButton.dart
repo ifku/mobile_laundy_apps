@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton {
   String label = "Label";
   void Function()? onPressed;
+
+  double buttonHeight = 50;
+  double sizedBoxHeight = 0;
 
   CustomButton setLabel(String label) {
     this.label = label;
@@ -15,9 +17,19 @@ class CustomButton {
     return this;
   }
 
+  CustomButton setSizedBoxHeight(double sizedBoxHeight){
+    this.sizedBoxHeight = sizedBoxHeight;
+    return this;
+  }
+
+  CustomButton setButtonHeight(double buttonHeight){
+    this.buttonHeight = buttonHeight;
+    return this;
+  }
+
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: buttonHeight,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

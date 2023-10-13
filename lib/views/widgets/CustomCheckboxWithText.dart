@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomCheckboxWithText.dart';
 
 class CustomCheckboxWithText {
   String text = "Text";
@@ -32,9 +30,10 @@ class CustomCheckboxWithText {
               Text(text),
             ],
           ),
-          TextButton(
-            onPressed: () {},
-            child: const Text("Lupa Password?"),
+          InkWell(
+            onTap: () {},
+            child: Text("Lupa Password?",
+                style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.w500)),
           ),
         ],
       ),

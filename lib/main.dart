@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_laundy_apps/Theme.dart';
-import 'package:mobile_laundy_apps/views/user/auth/UserLogin.dart';
-import 'package:mobile_laundy_apps/views/user/auth/UserRegister.dart';
+import 'package:mobile_laundy_apps/views/auth/Login.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
+import 'package:mobile_laundy_apps/views/auth/AuthCheck.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomCheckboxWithText.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomDividerWithText.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomInputField.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomOutlinedButton.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+  }
+
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -32,10 +40,8 @@ class _LoginState extends State<Login> {
               top: 40,
               width: 165,
               height: 165,
-              child: Image.asset(
-                "lib/assets/images/wireframe.png",
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset("lib/assets/images/wireframe.png",
+                  fit: BoxFit.cover),
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.7,
@@ -55,7 +61,7 @@ class _LoginState extends State<Login> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hai, Selamat Datang!",
+                            "Yuk, Daftar Akun Barumu!",
                             style: TextStyle(
                                 fontFamily: "Lato",
                                 fontWeight: FontWeight.w700,
@@ -76,6 +82,13 @@ class _LoginState extends State<Login> {
                           ),
                           const SizedBox(height: 15),
                           CustomInputField()
+                              .setController(nameController)
+                              .setLabel("Nama")
+                              .setLabelFontSize(15)
+                              .setIcon(const Icon(Icons.person_outline))
+                              .setSizedBoxHeight(20)
+                              .build(context),
+                          CustomInputField()
                               .setController(emailController)
                               .setLabel("Email")
                               .setLabelFontSize(15)
@@ -85,20 +98,23 @@ class _LoginState extends State<Login> {
                           CustomInputField()
                               .setController(passwordController)
                               .setLabel("Password")
-                              .setIcon(const Icon(Icons.lock_outline))
                               .setLabelFontSize(15)
                               .setObscureText(true)
-                              .build(context),
-                          CustomCheckboxWithText()
-                              .setOnChanged((p0) {})
-                              .setText("Ingat saya?")
+                              .setIcon(const Icon(Icons.lock_outline))
+                              .setSizedBoxHeight(20)
                               .build(context),
                           SizedBox(
                             width: GetScreenSize().getScreenWidth(context),
-                            child: CustomButton()
-                                .setLabel("Masuk")
-                                .setOnPressed(() {})
-                                .build(context),
+                            child:
+                                CustomButton().setLabel("Daftar").setOnPressed(
+                              () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const AuthCheck()));
+                              },
+                            ).build(context),
                           ),
                           const SizedBox(height: 20),
                           CustomDividerWithText()
@@ -107,12 +123,13 @@ class _LoginState extends State<Login> {
                           const SizedBox(height: 20),
                           CustomOutlinedButton()
                               .setLabel("Masuk dengan Google")
+                              .setSizedBoxHeight(10)
                               .build(context),
                           // const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Akunnya belum ada nih, mau",
+                              Text("Sudah punya akun? Masuk aja",
                                   style: TextStyle(
                                       fontFamily: "Inter",
                                       fontSize: 13,
@@ -120,13 +137,18 @@ class _LoginState extends State<Login> {
                                           .colorScheme
                                           .onBackground
                                           .withOpacity(0.5))),
-                              TextButton(
-                                  onPressed: () {},
-                                  style: TextButton.styleFrom(
-                                      padding: const EdgeInsets.all(0)),
-                                  child: const Text("Daftar ?",
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(" di sini",
                                       style: TextStyle(
-                                          fontFamily: "Inter", fontSize: 13)))
+                                          fontFamily: "Inter",
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary)))
                             ],
                           ),
                         ],
