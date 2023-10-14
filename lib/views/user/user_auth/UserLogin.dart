@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
-import 'package:mobile_laundy_apps/views/auth/AuthCheck.dart';
+import 'package:mobile_laundy_apps/views/user/user_auth/UserRegister.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
+import 'package:mobile_laundy_apps/views/widgets/CustomCheckboxWithText.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomDividerWithText.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomInputField.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomOutlinedButton.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class UserLogin extends StatefulWidget {
+  const UserLogin({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<UserLogin> createState() => _UserLoginState();
 }
 
-class _RegisterState extends State<Register> {
-  @override
-  void dispose() {
-    super.dispose();
-    nameController.dispose();
-    emailController.dispose();
-  }
-
-  TextEditingController nameController = TextEditingController();
+class _UserLoginState extends State<UserLogin> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -29,6 +22,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -40,8 +34,10 @@ class _RegisterState extends State<Register> {
               top: 40,
               width: 165,
               height: 165,
-              child: Image.asset("lib/assets/images/wireframe.png",
-                  fit: BoxFit.cover),
+              child: Image.asset(
+                "lib/assets/images/wireframe.png",
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.7,
@@ -61,7 +57,7 @@ class _RegisterState extends State<Register> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Yuk, Daftar Akun Barumu!",
+                            "Hai, Selamat Datang!",
                             style: TextStyle(
                                 fontFamily: "Lato",
                                 fontWeight: FontWeight.w700,
@@ -82,13 +78,6 @@ class _RegisterState extends State<Register> {
                           ),
                           const SizedBox(height: 15),
                           CustomInputField()
-                              .setController(nameController)
-                              .setLabel("Nama")
-                              .setLabelFontSize(15)
-                              .setIcon(const Icon(Icons.person_outline))
-                              .setSizedBoxHeight(20)
-                              .build(context),
-                          CustomInputField()
                               .setController(emailController)
                               .setLabel("Email")
                               .setLabelFontSize(15)
@@ -98,23 +87,20 @@ class _RegisterState extends State<Register> {
                           CustomInputField()
                               .setController(passwordController)
                               .setLabel("Password")
+                              .setIcon(const Icon(Icons.lock_outline))
                               .setLabelFontSize(15)
                               .setObscureText(true)
-                              .setIcon(const Icon(Icons.lock_outline))
-                              .setSizedBoxHeight(20)
+                              .build(context),
+                          CustomCheckboxWithText()
+                              .setOnChanged((p0) {})
+                              .setText("Ingat saya?")
                               .build(context),
                           SizedBox(
                             width: GetScreenSize().getScreenWidth(context),
-                            child:
-                                CustomButton().setLabel("Daftar").setOnPressed(
-                              () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const AuthCheck()));
-                              },
-                            ).build(context),
+                            child: CustomButton()
+                                .setLabel("Masuk")
+                                .setOnPressed(() {})
+                                .build(context),
                           ),
                           const SizedBox(height: 20),
                           CustomDividerWithText()
@@ -129,7 +115,7 @@ class _RegisterState extends State<Register> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Sudah punya akun? Masuk aja",
+                              Text("Akunnya belum ada nih, mau",
                                   style: TextStyle(
                                       fontFamily: "Inter",
                                       fontSize: 13,
@@ -139,9 +125,12 @@ class _RegisterState extends State<Register> {
                                           .withOpacity(0.5))),
                               InkWell(
                                   onTap: () {
-                                    Navigator.of(context).pop();
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            const Register()));
                                   },
-                                  child: Text(" di sini",
+                                  child: Text(" Daftar ?",
                                       style: TextStyle(
                                           fontFamily: "Inter",
                                           fontSize: 13,

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CustomCheckboxWithText {
-  String text = "Text";
-  final bool value = false;
-  void Function(bool?)? onChanged;
+  String _text = "Text";
+  final bool _value = false;
+  void Function(bool?)? _onChanged;
 
   CustomCheckboxWithText setText(String text) {
-    this.text = text;
+    _text = text;
     return this;
   }
 
   CustomCheckboxWithText setOnChanged(void Function(bool?) onChanged) {
-    this.onChanged = onChanged;
+    _onChanged = onChanged;
     return this;
   }
 
@@ -24,10 +24,10 @@ class CustomCheckboxWithText {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Checkbox(
-                value: value,
-                onChanged: onChanged,
+                value: _value,
+                onChanged: _onChanged,
               ),
-              Text(text),
+              Text(_text),
             ],
           ),
           InkWell(

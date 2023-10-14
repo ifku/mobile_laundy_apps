@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomDividerWithText {
-  String label = "label";
+  String _label = "label";
 
   CustomDividerWithText setLabel(String label) {
-    this.label = label;
+    _label = label;
     return this;
   }
 
@@ -15,7 +15,7 @@ class CustomDividerWithText {
         thickness: 2,
       )),
       const SizedBox(width: 10),
-      Text(label,
+      Text(_label,
           style: TextStyle(
               fontFamily: "Inter",
               fontSize: 12,

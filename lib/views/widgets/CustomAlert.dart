@@ -3,29 +3,29 @@ import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
 
 class CustomAlert {
-  String header = "Header";
-  String message = "Message";
-  String buttonLabel = "Button Label";
+  String _header = "Header";
+  String _message = "Message";
+  String _buttonLabel = "Button Label";
 
-  String image = "";
+  String _image = "";
 
   CustomAlert setHeader(String header) {
-    this.header = header;
+    _header = header;
     return this;
   }
 
   CustomAlert setMessage(String message) {
-    this.message = message;
+    _message = message;
     return this;
   }
 
   CustomAlert setButtonLabel(String buttonLabel) {
-    this.buttonLabel = buttonLabel;
+    _buttonLabel = buttonLabel;
     return this;
   }
 
   CustomAlert setImage(String image) {
-    this.image = image;
+    _image = image;
     return this;
   }
 
@@ -45,12 +45,12 @@ class CustomAlert {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                image,
+                _image,
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 10),
               Text(
-                header,
+                _header,
                 style: TextStyle(
                   fontFamily: "Lato",
                   fontSize: 24,
@@ -60,7 +60,7 @@ class CustomAlert {
               ),
               const SizedBox(height: 10),
               Text(
-                message,
+                _message,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: "Inter",
@@ -76,7 +76,7 @@ class CustomAlert {
               SizedBox(
                 width: GetScreenSize().getScreenWidth(context),
                 child: CustomButton()
-                    .setLabel(buttonLabel)
+                    .setLabel(_buttonLabel)
                     .setOnPressed(() {})
                     .setButtonHeight(55)
                     .build(context),

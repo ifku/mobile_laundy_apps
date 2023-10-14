@@ -1,42 +1,51 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomInputField {
-  TextEditingController? controller;
-  String label = "Label";
-  double labelFontSize = 15;
-  bool obscureText = false;
-  Icon icon = const Icon(Icons.abc);
+  TextEditingController? _controller;
+  String _label = "Label";
+  double _labelFontSize = 12;
+  bool _obscureText = false;
+  Icon _icon = const Icon(Icons.abc);
+  double _sizedBoxHeight = 0;
+  bool _isFilledForm = true;
 
-  double sizedBoxHeight = 0;
-
+  TextInputType _keyboardType = TextInputType.text;
   CustomInputField setController(TextEditingController controller) {
-    this.controller = controller;
+    _controller = controller;
     return this;
   }
 
   CustomInputField setLabel(String label) {
-    this.label = label;
+    _label = label;
     return this;
   }
 
   CustomInputField setLabelFontSize(double fontSize) {
-    this.labelFontSize = fontSize;
+    _labelFontSize = fontSize;
     return this;
   }
 
   CustomInputField setIcon(Icon icon) {
-    this.icon = icon;
+    _icon = icon;
     return this;
   }
 
   CustomInputField setObscureText(bool obscureText) {
-    this.obscureText = obscureText;
+    _obscureText = obscureText;
     return this;
   }
 
   CustomInputField setSizedBoxHeight(double height) {
-    this.sizedBoxHeight = height;
+    _sizedBoxHeight = height;
+    return this;
+  }
+  CustomInputField setIsFilledForm(bool isFilledForm) {
+    _isFilledForm = isFilledForm;
+    return this;
+  }
+
+  CustomInputField setKeyboardType(TextInputType keyboardType) {
+    _keyboardType = keyboardType;
     return this;
   }
 
@@ -46,12 +55,13 @@ class CustomInputField {
       children: [
         TextField(
           maxLines: 1,
-          controller: controller,
-          obscureText: obscureText,
+          controller: _controller,
+          obscureText: _obscureText,
+          keyboardType: _keyboardType,
           decoration: InputDecoration(
-              hintText: label,
+              hintText: _label,
               hintStyle: TextStyle(
-                  fontSize: 12,
+                  fontSize: _labelFontSize,
                   fontFamily: "Lato",
                   fontWeight: FontWeight.w600,
                   color: Theme.of(context)
@@ -73,14 +83,15 @@ class CustomInputField {
                     BorderSide(color: Theme.of(context).colorScheme.primary),
               ),
               fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-              filled: true,
+              filled: _isFilledForm,
               prefixIcon: Opacity(
                 opacity: 0.5,
-                child: icon,
-              )),
+                child: _icon,
+              ),
+          ),
         ),
         SizedBox(
-          height: sizedBoxHeight,
+          height: _sizedBoxHeight,
         )
       ],
     );

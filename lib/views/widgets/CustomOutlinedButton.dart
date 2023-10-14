@@ -3,23 +3,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
 
 class CustomOutlinedButton {
-  String label = "Label";
-  Icon icon = const Icon(Icons.add);
+  String _label = "Label";
+  Icon _icon = const Icon(Icons.add);
 
-  double sizedBoxHeight = 0;
+  double _sizedBoxHeight = 0;
 
   CustomOutlinedButton setLabel(String label) {
-    this.label = label;
+    _label = label;
     return this;
   }
 
   CustomOutlinedButton setIcon(Icon icon) {
-    this.icon = icon;
+    _icon = icon;
     return this;
   }
 
   CustomOutlinedButton setSizedBoxHeight(double sizedBoxHeight) {
-    this.sizedBoxHeight = sizedBoxHeight;
+    _sizedBoxHeight = sizedBoxHeight;
     return this;
   }
 
@@ -36,7 +36,7 @@ class CustomOutlinedButton {
               height: 30,
               width: 30,
             ),
-            label: Text(label,
+            label: Text(_label,
                 style: TextStyle(
                     fontSize: 12,
                     fontFamily: "Inter",
@@ -55,7 +55,7 @@ class CustomOutlinedButton {
             ),
           ),
         ),
-        SizedBox(height: sizedBoxHeight)
+        SizedBox(height: _sizedBoxHeight)
       ],
     );
   }
