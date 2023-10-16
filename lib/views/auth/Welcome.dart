@@ -6,21 +6,16 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.5),
-        ),
-        // Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     CustomAlert()
-        //     .setHeader("Selamat!")
-        //     .setImage("lib/assets/images/wireframe.png")
-        //     .setMessage("Email kamu telah berhasil diverifikasi. Segera masuk dan mulai menggunakannya")
-        //     .setButtonLabel("Dashboard")
-        //     .build(context)
-        //   ],
-        // )
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: () {}, child: Text(""))
+            ],
+          )
+        ],
       ),
     );
   }
