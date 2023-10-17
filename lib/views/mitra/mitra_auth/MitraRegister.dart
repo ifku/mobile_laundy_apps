@@ -87,11 +87,11 @@ class _MitraRegisterState extends State<MitraRegister> {
                             .setIcon(const Icon(Icons.person_outline))
                             .setSizedBoxHeight(20)
                             .build(context),
-                        // CustomTextArea()
-                        //     .setSizedBoxHeight(20)
-                        //     .setIcon(const Icon(Icons.location_on_outlined))
-                        //     .setLabel("Alamat Laundry")
-                        //     .build(context),
+                        CustomTextArea()
+                            .setSizedBoxHeight(20)
+                            .setIcon(const Icon(Icons.location_on_outlined))
+                            .setLabel("Alamat Laundry")
+                            .build(context),
                         CustomInputField()
                             .setController(phoneController)
                             .setLabel("No.Telepon")

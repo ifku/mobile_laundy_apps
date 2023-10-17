@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_laundy_apps/Theme.dart';
-import 'package:mobile_laundy_apps/views/auth/Welcome.dart';
+import 'package:mobile_laundy_apps/bloc/login/login_bloc.dart';
 import 'package:mobile_laundy_apps/views/mitra/mitra_auth/MitraRegister.dart';
 import 'package:mobile_laundy_apps/views/user/user_auth/UserLogin.dart';
-import 'package:mobile_laundy_apps/views/user/user_auth/UserRegister.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginBloc>(
+          create: (context) => LoginBloc(),
+        ),
+      ],
+      child:const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,7 +36,7 @@ class MyApp extends StatelessWidget {
         ),
         brightness: Brightness.light,
       ),
-      home: const MitraRegister(),
+      home: const UserLogin(),
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_laundy_apps/bloc/login/login_bloc.dart';
 import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
 import 'package:mobile_laundy_apps/views/user/user_auth/UserRegister.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
@@ -15,7 +17,7 @@ class UserLogin extends StatefulWidget {
 }
 
 class _UserLoginState extends State<UserLogin> {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -78,7 +80,7 @@ class _UserLoginState extends State<UserLogin> {
                           ),
                           const SizedBox(height: 15),
                           CustomInputField()
-                              .setController(emailController)
+                              .setController(nameController)
                               .setLabel("Email")
                               .setLabelFontSize(15)
                               .setIcon(const Icon(Icons.email_outlined))
@@ -97,10 +99,28 @@ class _UserLoginState extends State<UserLogin> {
                               .build(context),
                           SizedBox(
                             width: GetScreenSize().getScreenWidth(context),
-                            child: CustomButton()
-                                .setLabel("Masuk")
-                                .setOnPressed(() {})
-                                .build(context),
+                            child: BlocBuilder<LoginBloc, LoginState>(
+                              builder: (context, state) {
+                                if (state is LoginLoading) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else {
+                                  return CustomButton()
+                                      .setOnPressed(() {
+                                        BlocProvider.of<LoginBloc>(context).add(
+                                          LoginButtonPressed(
+                                            username: nameController.text,
+                                            password: passwordController.text,
+                                          ),
+                                        );
+                                      })
+                                      .setLabel("Masuk")
+                                      .setSizedBoxHeight(20)
+                                      .build(context);
+                                }
+                              },
+                            ),
                           ),
                           const SizedBox(height: 20),
                           CustomDividerWithText()
@@ -128,7 +148,7 @@ class _UserLoginState extends State<UserLogin> {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                            const Register()));
+                                                const Register()));
                                   },
                                   child: Text(" Daftar ?",
                                       style: TextStyle(
