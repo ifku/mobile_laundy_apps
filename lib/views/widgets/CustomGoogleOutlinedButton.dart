@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
 
-class CustomOutlinedButton {
+class CustomGoogleOutlinedButton {
   String _label = "Label";
+  Icon _icon = const Icon(Icons.add);
 
   double _sizedBoxHeight = 0;
-  double _fontSize = 12;
 
-  void Function()? _onPressed;
-
-  CustomOutlinedButton setLabel(String label) {
+  CustomGoogleOutlinedButton setLabel(String label) {
     _label = label;
     return this;
   }
 
-  CustomOutlinedButton setSizedBoxHeight(double sizedBoxHeight) {
+  CustomGoogleOutlinedButton setIcon(Icon icon) {
+    _icon = icon;
+    return this;
+  }
+
+  CustomGoogleOutlinedButton setSizedBoxHeight(double sizedBoxHeight) {
     _sizedBoxHeight = sizedBoxHeight;
-    return this;
-  }
-
-  CustomOutlinedButton setFontSize(double fontSize) {
-    _fontSize = fontSize;
-    return this;
-  }
-
-  CustomOutlinedButton setOnPressed(void Function()? onPressed) {
-    _onPressed = onPressed;
     return this;
   }
 
@@ -35,8 +29,21 @@ class CustomOutlinedButton {
         SizedBox(
           width: GetScreenSize().getScreenWidth(context),
           height: 50,
-          child: OutlinedButton(
-            onPressed: _onPressed,
+          child: OutlinedButton.icon(
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              "lib/assets/icons/icon-google.svg",
+              height: 30,
+              width: 30,
+            ),
+            label: Text(_label,
+                style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: "Inter",
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onBackground
+                        .withOpacity(0.5))),
             style: OutlinedButton.styleFrom(
               primary: Colors.black,
               side: BorderSide(
@@ -46,14 +53,6 @@ class CustomOutlinedButton {
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
             ),
-            child: Text(_label,
-                style: TextStyle(
-                    fontSize: _fontSize,
-                    fontFamily: "Inter",
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onBackground
-                        .withOpacity(0.5))),
           ),
         ),
         SizedBox(height: _sizedBoxHeight)

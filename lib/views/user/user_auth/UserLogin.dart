@@ -5,7 +5,7 @@ import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomCheckboxWithText.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomDividerWithText.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomInputField.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomOutlinedButton.dart';
+import 'package:mobile_laundy_apps/views/widgets/CustomGoogleOutlinedButton.dart';
 
 class UserLogin extends StatefulWidget {
   const UserLogin({super.key});
@@ -107,7 +107,7 @@ class _UserLoginState extends State<UserLogin> {
                               .setLabel("Atau masuk dengan email")
                               .build(context),
                           const SizedBox(height: 20),
-                          CustomOutlinedButton()
+                          CustomGoogleOutlinedButton()
                               .setLabel("Masuk dengan Google")
                               .setSizedBoxHeight(10)
                               .build(context),

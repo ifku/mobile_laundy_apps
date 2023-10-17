@@ -4,7 +4,7 @@ import 'package:mobile_laundy_apps/views/mitra/mitra_auth/MitraRegisterLaundry.d
 import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomDividerWithText.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomInputField.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomOutlinedButton.dart';
+import 'package:mobile_laundy_apps/views/widgets/CustomGoogleOutlinedButton.dart';
 import 'package:mobile_laundy_apps/views/widgets/CustomTextArea.dart';
 
 class MitraRegister extends StatefulWidget {
@@ -87,11 +87,11 @@ class _MitraRegisterState extends State<MitraRegister> {
                             .setIcon(const Icon(Icons.person_outline))
                             .setSizedBoxHeight(20)
                             .build(context),
-                        CustomTextArea()
-                            .setSizedBoxHeight(20)
-                            .setIcon(const Icon(Icons.location_on_outlined))
-                            .setLabel("Alamat Laundry")
-                            .build(context),
+                        // CustomTextArea()
+                        //     .setSizedBoxHeight(20)
+                        //     .setIcon(const Icon(Icons.location_on_outlined))
+                        //     .setLabel("Alamat Laundry")
+                        //     .build(context),
                         CustomInputField()
                             .setController(phoneController)
                             .setLabel("No.Telepon")
@@ -134,7 +134,7 @@ class _MitraRegisterState extends State<MitraRegister> {
                             .setLabel("Atau masuk dengan email")
                             .build(context),
                         const SizedBox(height: 20),
-                        CustomOutlinedButton()
+                        CustomGoogleOutlinedButton()
                             .setLabel("Masuk dengan Google")
                             .setSizedBoxHeight(10)
                             .build(context),

@@ -3,6 +3,7 @@ import 'package:mobile_laundy_apps/Theme.dart';
 import 'package:mobile_laundy_apps/views/auth/Welcome.dart';
 import 'package:mobile_laundy_apps/views/mitra/mitra_auth/MitraRegister.dart';
 import 'package:mobile_laundy_apps/views/user/user_auth/UserLogin.dart';
+import 'package:mobile_laundy_apps/views/user/user_auth/UserRegister.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
         brightness: Brightness.light,
       ),
-      home: const UserLogin(),
+      home: const MitraRegister(),
     );
   }
 }
