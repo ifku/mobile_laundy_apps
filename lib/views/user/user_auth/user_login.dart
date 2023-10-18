@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_laundy_apps/bloc/login/login_bloc.dart';
-import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
-import 'package:mobile_laundy_apps/views/user/user_auth/UserRegister.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomCheckboxWithText.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomDividerWithText.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomInputField.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomGoogleOutlinedButton.dart';
+import 'package:mobile_laundy_apps/bloc/auth/login/login_bloc.dart';
+import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
+import 'package:mobile_laundy_apps/views/user/laundry_list.dart';
+import 'package:mobile_laundy_apps/views/user/user_dashboard.dart';
+import 'package:mobile_laundy_apps/views/user/user_auth/user_register.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_checkbox_with_text.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_divider_with_text.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_google_outlined_button.dart';
 
 class UserLogin extends StatefulWidget {
-  const UserLogin({super.key});
+  const UserLogin({Key? key}) : super(key: key);
 
   @override
   State<UserLogin> createState() => _UserLoginState();
@@ -30,7 +32,7 @@ class _UserLoginState extends State<UserLogin> {
           children: [
             Container(
               color: Theme.of(context).colorScheme.primary,
-              height: GetScreenSize().getScreenHeight(context),
+              height: GetScreenSize.getScreenHeight(context),
             ),
             Positioned(
               top: 40,
@@ -98,13 +100,22 @@ class _UserLoginState extends State<UserLogin> {
                               .setText("Ingat saya?")
                               .build(context),
                           SizedBox(
-                            width: GetScreenSize().getScreenWidth(context),
+                            width: GetScreenSize.getScreenWidth(context),
                             child: BlocBuilder<LoginBloc, LoginState>(
                               builder: (context, state) {
                                 if (state is LoginLoading) {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
+                                } else if (state is LoginSuccess) {
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) => const LaundryList(),
+                                      ),
+                                    );
+                                  });
                                 } else {
                                   return CustomButton()
                                       .setOnPressed(() {
@@ -119,6 +130,7 @@ class _UserLoginState extends State<UserLogin> {
                                       .setSizedBoxHeight(20)
                                       .build(context);
                                 }
+                                return Container();
                               },
                             ),
                           ),
@@ -131,7 +143,6 @@ class _UserLoginState extends State<UserLogin> {
                               .setLabel("Masuk dengan Google")
                               .setSizedBoxHeight(10)
                               .build(context),
-                          // const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -170,6 +181,10 @@ class _UserLoginState extends State<UserLogin> {
                 }),
               ),
             ),
+            // Positioned(
+            //   top: MediaQuery.of(context).size.height * 0.5,
+            //   child: const CircularProgressIndicator(),
+            // ),
           ],
         ),
       ),

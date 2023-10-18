@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
+import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
 
 class CustomGoogleOutlinedButton {
   String _label = "Label";
@@ -27,7 +27,7 @@ class CustomGoogleOutlinedButton {
     return Column(
       children: [
         SizedBox(
-          width: GetScreenSize().getScreenWidth(context),
+          width: GetScreenSize.getScreenWidth(context),
           height: 50,
           child: OutlinedButton.icon(
             onPressed: () {},
