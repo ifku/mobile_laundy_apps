@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
-import 'package:mobile_laundy_apps/views/auth/AuthCheck.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomInputField.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomTextArea.dart';
+import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
+import 'package:mobile_laundy_apps/views/auth/auth_check.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_text_area.dart';
 
 class MitraRegisterLaundry extends StatefulWidget {
   const MitraRegisterLaundry({super.key});
@@ -29,7 +29,7 @@ class _MitraRegisterLaundryState extends State<MitraRegisterLaundry> {
         children: [
           Container(
             color: Theme.of(context).colorScheme.primary,
-            height: GetScreenSize().getScreenHeight(context),
+            height: GetScreenSize.getScreenHeight(context),
           ),
           Container(
             height: MediaQuery.of(context).size.height * 0.85,
@@ -99,7 +99,7 @@ class _MitraRegisterLaundryState extends State<MitraRegisterLaundry> {
                             .setLabel("Deskripsi Laundry")
                             .build(context),
                         SizedBox(
-                          width: GetScreenSize().getScreenWidth(context),
+                          width: GetScreenSize.getScreenWidth(context),
                           child: CustomButton().setLabel("Daftar").setOnPressed(
                             () {
                               Navigator.push(

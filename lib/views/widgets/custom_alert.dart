@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
+import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
 
 class CustomAlert {
   String _header = "Header";
@@ -34,7 +34,7 @@ class CustomAlert {
         child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 36),
       child: Container(
-        height: GetScreenSize().getScreenHeight(context) / 2,
+        height: GetScreenSize.getScreenHeight(context) / 2,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(25)),
           color: Colors.white,
@@ -74,7 +74,7 @@ class CustomAlert {
               ),
               const SizedBox(height: 20),
               SizedBox(
-                width: GetScreenSize().getScreenWidth(context),
+                width: GetScreenSize.getScreenWidth(context),
                 child: CustomButton()
                     .setLabel(_buttonLabel)
                     .setOnPressed(() {})

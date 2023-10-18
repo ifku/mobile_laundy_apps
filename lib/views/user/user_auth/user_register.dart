@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
-import 'package:mobile_laundy_apps/views/auth/AuthCheck.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomDividerWithText.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomInputField.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomGoogleOutlinedButton.dart';
+import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
+import 'package:mobile_laundy_apps/views/auth/auth_check.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_divider_with_text.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_google_outlined_button.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -35,7 +35,7 @@ class _RegisterState extends State<Register> {
           children: [
             Container(
               color: Theme.of(context).colorScheme.primary,
-              height: GetScreenSize().getScreenHeight(context),
+              height: GetScreenSize.getScreenHeight(context),
             ),
             Positioned(
               top: 40,
@@ -105,7 +105,7 @@ class _RegisterState extends State<Register> {
                               .setSizedBoxHeight(20)
                               .build(context),
                           SizedBox(
-                            width: GetScreenSize().getScreenWidth(context),
+                            width: GetScreenSize.getScreenWidth(context),
                             child:
                                 CustomButton().setLabel("Daftar").setOnPressed(
                               () {

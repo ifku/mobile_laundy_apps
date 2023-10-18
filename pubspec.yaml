@@ -69,6 +69,7 @@ flutter:
   assets:
     # Images
     - lib/assets/images/wireframe.png
+    - lib/assets/images/laundry_dummy.jpg
     # Icons
     - lib/assets/icons/icon-google.svg
   #   - images/a_dot_ham.jpeg

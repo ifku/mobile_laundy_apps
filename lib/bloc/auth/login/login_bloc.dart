@@ -1,9 +1,10 @@
-import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:mobile_laundy_apps/const/Constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
+import 'package:mobile_laundy_apps/data/models/auth/login_model.dart';
+import 'package:mobile_laundy_apps/const/api_constants.dart';
 
 part 'login_event.dart';
 
@@ -19,13 +20,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         try {
           final response = await http.post(
-            Uri.parse(Constants.BASE_URL + "login/validasi"),
+            Uri.parse(ApiConstants.BASE_URL + ApiConstants.LOGIN),
             body: {
               "username": username,
               "password": password,
             },
           );
-          switch (response.statusCode) {
+          final data = LoginModel.fromJson(json.decode(response.body));
+          print(data.code);
+          switch (data.code) {
             case 200:
               emit(LoginSuccess());
               break;
@@ -37,6 +40,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               break;
           }
         } catch (error) {
+          print(error);
           emit(LoginFailure(error: error.toString()));
         }
       }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/utils/GetScreenSize.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomButton.dart';
-import 'package:mobile_laundy_apps/views/widgets/CustomInputField.dart';
+import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
 
 class AuthCheck extends StatefulWidget {
   const AuthCheck({super.key});
@@ -21,7 +21,7 @@ class _AuthCheckState extends State<AuthCheck> {
           children: [
             Container(
               color: Theme.of(context).colorScheme.primary,
-              height: GetScreenSize().getScreenHeight(context),
+              height: GetScreenSize.getScreenHeight(context),
             ),
             Positioned(
               top: 40,
@@ -79,7 +79,7 @@ class _AuthCheckState extends State<AuthCheck> {
                               .setSizedBoxHeight(20)
                               .build(context),
                           SizedBox(
-                            width: GetScreenSize().getScreenWidth(context),
+                            width: GetScreenSize.getScreenWidth(context),
                             child: CustomButton()
                                 .setLabel("Verifikasi Sekarang")
                                 .setOnPressed(() {})
