@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:mobile_laundy_apps/data/models/auth/login_model.dart';
 import 'package:mobile_laundy_apps/const/api_constants.dart';
+import 'package:mobile_laundy_apps/data/repositories/local/user_preferences.dart';
 
 part 'login_event.dart';
 
@@ -27,7 +28,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             },
           );
           final data = LoginModel.fromJson(json.decode(response.body));
-          print(data.code);
+          final token = data.data.apiKey;
+          await UserPreferences.saveToken(token);
           switch (data.code) {
             case 200:
               emit(LoginSuccess());
@@ -40,7 +42,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               break;
           }
         } catch (error) {
-          print(error);
           emit(LoginFailure(error: error.toString()));
         }
       }

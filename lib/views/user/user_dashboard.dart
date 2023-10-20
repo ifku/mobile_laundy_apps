@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+class UserDashboard extends StatefulWidget {
+  const UserDashboard({super.key});
 
   @override
-  State<Dashboard> createState() => _DashboardState();
+  State<UserDashboard> createState() => _UserDashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _UserDashboardState extends State<UserDashboard> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold();

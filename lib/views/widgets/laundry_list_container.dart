@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
 
 class LaundryListContainer {
-  String _imageLaundry = "";
-  String _namaLaundry = "";
-  String _alamatLaundry = "";
-  String _jam = "";
-  String _harga = "";
+  String _laundryImage = "";
+  String _laundryName = "";
+  String _laundryAddress = "";
+  String _laundryOpenHour = "";
+  double _laundryPrice = 0;
   void Function()? _onTap;
 
   LaundryListContainer setImageLaundry(String image) {
-    _imageLaundry = image;
+    _laundryImage = image;
     return this;
   }
 
   LaundryListContainer setNamaLaundry(String nama) {
-    _namaLaundry = nama;
+    _laundryName = nama;
     return this;
   }
 
   LaundryListContainer setAlamatLaundry(String alamat) {
-    _alamatLaundry = alamat;
+    _laundryAddress = alamat;
     return this;
   }
 
   LaundryListContainer setJam(String jam) {
-    _jam = jam;
+    _laundryOpenHour = jam;
     return this;
   }
 
-  LaundryListContainer setHarga(String harga) {
-    _harga = harga;
+  LaundryListContainer setHarga(double harga) {
+    _laundryPrice = harga;
     return this;
   }
 
@@ -65,7 +65,7 @@ class LaundryListContainer {
                       child: Image.asset(
                           height: 110,
                           width: 140,
-                          _imageLaundry,
+                          _laundryImage,
                           fit: BoxFit.cover),
                     ),
                   ),
@@ -74,7 +74,7 @@ class LaundryListContainer {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _namaLaundry,
+                        _laundryName,
                         style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w800,
@@ -82,7 +82,7 @@ class LaundryListContainer {
                             fontSize: 20),
                       ),
                       const SizedBox(height: 10),
-                      Text(_alamatLaundry,
+                      Text(_laundryAddress,
                           style: TextStyle(
                             fontFamily: "Lato",
                             fontSize: 14,
@@ -97,7 +97,7 @@ class LaundryListContainer {
                         children: [
                           const Icon(Icons.access_time, size: 20),
                           const SizedBox(width: 5),
-                          Text(_jam,
+                          Text(_laundryOpenHour,
                               style: TextStyle(
                                 fontFamily: "Lato",
                                 fontSize: 14,
@@ -123,7 +123,7 @@ class LaundryListContainer {
                                     .withOpacity(0.3),
                               )),
                           const SizedBox(width: 5),
-                          Text(_harga,
+                          Text("Rp.${_laundryPrice.toString()}/kg",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Theme.of(context)

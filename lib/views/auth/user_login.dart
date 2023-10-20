@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_laundy_apps/bloc/auth/login/login_bloc.dart';
+import 'package:mobile_laundy_apps/routes/routes.dart';
 import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
-import 'package:mobile_laundy_apps/views/user/laundry_list.dart';
-import 'package:mobile_laundy_apps/views/user/user_dashboard.dart';
-import 'package:mobile_laundy_apps/views/user/user_auth/user_register.dart';
+import 'package:mobile_laundy_apps/views/user/user_laundry/user_laundry_list.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_checkbox_with_text.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_divider_with_text.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_google_outlined_button.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
 
 class UserLogin extends StatefulWidget {
   const UserLogin({Key? key}) : super(key: key);
@@ -35,11 +34,11 @@ class _UserLoginState extends State<UserLogin> {
               height: GetScreenSize.getScreenHeight(context),
             ),
             Positioned(
-              top: 40,
+              top: 50,
               width: 165,
               height: 165,
               child: Image.asset(
-                "lib/assets/images/wireframe.png",
+                "lib/assets/images/laundry-clothes.png",
                 fit: BoxFit.cover,
               ),
             ),
@@ -83,7 +82,7 @@ class _UserLoginState extends State<UserLogin> {
                           const SizedBox(height: 15),
                           CustomInputField()
                               .setController(nameController)
-                              .setLabel("Email")
+                              .setLabel("Email/Username")
                               .setLabelFontSize(15)
                               .setIcon(const Icon(Icons.email_outlined))
                               .setSizedBoxHeight(20)
@@ -112,7 +111,8 @@ class _UserLoginState extends State<UserLogin> {
                                       .addPostFrameCallback((_) {
                                     Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                        builder: (context) => const LaundryList(),
+                                        builder: (context) =>
+                                            const LaundryList(),
                                       ),
                                     );
                                   });
@@ -156,10 +156,12 @@ class _UserLoginState extends State<UserLogin> {
                                           .withOpacity(0.5))),
                               InkWell(
                                   onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Register()));
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(
+                                              AppRoutes.userRegister);
+                                    });
                                   },
                                   child: Text(" Daftar ?",
                                       style: TextStyle(
@@ -181,10 +183,6 @@ class _UserLoginState extends State<UserLogin> {
                 }),
               ),
             ),
-            // Positioned(
-            //   top: MediaQuery.of(context).size.height * 0.5,
-            //   child: const CircularProgressIndicator(),
-            // ),
           ],
         ),
       ),

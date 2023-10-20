@@ -37,7 +37,7 @@ class LaundryListView extends StatelessWidget {
                 .setNamaLaundry(laundryList[index].namaLaundry)
                 .setAlamatLaundry(laundryList[index].alamatLaundry)
                 .setJam(laundryList[index].jam)
-                .setHarga(laundryList[index].harga)
+                .setHarga(laundryList[index].harga.toDouble())
                 .setOnTap(() {
               print("tes" + laundryList[index].namaLaundry);
             }).build(context),

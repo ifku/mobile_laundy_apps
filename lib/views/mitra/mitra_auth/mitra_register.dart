@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_laundy_apps/routes/routes.dart';
 import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
-import 'package:mobile_laundy_apps/views/mitra/mitra_auth/mitra_register_laundry.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_divider_with_text.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_google_outlined_button.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_text_area.dart';
 
 class MitraRegister extends StatefulWidget {
@@ -121,11 +121,10 @@ class _MitraRegisterState extends State<MitraRegister> {
                               .setLabel("Selanjutnya")
                               .setOnPressed(
                             () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MitraRegisterLaundry()));
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                Navigator.of(context)
+                                    .pushNamed(AppRoutes.mitraRegisterLaundry);
+                              });
                             },
                           ).build(context),
                         ),
@@ -152,7 +151,11 @@ class _MitraRegisterState extends State<MitraRegister> {
                                         .withOpacity(0.5))),
                             InkWell(
                                 onTap: () {
-                                  Navigator.of(context).pop();
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    Navigator.of(context)
+                                        .pushNamed(AppRoutes.userLogin);
+                                  });
                                 },
                                 child: Text(" di sini",
                                     style: TextStyle(
@@ -175,10 +178,10 @@ class _MitraRegisterState extends State<MitraRegister> {
             ),
           ),
           Positioned(
-            top: 10,
+            top: 0,
             height: 104,
             width: 104,
-            child: Image.asset("lib/assets/images/wireframe.png"),
+            child: Image.asset("lib/assets/images/iron.png"),
           ),
         ],
       ),

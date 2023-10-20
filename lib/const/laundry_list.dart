@@ -3,7 +3,7 @@ class LaundryListDummy {
   String namaLaundry;
   String alamatLaundry;
   String jam;
-  String harga;
+  double harga;
 
   LaundryListDummy({
     required this.imageLaundry,
@@ -20,27 +20,27 @@ final List<LaundryListDummy> laundryList = [
     namaLaundry: "Laundry 1",
     alamatLaundry: "Jl. Jalan 1",
     jam: "08.00 - 20.00",
-    harga: "Rp. 10.000",
+    harga: 10.000,
   ),
   LaundryListDummy(
     imageLaundry: "lib/assets/images/laundry_dummy.jpg",
     namaLaundry: "Laundry 2",
     alamatLaundry: "Jl. Jalan 2",
     jam: "08.00 - 20.00",
-    harga: "Rp. 10.000",
+    harga: 10.000,
   ),
   LaundryListDummy(
     imageLaundry: "lib/assets/images/laundry_dummy.jpg",
     namaLaundry: "Laundry 3",
     alamatLaundry: "Jl. Jalan 3",
     jam: "08.00 - 20.00",
-    harga: "Rp. 10.000",
+    harga: 10.000,
   ),
   LaundryListDummy(
     imageLaundry: "lib/assets/images/laundry_dummy.jpg",
     namaLaundry: "Laundry 4",
     alamatLaundry: "Jl. Jalan 4",
     jam: "08.00 - 20.00",
-    harga: "Rp. 10.000",
+    harga: 10.000,
   ),
 ];
