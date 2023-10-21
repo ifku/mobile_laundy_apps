@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_laundy_apps/routes/routes.dart';
 import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
-import 'package:mobile_laundy_apps/views/auth/auth_check.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_divider_with_text.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_google_outlined_button.dart';
+import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class UserRegister extends StatefulWidget {
+  const UserRegister({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<UserRegister> createState() => _UserRegisterState();
 }
 
-class _RegisterState extends State<Register> {
+class _UserRegisterState extends State<UserRegister> {
   @override
   void dispose() {
     super.dispose();
@@ -22,6 +22,7 @@ class _RegisterState extends State<Register> {
   }
 
   TextEditingController nameController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -38,12 +39,11 @@ class _RegisterState extends State<Register> {
               height: GetScreenSize.getScreenHeight(context),
             ),
             Positioned(
-              top: 40,
-              width: 165,
-              height: 165,
-              child: Image.asset("lib/assets/images/wireframe.png",
-                  fit: BoxFit.cover),
-            ),
+                top: 50,
+                width: 165,
+                height: 165,
+                child: Image.asset("lib/assets/images/laundry.png",
+                    fit: BoxFit.cover)),
             Container(
               height: MediaQuery.of(context).size.height * 0.7,
               decoration: const BoxDecoration(
@@ -90,6 +90,13 @@ class _RegisterState extends State<Register> {
                               .setSizedBoxHeight(20)
                               .build(context),
                           CustomInputField()
+                              .setController(userNameController)
+                              .setLabel("Username")
+                              .setLabelFontSize(15)
+                              .setIcon(const Icon(Icons.person_outline))
+                              .setSizedBoxHeight(20)
+                              .build(context),
+                          CustomInputField()
                               .setController(emailController)
                               .setLabel("Email")
                               .setLabelFontSize(15)
@@ -109,11 +116,11 @@ class _RegisterState extends State<Register> {
                             child:
                                 CustomButton().setLabel("Daftar").setOnPressed(
                               () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const AuthCheck()));
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  Navigator.of(context)
+                                      .pushNamed(AppRoutes.authCheck);
+                                });
                               },
                             ).build(context),
                           ),
@@ -140,7 +147,11 @@ class _RegisterState extends State<Register> {
                                           .withOpacity(0.5))),
                               InkWell(
                                   onTap: () {
-                                    Navigator.of(context).pop();
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      Navigator.of(context)
+                                          .pushNamed(AppRoutes.userLogin);
+                                    });
                                   },
                                   child: Text(" di sini",
                                       style: TextStyle(

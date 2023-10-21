@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_laundy_apps/routes/routes.dart';
 import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
-import 'package:mobile_laundy_apps/views/auth/auth_check.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
 import 'package:mobile_laundy_apps/views/widgets/custom_text_area.dart';
@@ -102,10 +102,10 @@ class _MitraRegisterLaundryState extends State<MitraRegisterLaundry> {
                           width: GetScreenSize.getScreenWidth(context),
                           child: CustomButton().setLabel("Daftar").setOnPressed(
                             () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const AuthCheck()));
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                Navigator.of(context)
+                                    .pushNamed(AppRoutes.authCheck);
+                              });
                             },
                           ).build(context),
                         ),
@@ -120,10 +120,10 @@ class _MitraRegisterLaundryState extends State<MitraRegisterLaundry> {
             ),
           ),
           Positioned(
-            top: 55,
+            top: 30,
             height: 104,
             width: 104,
-            child: Image.asset("lib/assets/images/wireframe.png"),
+            child: Image.asset("lib/assets/images/iron.png"),
           ),
         ],
       ),

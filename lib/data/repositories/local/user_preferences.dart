@@ -1,10 +1,20 @@
-import 'package:mobile_laundy_apps/data/models/auth/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferences {
-  Future<bool> saveLoginData(LoginModel login) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+  static const String tokenKey = 'token';
 
-    return prefs.commit();
+  static Future<void> saveToken(String token) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(tokenKey, token);
+  }
+
+  static Future<String?> getToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(tokenKey);
+  }
+
+  static Future<void> removeToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(tokenKey);
   }
 }

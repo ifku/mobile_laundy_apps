@@ -50,10 +50,8 @@ class CustomOutlinedButton {
                 style: TextStyle(
                     fontSize: _fontSize,
                     fontFamily: "Inter",
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onBackground
-                        .withOpacity(0.5))),
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary)),
           ),
         ),
         SizedBox(height: _sizedBoxHeight)

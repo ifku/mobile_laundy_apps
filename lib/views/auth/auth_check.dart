@@ -28,7 +28,7 @@ class _AuthCheckState extends State<AuthCheck> {
               width: 165,
               height: 165,
               child: Image.asset(
-                "lib/assets/images/wireframe.png",
+                "lib/assets/images/laundry-detergent.png",
                 fit: BoxFit.cover,
               ),
             ),

@@ -67,9 +67,17 @@ flutter:
   assets:
     # Images
     - lib/assets/images/
+#    - lib/assets/images/wireframe.png
+#    - lib/assets/images/laundry_dummy.jpg
+#    - lib/assets/images/clean-clothes.png
+#    - lib/assets/images/iron.png
+#    - lib/assets/images/laundry-detergent.png
+#    - lib/assets/images/laundry.png
+#    - lib/assets/images/washing-machine.png
+#    - lib/assets/images/laundry-clothes.png
     # - images/rectangle.png
     # - images/laundry_dummy.jpg
-
+    
     # Icons
     - lib/assets/icons/
   #   - images/a_dot_ham.jpeg
