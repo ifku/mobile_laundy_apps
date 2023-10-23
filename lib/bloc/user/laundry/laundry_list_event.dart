@@ -6,5 +6,5 @@ abstract class LaundryListEvent {}
 class GetLaundryList extends LaundryListEvent {
   final String token;
 
-  GetLaundryList(this.token);
+  GetLaundryList({required this.token});
 }

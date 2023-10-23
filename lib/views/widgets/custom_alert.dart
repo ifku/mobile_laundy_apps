@@ -1,6 +1,6 @@
+import 'package:WashWoosh/utils/get_screen_size.dart';
+import 'package:WashWoosh/views/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
 
 class CustomAlert {
   String _header = "Header";

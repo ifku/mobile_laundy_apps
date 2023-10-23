@@ -8,9 +8,10 @@ class LaundryListInitial extends LaundryListState {}
 class LaundryListLoading extends LaundryListState {}
 
 class LaundryListSuccess extends LaundryListState {
-  final List<Datum> laundryList;
+  final List<LaundryData> laundryList;
 
   LaundryListSuccess(this.laundryList);
+
 }
 
 class LaundryListError extends LaundryListState {

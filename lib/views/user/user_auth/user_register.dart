@@ -1,11 +1,10 @@
+import 'package:WashWoosh/routes/routes.dart';
+import 'package:WashWoosh/utils/get_screen_size.dart';
+import 'package:WashWoosh/views/widgets/custom_button.dart';
+import 'package:WashWoosh/views/widgets/custom_divider_with_text.dart';
+import 'package:WashWoosh/views/widgets/custom_google_outlined_button.dart';
+import 'package:WashWoosh/views/widgets/custom_input_field.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/routes/routes.dart';
-import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_divider_with_text.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_google_outlined_button.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
-
 class UserRegister extends StatefulWidget {
   const UserRegister({super.key});
 
@@ -18,7 +17,9 @@ class _UserRegisterState extends State<UserRegister> {
   void dispose() {
     super.dispose();
     nameController.dispose();
+    userNameController.dispose();
     emailController.dispose();
+    passwordController.dispose();
   }
 
   TextEditingController nameController = TextEditingController();

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:WashWoosh/const/api_constants.dart';
+import 'package:WashWoosh/data/models/auth/login_model.dart';
+import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
-import 'package:mobile_laundy_apps/data/models/auth/login_model.dart';
-import 'package:mobile_laundy_apps/const/api_constants.dart';
-import 'package:mobile_laundy_apps/data/repositories/local/user_preferences.dart';
 
 part 'login_event.dart';
 
@@ -30,16 +30,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           final data = LoginModel.fromJson(json.decode(response.body));
           final token = data.data.apiKey;
           await UserPreferences.saveToken(token);
-          switch (data.code) {
-            case 200:
+          if (data.code == 200) {
+            if (data.data.isMitra) {
+              emit((LoginIsMitra()));
+            } else {
               emit(LoginSuccess());
-              break;
-            case 400:
-              emit(LoginFailure(error: "Username atau password salah"));
-              break;
-            default:
-              emit(LoginFailure(error: "Terjadi kesalahan"));
-              break;
+            }
+          } else {
+            emit(LoginFailure(error: "Username atau password salah"));
           }
         } catch (error) {
           emit(LoginFailure(error: error.toString()));

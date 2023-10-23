@@ -1,14 +1,17 @@
+import 'package:WashWoosh/data/models/auth/mitra_data.dart';
+import 'package:WashWoosh/dummy.dart';
+import 'package:WashWoosh/views/auth/auth_check.dart';
+import 'package:WashWoosh/views/auth/user_login.dart';
+import 'package:WashWoosh/views/auth/welcome.dart';
+import 'package:WashWoosh/views/mitra/mitra_auth/mitra_register.dart';
+import 'package:WashWoosh/views/mitra/mitra_auth/mitra_register_laundry.dart';
+import 'package:WashWoosh/views/mitra/mitra_dashboard.dart';
+import 'package:WashWoosh/views/splash_screen.dart';
+import 'package:WashWoosh/views/user/user_auth/user_register.dart';
+import 'package:WashWoosh/views/user/user_dashboard.dart';
+import 'package:WashWoosh/views/user/user_laundry/user_laundry_detail.dart';
+import 'package:WashWoosh/views/user/user_laundry/user_laundry_list.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/dummy.dart';
-import 'package:mobile_laundy_apps/views/auth/auth_check.dart';
-import 'package:mobile_laundy_apps/views/auth/user_login.dart';
-import 'package:mobile_laundy_apps/views/auth/welcome.dart';
-import 'package:mobile_laundy_apps/views/mitra/mitra_auth/mitra_register.dart';
-import 'package:mobile_laundy_apps/views/mitra/mitra_auth/mitra_register_laundry.dart';
-import 'package:mobile_laundy_apps/views/mitra/mitra_dashboard.dart';
-import 'package:mobile_laundy_apps/views/splash_screen.dart';
-import 'package:mobile_laundy_apps/views/user/user_auth/user_register.dart';
-import 'package:mobile_laundy_apps/views/user/user_dashboard.dart';
 
 class AppRoutes {
   static const String home = '/';
@@ -23,6 +26,8 @@ class AppRoutes {
 
   /*Dashboard*/
   static const String userDashboard = '/user-dashboard';
+  static const String userLaundryList = '/user-laundry-list';
+  static const String userLaundryDetail = '/user-laundry-detail';
   static const String mitraDashboard = '/mitra-dashboard';
   static const String dummy = '/dummy';
   static final Map<String, WidgetBuilder> routes = {
@@ -32,8 +37,11 @@ class AppRoutes {
     userLogin: (context) => const UserLogin(),
     userRegister: (context) => const UserRegister(),
     mitraRegister: (context) => const MitraRegister(),
-    mitraRegisterLaundry: (context) => const MitraRegisterLaundry(),
+    mitraRegisterLaundry: (context) => MitraRegisterLaundry(
+        mitraData: ModalRoute.of(context)!.settings.arguments as MitraData),
     userDashboard: (context) => const UserDashboard(),
+    userLaundryList: (context) => const LaundryList(),
+    userLaundryDetail: (context) => const UserLaundryDetail(),
     mitraDashboard: (context) => const MitraDashboard(),
     dummy: (context) => const Dummy(),
   };
