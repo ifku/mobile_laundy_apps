@@ -1,5 +1,5 @@
+import 'package:WashWoosh/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/routes/routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

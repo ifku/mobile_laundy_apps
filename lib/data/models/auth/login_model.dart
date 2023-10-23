@@ -38,16 +38,20 @@ class LoginModel {
 
 class Data {
   String apiKey;
+  bool isMitra;
 
   Data({
     required this.apiKey,
+    required this.isMitra,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     apiKey: json["api_key"],
+    isMitra: json["is_mitra"],
   );
 
   Map<String, dynamic> toJson() => {
     "api_key": apiKey,
+    "is_mitra": isMitra,
   };
 }

@@ -1,4 +1,4 @@
-name: mobile_laundy_apps
+name: WashWoosh
 description: Aplikasi laundry berbasis mobile.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -41,6 +41,7 @@ dependencies:
   shared_preferences: ^2.2.2
   equatable: ^2.0.5
   bloc: ^8.1.2
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

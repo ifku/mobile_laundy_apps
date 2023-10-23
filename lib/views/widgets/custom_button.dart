@@ -1,3 +1,4 @@
+import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton {
@@ -30,6 +31,7 @@ class CustomButton {
   Widget build(BuildContext context) {
     return SizedBox(
       height: _buttonHeight,
+      width: GetScreenSize.getScreenWidth(context),
       child: ElevatedButton(
         onPressed: _onPressed,
         style: ElevatedButton.styleFrom(

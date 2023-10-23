@@ -1,3 +1,4 @@
+import 'package:WashWoosh/utils/truncate_text_ellipsis.dart';
 import 'package:flutter/material.dart';
 
 class LaundryListContainer {
@@ -48,7 +49,7 @@ class LaundryListContainer {
             border: Border.all(
               width: 1.5,
               color:
-                  Theme.of(context).colorScheme.onBackground.withOpacity(0.2),
+                  Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
             ),
             borderRadius: BorderRadius.circular(15),
           ),
@@ -79,10 +80,12 @@ class LaundryListContainer {
                             color: Colors.black,
                             fontWeight: FontWeight.w800,
                             fontFamily: "Lato",
-                            fontSize: 20),
+                            fontSize: 16),
                       ),
                       const SizedBox(height: 10),
-                      Text(_laundryAddress,
+                      Text(
+                          TruncateTextWithEllipsis.truncateWithEllipsis(
+                              _laundryAddress, 30),
                           style: TextStyle(
                             fontFamily: "Lato",
                             fontSize: 14,

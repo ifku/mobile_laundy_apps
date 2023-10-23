@@ -1,5 +1,5 @@
+import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
 
 class LaundryDetailChooser extends StatefulWidget {
   String _laundryLabel = "Label";

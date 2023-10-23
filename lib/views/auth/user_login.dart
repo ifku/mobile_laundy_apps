@@ -1,14 +1,15 @@
+import 'package:WashWoosh/bloc/auth/login/login_bloc.dart';
+import 'package:WashWoosh/routes/routes.dart';
+import 'package:WashWoosh/utils/get_screen_size.dart';
+import 'package:WashWoosh/views/mitra/mitra_dashboard.dart';
+import 'package:WashWoosh/views/user/user_laundry/user_laundry_list.dart';
+import 'package:WashWoosh/views/widgets/custom_button.dart';
+import 'package:WashWoosh/views/widgets/custom_checkbox_with_text.dart';
+import 'package:WashWoosh/views/widgets/custom_divider_with_text.dart';
+import 'package:WashWoosh/views/widgets/custom_google_outlined_button.dart';
+import 'package:WashWoosh/views/widgets/custom_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_laundy_apps/bloc/auth/login/login_bloc.dart';
-import 'package:mobile_laundy_apps/routes/routes.dart';
-import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
-import 'package:mobile_laundy_apps/views/user/user_laundry/user_laundry_list.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_checkbox_with_text.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_divider_with_text.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_google_outlined_button.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
 
 class UserLogin extends StatefulWidget {
   const UserLogin({Key? key}) : super(key: key);
@@ -106,16 +107,28 @@ class _UserLoginState extends State<UserLogin> {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
-                                } else if (state is LoginSuccess) {
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
+                                } else if (state is LoginSuccess || state is LoginIsMitra) {
+                                  WidgetsBinding.instance.addPostFrameCallback((_) {
                                     Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const LaundryList(),
+                                        state is LoginIsMitra ? const MitraDashboard() : const LaundryList(),
                                       ),
                                     );
                                   });
+                                } else if(state is LoginFailure){
+                                  return CustomButton()
+                                      .setOnPressed(() {
+                                    BlocProvider.of<LoginBloc>(context).add(
+                                      LoginButtonPressed(
+                                        username: nameController.text,
+                                        password: passwordController.text,
+                                      ),
+                                    );
+                                  })
+                                      .setLabel("Masuk")
+                                      .setSizedBoxHeight(20)
+                                      .build(context);
                                 } else {
                                   return CustomButton()
                                       .setOnPressed(() {

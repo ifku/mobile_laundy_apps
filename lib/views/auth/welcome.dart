@@ -1,9 +1,9 @@
+import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
+import 'package:WashWoosh/routes/routes.dart';
+import 'package:WashWoosh/utils/get_screen_size.dart';
+import 'package:WashWoosh/views/widgets/custom_button.dart';
+import 'package:WashWoosh/views/widgets/custom_outlined_button.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/data/repositories/local/user_preferences.dart';
-import 'package:mobile_laundy_apps/routes/routes.dart';
-import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_outlined_button.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({super.key});
@@ -24,7 +24,7 @@ class _WelcomeState extends State<Welcome> {
     final token = await UserPreferences.getToken();
     print(token);
     if (token != null) {
-      Navigator.of(context).pushReplacementNamed(AppRoutes.dummy);
+      Navigator.of(context).pushReplacementNamed(AppRoutes.userLaundryList);
     }
   }
 

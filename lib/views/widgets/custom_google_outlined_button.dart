@@ -1,6 +1,6 @@
+import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
 
 class CustomGoogleOutlinedButton {
   String _label = "Label";

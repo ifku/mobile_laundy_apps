@@ -1,9 +1,12 @@
+import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
+import 'package:WashWoosh/const/laundry_chooser_list.dart';
+import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
+import 'package:WashWoosh/routes/routes.dart';
+import 'package:WashWoosh/views/widgets/custom_button.dart';
+import 'package:WashWoosh/views/widgets/custom_outlined_button.dart';
+import 'package:WashWoosh/views/widgets/laundry_detail_chooser.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/const/constants.dart';
-import 'package:mobile_laundy_apps/const/laundry_chooser_list.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_outlined_button.dart';
-import 'package:mobile_laundy_apps/views/widgets/laundry_detail_chooser.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserLaundryDetail extends StatefulWidget {
   const UserLaundryDetail({super.key});
@@ -16,73 +19,90 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            const Align(
-              alignment: Alignment.topCenter,
-              child: Text(
-                "Laundry Mart",
-                style: TextStyle(
-                    fontFamily: "Lato",
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+      body: BlocBuilder<LaundryDetailBloc, LaundryDetailState>(
+        builder: (context, state) {
+          if (state is LaundryDetailLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is LaundryDetailSuccess) {
+            return SingleChildScrollView(
+                child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      state.laundryDetailData.nama,
+                      style: const TextStyle(
+                          fontFamily: "Lato",
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      'lib/assets/images/laundry_dummy.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    state.laundryDetailData.deskripsi,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                        fontFamily: "Lato",
+                        fontSize: 14,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(0.3)),
+                  ),
+                  const SizedBox(height: 15),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Daftar Pelayanan",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Lato",
+                      ),
+                    ),
+                  ),
+                  LaundryChooserList(),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: CustomOutlinedButton()
+                            .setLabel("Jam Operasional")
+                            .setOnPressed(() {})
+                            .build(context),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: CustomButton()
+                            .setLabel("Gabung Disini")
+                            .setOnPressed(() {
+                          _onJoinMembershipTapped(
+                              context, state.laundryDetailData.id);
+                        })
+                            .build(context),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                'lib/assets/images/laundry_dummy.jpg',
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              Constants.loremIpsum,
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontFamily: "Lato",
-                fontSize: 14,
-                color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3)
-              ),
-            ),
-            const SizedBox(height: 15),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Daftar Pelayanan",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Lato",
-                ),
-              ),
-            ),
-            LaundryChooserList(),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: CustomOutlinedButton()
-                      .setLabel("Jam Operasional")
-                      .setOnPressed(() {})
-                      .build(context),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: CustomButton()
-                      .setLabel("Laundry Disini")
-                      .setOnPressed(() {})
-                      .build(context),
-                ),
-              ],
-            ),
-          ],
-        ),
-      )),
+            ));
+          }
+          return const Center(
+            child: Text('Tidak ada data.'),
+          );
+        },
+      ),
     );
   }
 }
@@ -107,3 +127,16 @@ class LaundryChooserList extends StatelessWidget {
     );
   }
 }
+
+void _onJoinMembershipTapped(BuildContext context, int laundryId) async {
+  final laundryListBloc = BlocProvider.of<LaundryDetailBloc>(context);
+  final token = await UserPreferences.getToken();
+  if (token != null) {
+    laundryListBloc
+        .add(LaundryJoinButtonClicked(token: token, laundryId: laundryId));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.pushNamed(context, AppRoutes.userLaundryList);
+    });
+  }
+}
+

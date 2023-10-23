@@ -1,11 +1,12 @@
+import 'package:WashWoosh/data/models/auth/mitra_data.dart';
+import 'package:WashWoosh/routes/routes.dart';
+import 'package:WashWoosh/utils/get_screen_size.dart';
+import 'package:WashWoosh/views/widgets/custom_button.dart';
+import 'package:WashWoosh/views/widgets/custom_divider_with_text.dart';
+import 'package:WashWoosh/views/widgets/custom_google_outlined_button.dart';
+import 'package:WashWoosh/views/widgets/custom_input_field.dart';
+import 'package:WashWoosh/views/widgets/custom_text_area.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_laundy_apps/routes/routes.dart';
-import 'package:mobile_laundy_apps/utils/get_screen_size.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_button.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_divider_with_text.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_google_outlined_button.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_input_field.dart';
-import 'package:mobile_laundy_apps/views/widgets/custom_text_area.dart';
 
 class MitraRegister extends StatefulWidget {
   const MitraRegister({super.key});
@@ -16,8 +17,10 @@ class MitraRegister extends StatefulWidget {
 
 class _MitraRegisterState extends State<MitraRegister> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController nikController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -25,8 +28,10 @@ class _MitraRegisterState extends State<MitraRegister> {
   void dispose() {
     super.dispose();
     nameController.dispose();
-    emailController.dispose();
+    nikController.dispose();
     addressController.dispose();
+    usernameController.dispose();
+    emailController.dispose();
     phoneController.dispose();
     passwordController.dispose();
   }
@@ -51,7 +56,7 @@ class _MitraRegisterState extends State<MitraRegister> {
               color: Colors.white,
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 36, left: 36, right: 36),
+              padding: const EdgeInsets.all(36),
               child: LayoutBuilder(builder: (context, constraints) {
                 if (constraints.maxWidth > 300) {
                   return SingleChildScrollView(
@@ -87,7 +92,15 @@ class _MitraRegisterState extends State<MitraRegister> {
                             .setIcon(const Icon(Icons.person_outline))
                             .setSizedBoxHeight(20)
                             .build(context),
+                        CustomInputField()
+                            .setController(nikController)
+                            .setLabel("NIK")
+                            .setLabelFontSize(15)
+                            .setIcon(const Icon(Icons.credit_card_outlined))
+                            .setSizedBoxHeight(20)
+                            .build(context),
                         CustomTextArea()
+                            .setController(addressController)
                             .setSizedBoxHeight(20)
                             .setIcon(const Icon(Icons.location_on_outlined))
                             .setLabel("Alamat Laundry")
@@ -98,6 +111,13 @@ class _MitraRegisterState extends State<MitraRegister> {
                             .setLabelFontSize(15)
                             .setKeyboardType(TextInputType.phone)
                             .setIcon(const Icon(Icons.call_outlined))
+                            .setSizedBoxHeight(20)
+                            .build(context),
+                        CustomInputField()
+                            .setController(usernameController)
+                            .setLabel("Username")
+                            .setLabelFontSize(15)
+                            .setIcon(const Icon(Icons.person_outline))
                             .setSizedBoxHeight(20)
                             .build(context),
                         CustomInputField()
@@ -123,7 +143,16 @@ class _MitraRegisterState extends State<MitraRegister> {
                             () {
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 Navigator.of(context)
-                                    .pushNamed(AppRoutes.mitraRegisterLaundry);
+                                    .pushNamed(AppRoutes.mitraRegisterLaundry,
+                                        arguments: MitraData(
+                                          name: nameController.text,
+                                          nik: nikController.text,
+                                          address: addressController.text,
+                                          phone: phoneController.text,
+                                          username: usernameController.text,
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                        ));
                               });
                             },
                           ).build(context),
