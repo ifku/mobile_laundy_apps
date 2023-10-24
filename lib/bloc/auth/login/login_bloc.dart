@@ -29,7 +29,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           );
           final data = LoginModel.fromJson(json.decode(response.body));
           final token = data.data.apiKey;
-          await UserPreferences.saveToken(token);
+          final is_mitra = data.data.isMitra;
+          await UserPreferences.saveToken(token, is_mitra);
           if (data.code == 200) {
             if (data.data.isMitra) {
               emit((LoginIsMitra()));

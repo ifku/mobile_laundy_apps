@@ -22,9 +22,20 @@ class _WelcomeState extends State<Welcome> {
 
   Future<void> checkIfUserLoggedIn() async {
     final token = await UserPreferences.getToken();
-    print(token);
-    if (token != null) {
-      Navigator.of(context).pushReplacementNamed(AppRoutes.userLaundryList);
+    final isMitra = token['is_mitra'];
+    
+    print(isMitra);
+    print(isMitra.runtimeType);
+    if (token['token'] != null) {
+      if (isMitra) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.pushNamed(context, AppRoutes.mitraDashboard);
+        });
+      } else {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.pushNamed(context, AppRoutes.userLaundryList);
+        });
+      }
     }
   }
 
@@ -98,10 +109,8 @@ class _WelcomeState extends State<Welcome> {
                                 .withOpacity(0.5))),
                     InkWell(
                         onTap: () {
-                          WidgetsBinding.instance
-                              .addPostFrameCallback((_) {
-                            Navigator.pushNamed(
-                                context, '/user-login');
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            Navigator.pushNamed(context, '/user-login');
                           });
                         },
                         child: Text(" di sini",
@@ -109,9 +118,7 @@ class _WelcomeState extends State<Welcome> {
                                 fontFamily: "Inter",
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .primary)))
+                                color: Theme.of(context).colorScheme.primary)))
                   ],
                 ),
               ],
