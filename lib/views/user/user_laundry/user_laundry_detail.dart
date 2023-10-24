@@ -133,9 +133,9 @@ void _onJoinMembershipTapped(BuildContext context, int laundryId) async {
   final token = await UserPreferences.getToken();
   if (token != null) {
     laundryListBloc
-        .add(LaundryJoinButtonClicked(token: token, laundryId: laundryId));
+        .add(LaundryJoinButtonClicked(token: token['token'], laundryId: laundryId));
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushNamed(context, AppRoutes.userLaundryList);
+      Navigator.pushReplacementNamed(context, AppRoutes.userLaundryList);
     });
   }
 }

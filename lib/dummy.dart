@@ -23,36 +23,36 @@ class _DummyState extends State<Dummy> {
     final laundryListBloc = BlocProvider.of<LaundryListBloc>(context);
     final token = await UserPreferences.getToken();
     if (token != null) {
-      laundryListBloc.add(GetLaundryList(token: token));
+      laundryListBloc.add(GetLaundryList(token: token['token']));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: Center(
-      //   child: Stack(
-      //     alignment: AlignmentDirectional.center,
-      //     children: [
-      //       Container(
-      //         color: Colors.white,
-      //       ),
-      //       Padding(
-      //         padding: const EdgeInsets.all(12.0),
-      //         child: OrderListCard(),
-      //       ),
-      //       Positioned(
-      //         top: GetScreenSize.getScreenHeight(context) * 0.5,
-      //         child: ElevatedButton(
-      //             onPressed: () async {
-      //               UserPreferences.removeToken();
-      //               Navigator.pushReplacementNamed(context, AppRoutes.welcomeScreen);
-      //             },
-      //             child: const Text("Logout")),
-      //       )
-      //     ],
-      //   ),
-      // ),
-    );
+        // body: Center(
+        //   child: Stack(
+        //     alignment: AlignmentDirectional.center,
+        //     children: [
+        //       Container(
+        //         color: Colors.white,
+        //       ),
+        //       Padding(
+        //         padding: const EdgeInsets.all(12.0),
+        //         child: OrderListCard(),
+        //       ),
+        //       Positioned(
+        //         top: GetScreenSize.getScreenHeight(context) * 0.5,
+        //         child: ElevatedButton(
+        //             onPressed: () async {
+        //               UserPreferences.removeToken();
+        //               Navigator.pushReplacementNamed(context, AppRoutes.welcomeScreen);
+        //             },
+        //             child: const Text("Logout")),
+        //       )
+        //     ],
+        //   ),
+        // ),
+        );
   }
 }

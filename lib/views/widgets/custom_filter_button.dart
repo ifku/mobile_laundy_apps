@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CustomFilterButton extends StatelessWidget {
-  const CustomFilterButton({
-    super.key,
-  });
+class CustomFilterButton {
+  void Function()? _onPressed;
+
+  CustomFilterButton setOnPressed(void Function() onPressed) {
+    _onPressed = onPressed;
+    return this;
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: _onPressed,
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       child: Container(
