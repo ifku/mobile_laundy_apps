@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 part 'laundry_list_event.dart';
+
 part 'laundry_list_state.dart';
 
 class LaundryListBloc extends Bloc<LaundryListEvent, LaundryListState> {

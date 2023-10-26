@@ -25,7 +25,7 @@ class LaundryDetailBloc extends Bloc<LaundryDetailEvent, LaundryDetailState> {
               });
           final data =
               UserLaundryDetailModel.fromJson(json.decode(response.body));
-          switch (data.code) {
+          switch (response.statusCode) {
             case 200:
               emit(LaundryDetailSuccess(data.data));
               break;

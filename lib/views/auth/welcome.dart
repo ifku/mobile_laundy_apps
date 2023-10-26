@@ -13,31 +13,6 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
-  @override
-  void initState() {
-    super.initState();
-    checkIfUserLoggedIn();
-    print("init state");
-  }
-
-  Future<void> checkIfUserLoggedIn() async {
-    final token = await UserPreferences.getToken();
-    final isMitra = token['is_mitra'];
-    
-    print(isMitra);
-    print(isMitra.runtimeType);
-    if (token['token'] != null) {
-      if (isMitra) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushNamed(context, AppRoutes.mitraDashboard);
-        });
-      } else {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushNamed(context, AppRoutes.userLaundryList);
-        });
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +57,7 @@ class _WelcomeState extends State<Welcome> {
                       .setLabel("Daftar Sebagai Pengguna")
                       .setOnPressed(() {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.pushNamed(context, '/user-register');
+                      Navigator.pushReplacementNamed(context, AppRoutes.userRegister);
                     });
                   }).build(context),
                 ),
@@ -92,7 +67,7 @@ class _WelcomeState extends State<Welcome> {
                     .setFontSize(15)
                     .setOnPressed(() {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.pushNamed(context, '/mitra-register');
+                    Navigator.pushReplacementNamed(context, AppRoutes.mitraRegister);
                   });
                 }).build(context),
                 const SizedBox(height: 20),
@@ -110,7 +85,7 @@ class _WelcomeState extends State<Welcome> {
                     InkWell(
                         onTap: () {
                           WidgetsBinding.instance.addPostFrameCallback((_) {
-                            Navigator.pushNamed(context, '/user-login');
+                            Navigator.pushReplacementNamed(context, AppRoutes.userLogin);
                           });
                         },
                         child: Text(" di sini",

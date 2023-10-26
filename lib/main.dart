@@ -1,4 +1,6 @@
 import 'package:WashWoosh/bloc/auth/login/login_bloc.dart';
+import 'package:WashWoosh/bloc/mitra/mitra_dashboard/mitra_dashboard_bloc.dart';
+import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
 import 'package:WashWoosh/bloc/mitra/mitra_register/mitra_register_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry/laundry_list_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
@@ -14,9 +16,14 @@ void main() {
       providers: [
         BlocProvider<LoginBloc>(create: (context) => LoginBloc()),
         BlocProvider<UserRegisterBloc>(create: (context) => UserRegisterBloc()),
-        BlocProvider<MitraRegisterBloc>(create: (context) => MitraRegisterBloc()),
+        BlocProvider<MitraRegisterBloc>(
+            create: (context) => MitraRegisterBloc()),
         BlocProvider<LaundryListBloc>(create: (context) => LaundryListBloc()),
-        BlocProvider<LaundryDetailBloc>(create: (context) => LaundryDetailBloc()),
+        BlocProvider<LaundryDetailBloc>(
+            create: (context) => LaundryDetailBloc()),
+        BlocProvider<MitraDashboardBloc>(
+            create: (context) => MitraDashboardBloc()),
+        BlocProvider<MitraDetailBloc>(create: (context) => MitraDetailBloc()),
       ],
       child: const MyApp(),
     ),
@@ -43,7 +50,7 @@ class MyApp extends StatelessWidget {
         ),
         brightness: Brightness.light,
       ),
-      // home: const Dummy(),
+      // home: const MitraDetailOrder(),
     );
   }
 }

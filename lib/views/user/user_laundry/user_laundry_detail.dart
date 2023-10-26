@@ -22,8 +22,10 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
       body: BlocBuilder<LaundryDetailBloc, LaundryDetailState>(
         builder: (context, state) {
           if (state is LaundryDetailLoading) {
+            print("Loading");
             return const Center(child: CircularProgressIndicator());
           } else if (state is LaundryDetailSuccess) {
+            print("Sukses");
             return SingleChildScrollView(
                 child: Padding(
               padding: const EdgeInsets.all(24),

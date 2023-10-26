@@ -45,13 +45,11 @@ class LaundryData {
   String noTelepon;
   String deskripsi;
   int hargaPerKilo;
-  String jamBuka;
-  String gambar;
+  JamBuka jamBuka;
+  Gambar gambar;
+  String gambarLink;
   dynamic rating;
   String ownerId;
-  List<dynamic> memberLaundry;
-  List<dynamic> order;
-  Owner? owner;
 
   LaundryData({
     required this.id,
@@ -64,29 +62,25 @@ class LaundryData {
     required this.hargaPerKilo,
     required this.jamBuka,
     required this.gambar,
+    required this.gambarLink,
     required this.rating,
     required this.ownerId,
-    required this.memberLaundry,
-    required this.order,
-    required this.owner,
   });
 
   factory LaundryData.fromJson(Map<String, dynamic> json) => LaundryData(
     id: json["id"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    nama: json["nama"],
+    nama: json["nama"]!,
     alamat: json["alamat"],
     noTelepon: json["no_telepon"],
     deskripsi: json["deskripsi"],
     hargaPerKilo: json["harga_per_kilo"],
-    jamBuka: json["jam_buka"],
-    gambar: json["gambar"],
+    jamBuka: jamBukaValues.map[json["jam_buka"]]!,
+    gambar: gambarValues.map[json["gambar"]]!,
+    gambarLink: json["gambar_link"],
     rating: json["rating"],
     ownerId: json["owner_id"],
-    memberLaundry: List<dynamic>.from(json["memberLaundry"].map((x) => x)),
-    order: List<dynamic>.from(json["order"].map((x) => x)),
-    owner: json["owner"] == null ? null : Owner.fromJson(json["owner"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -98,17 +92,36 @@ class LaundryData {
     "no_telepon": noTelepon,
     "deskripsi": deskripsi,
     "harga_per_kilo": hargaPerKilo,
-    "jam_buka": jamBuka,
-    "gambar": gambar,
+    "jam_buka": jamBukaValues.reverse[jamBuka],
+    "gambar": gambarValues.reverse[gambar],
+    "gambar_link": gambarLink,
     "rating": rating,
-    "owner_id": ownerId,
-    "memberLaundry": List<dynamic>.from(memberLaundry.map((x) => x)),
-    "order": List<dynamic>.from(order.map((x) => x)),
-    "owner": owner?.toJson(),
   };
 }
 
-class Owner {
+enum Gambar {
+  NULL,
+  TEST,
+  THE_20231023134834_D_W5_U_YW1_L_ZC5_WBMC_PNG
+}
+
+final gambarValues = EnumValues({
+  "null": Gambar.NULL,
+  "test": Gambar.TEST,
+  "20231023134834dW5uYW1lZC5wbmc=.png": Gambar.THE_20231023134834_D_W5_U_YW1_L_ZC5_WBMC_PNG
+});
+
+enum JamBuka {
+  NULL,
+  THE_0000_AM_0000_PM
+}
+
+final jamBukaValues = EnumValues({
+  "null": JamBuka.NULL,
+  "00.00 AM - 00.00 PM": JamBuka.THE_0000_AM_0000_PM
+});
+
+class MemberLaundry {
   String userId;
   String nik;
   String nama;
@@ -116,17 +129,18 @@ class Owner {
   String email;
   String username;
   String password;
-  dynamic passwordSalt;
+  Gambar passwordSalt;
   int rolesId;
   dynamic isAktif;
-  dynamic jumlahSalahLogin;
+  int? jumlahSalahLogin;
   dynamic terkunciPada;
   DateTime createdAt;
   DateTime updatedAt;
-  dynamic checksumId;
-  dynamic apiKey;
+  Gambar checksumId;
+  Gambar apiKey;
+  Pivot? pivot;
 
-  Owner({
+  MemberLaundry({
     required this.userId,
     required this.nik,
     required this.nama,
@@ -143,9 +157,10 @@ class Owner {
     required this.updatedAt,
     required this.checksumId,
     required this.apiKey,
+    this.pivot,
   });
 
-  factory Owner.fromJson(Map<String, dynamic> json) => Owner(
+  factory MemberLaundry.fromJson(Map<String, dynamic> json) => MemberLaundry(
     userId: json["user_id"],
     nik: json["nik"],
     nama: json["nama"],
@@ -153,15 +168,16 @@ class Owner {
     email: json["email"],
     username: json["username"],
     password: json["password"],
-    passwordSalt: json["password_salt"],
+    passwordSalt: gambarValues.map[json["password_salt"]]!,
     rolesId: json["roles_id"],
     isAktif: json["is_aktif"],
     jumlahSalahLogin: json["jumlah_salah_login"],
     terkunciPada: json["terkunci_pada"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    checksumId: json["checksum_id"],
-    apiKey: json["api_key"],
+    checksumId: gambarValues.map[json["checksum_id"]]!,
+    apiKey: gambarValues.map[json["api_key"]]!,
+    pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -172,14 +188,47 @@ class Owner {
     "email": email,
     "username": username,
     "password": password,
-    "password_salt": passwordSalt,
+    "password_salt": gambarValues.reverse[passwordSalt],
     "roles_id": rolesId,
     "is_aktif": isAktif,
     "jumlah_salah_login": jumlahSalahLogin,
     "terkunci_pada": terkunciPada,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
-    "checksum_id": checksumId,
-    "api_key": apiKey,
+    "checksum_id": gambarValues.reverse[checksumId],
+    "api_key": gambarValues.reverse[apiKey],
+    "pivot": pivot?.toJson(),
   };
+}
+
+class Pivot {
+  int mitraLaundryId;
+  String memberId;
+
+  Pivot({
+    required this.mitraLaundryId,
+    required this.memberId,
+  });
+
+  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
+    mitraLaundryId: json["mitra_laundry_id"],
+    memberId: json["member_id"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "mitra_laundry_id": mitraLaundryId,
+    "member_id": memberId,
+  };
+}
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

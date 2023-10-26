@@ -1,3 +1,4 @@
+import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +23,27 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     Future.delayed(const Duration(seconds: 5), () {
+      checkIfUserLoggedIn();
       Navigator.of(context).pushReplacementNamed(
         AppRoutes.welcomeScreen,
       );
     });
+  }
+
+  Future<void> checkIfUserLoggedIn() async {
+    final token = await UserPreferences.getToken();
+    final isMitra = token['is_mitra'];
+    if (token['token'] != null) {
+      if (isMitra) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.pushReplacementNamed(context, AppRoutes.mitraDashboard);
+        });
+      } else {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.pushReplacementNamed(context, AppRoutes.userLaundryList);
+        });
+      }
+    }
   }
 
   @override
