@@ -135,7 +135,7 @@ void _onLaundryItemTap(BuildContext context, int laundryId) async {
     laundryListBloc.add(
         LaundryListItemClicked(token: token['token'], laundryId: laundryId));
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushReplacementNamed(context, AppRoutes.userLaundryDetail);
+      Navigator.pushNamed(context, AppRoutes.userLaundryDetail);
     });
   }
 }
