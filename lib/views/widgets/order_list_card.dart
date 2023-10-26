@@ -1,15 +1,54 @@
 import 'package:WashWoosh/views/widgets/order_list_status_icon.dart';
 import 'package:flutter/material.dart';
 
-class OrderListCard extends StatelessWidget {
-  const OrderListCard({
-    super.key,
-  });
+class OrderListCard {
+  String _idPemesanan = "";
+  String _name = "";
+  String _orderDate = "";
+  String _estDate = "";
+  String _total = "";
+  int status = 1;
+  void Function()? onTap;
+
+  OrderListCard setIdPemesanan(String id_pemesanan) {
+    _idPemesanan = id_pemesanan;
+    return this;
+  }
+
+  OrderListCard setLabel(String name) {
+    _name = name;
+    return this;
+  }
+
+  OrderListCard setOrderDate(String orderDate) {
+    _orderDate = orderDate;
+    return this;
+  }
+
+  OrderListCard setEstDate(String estDate) {
+    _estDate = estDate;
+    return this;
+  }
+
+  OrderListCard setTotal(String total) {
+    _total = total;
+    return this;
+  }
+
+  OrderListCard setStatus(int status) {
+    this.status = status;
+    return this;
+  }
+
+  OrderListCard setOnTap(void Function()? onTap) {
+    this.onTap = onTap;
+    return this;
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Card(
           color: Colors.white,
           shape: RoundedRectangleBorder(
@@ -34,16 +73,28 @@ class OrderListCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       OrderListStatusIcon()
-                      .setIdStatusPemesanan(1)
-                      .build(context),
+                          .setIdStatusPemesanan(status)
+                          .build(context),
                       const SizedBox(width: 10),
-                      Text("Abier Sofyantie",
+                      Expanded(
+                        child: Text(_name,
+                            style: TextStyle(
+                                fontFamily: "Lato",
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onBackground)),
+                      ),
+                      Text("ID#$_idPemesanan",
                           style: TextStyle(
                               fontFamily: "Lato",
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color:
-                                  Theme.of(context).colorScheme.onBackground)),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onBackground
+                                  .withOpacity(0.3))),
                     ],
                   ),
                   Row(
@@ -61,7 +112,7 @@ class OrderListCard extends StatelessWidget {
                                     .onBackground
                                     .withOpacity(0.3))),
                       ),
-                      Text("12/12/2021",
+                      Text(_orderDate,
                           style: TextStyle(
                               fontFamily: "Lato",
                               fontSize: 14,
@@ -88,7 +139,7 @@ class OrderListCard extends StatelessWidget {
                                     .onBackground
                                     .withOpacity(0.3))),
                       ),
-                      Text("12/12/2021",
+                      Text(_estDate,
                           style: TextStyle(
                               fontFamily: "Lato",
                               fontSize: 14,
@@ -115,7 +166,7 @@ class OrderListCard extends StatelessWidget {
                                     .onBackground
                                     .withOpacity(0.5))),
                       ),
-                      Text("Rp. 100.000",
+                      Text("Rp. $_total",
                           style: TextStyle(
                               fontFamily: "Lato",
                               fontSize: 14,

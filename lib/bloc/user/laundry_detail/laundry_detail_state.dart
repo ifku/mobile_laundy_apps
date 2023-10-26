@@ -1,6 +1,5 @@
 part of 'laundry_detail_bloc.dart';
 
-@immutable
 abstract class LaundryDetailState {}
 
 class LaundryDetailInitial extends LaundryDetailState {}

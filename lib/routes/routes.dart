@@ -6,6 +6,7 @@ import 'package:WashWoosh/views/auth/welcome.dart';
 import 'package:WashWoosh/views/mitra/mitra_auth/mitra_register.dart';
 import 'package:WashWoosh/views/mitra/mitra_auth/mitra_register_laundry.dart';
 import 'package:WashWoosh/views/mitra/mitra_dashboard.dart';
+import 'package:WashWoosh/views/mitra/mitra_detail_order.dart';
 import 'package:WashWoosh/views/splash_screen.dart';
 import 'package:WashWoosh/views/user/user_auth/user_register.dart';
 import 'package:WashWoosh/views/user/user_dashboard.dart';
@@ -28,7 +29,10 @@ class AppRoutes {
   static const String userDashboard = '/user-dashboard';
   static const String userLaundryList = '/user-laundry-list';
   static const String userLaundryDetail = '/user-laundry-detail';
+
+  /*Mitra*/
   static const String mitraDashboard = '/mitra-dashboard';
+  static const String mitraDetailOrder = '/mitra-detail-order';
   static const String dummy = '/dummy';
   static final Map<String, WidgetBuilder> routes = {
     home: (context) => const SplashScreen(),
@@ -44,5 +48,6 @@ class AppRoutes {
     userLaundryDetail: (context) => const UserLaundryDetail(),
     mitraDashboard: (context) => const MitraDashboard(),
     dummy: (context) => const Dummy(),
+    mitraDetailOrder: (context) => const MitraDetailOrder(),
   };
 }

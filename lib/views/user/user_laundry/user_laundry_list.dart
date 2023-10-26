@@ -5,6 +5,7 @@ import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
 import 'package:WashWoosh/const/laundry_list.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:WashWoosh/routes/routes.dart';
+import 'package:WashWoosh/utils/truncate_text_ellipsis.dart';
 import 'package:WashWoosh/views/widgets/custom_filter_button.dart';
 import 'package:WashWoosh/views/widgets/custom_search_field.dart';
 import 'package:WashWoosh/views/widgets/laundry_list_container.dart';
@@ -46,13 +47,27 @@ class _LaundryListState extends State<LaundryList> {
         padding: const EdgeInsets.only(left: 14, right: 14, top: 50),
         child: Column(
           children: [
-            Align(
-                alignment: Alignment.topLeft,
-                child: UserMiniProfileCard()
-                    .setImageProfile("lib/assets/images/avatar_dummy.png")
-                    .setNameProfile("Mimin Laundry")
-                    .setAddressProfile("Gebang Lor 73, Sukolilo, Surabaya")
-                    .build(context)),
+            Row(
+              children: [
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: UserMiniProfileCard()
+                        .setImageProfile("lib/assets/images/avatar_dummy.png")
+                        .setNameProfile("Mimin Laundry")
+                        .setAddressProfile("Gebang Lor 73, Sukolilo, Surabaya")
+                        .build(context)),
+                const Spacer(),
+                ElevatedButton(
+                    onPressed: () async {
+                      await UserPreferences.removeToken();
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        Navigator.pushReplacementNamed(
+                            context, AppRoutes.welcomeScreen);
+                      });
+                    },
+                    child: const Text("Logout")),
+              ],
+            ),
             const SizedBox(height: 20),
             Row(
               children: [
@@ -82,7 +97,9 @@ class _LaundryListState extends State<LaundryList> {
                               .setNamaLaundry(laundryItem.nama)
                               .setImageLaundry(
                                   laundryList[randomIndex].imageLaundry)
-                              .setAlamatLaundry(laundryItem.alamat)
+                              .setAlamatLaundry(
+                                  TruncateTextWithEllipsis.truncateWithEllipsis(
+                                      laundryItem.alamat, 20))
                               .setJam("07.00 AM - 09.00 PM")
                               .setHarga(laundryItem.hargaPerKilo.toDouble())
                               .setOnTap(() {
@@ -118,7 +135,7 @@ void _onLaundryItemTap(BuildContext context, int laundryId) async {
     laundryListBloc.add(
         LaundryListItemClicked(token: token['token'], laundryId: laundryId));
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushNamed(context, AppRoutes.userLaundryDetail);
+      Navigator.pushReplacementNamed(context, AppRoutes.userLaundryDetail);
     });
   }
 }
