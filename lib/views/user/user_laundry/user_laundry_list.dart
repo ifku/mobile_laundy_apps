@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:WashWoosh/bloc/auth/login/login_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry/laundry_list_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
 import 'package:WashWoosh/const/laundry_list.dart';
@@ -59,8 +60,9 @@ class _LaundryListState extends State<LaundryList> {
                 const Spacer(),
                 ElevatedButton(
                     onPressed: () async {
-                      await UserPreferences.removeToken();
                       WidgetsBinding.instance.addPostFrameCallback((_) {
+                        final loginBloc = BlocProvider.of<LoginBloc>(context);
+                        loginBloc.add(LogoutButtonPressed());
                         Navigator.pushReplacementNamed(
                             context, AppRoutes.welcomeScreen);
                       });

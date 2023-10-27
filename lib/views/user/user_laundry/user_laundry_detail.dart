@@ -91,18 +91,20 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
                             .setOnPressed(() {
                           _onJoinMembershipTapped(
                               context, state.laundryDetailData.id);
-                        })
-                            .build(context),
+                        }).build(context),
                       ),
                     ],
                   ),
                 ],
               ),
             ));
+          } else if (state is LaundryDetailError) {
+            print("Error");
+            return const Center(child: Text("Terjadi kesalahan"));
+          } else {
+            print("Default");
+            return const Center(child: Text("Terjadi kesalahan"));
           }
-          return const Center(
-            child: Text('Tidak ada data.'),
-          );
         },
       ),
     );
@@ -134,11 +136,10 @@ void _onJoinMembershipTapped(BuildContext context, int laundryId) async {
   final laundryListBloc = BlocProvider.of<LaundryDetailBloc>(context);
   final token = await UserPreferences.getToken();
   if (token != null) {
-    laundryListBloc
-        .add(LaundryJoinButtonClicked(token: token['token'], laundryId: laundryId));
+    laundryListBloc.add(
+        LaundryJoinButtonClicked(token: token['token'], laundryId: laundryId));
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.pushReplacementNamed(context, AppRoutes.userLaundryList);
     });
   }
 }
-

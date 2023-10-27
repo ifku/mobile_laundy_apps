@@ -44,6 +44,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           emit(LoginFailure(error: error.toString()));
         }
       }
+      if (event is LogoutButtonPressed) {
+        await UserPreferences.removeToken();
+        emit(LogoutSuccess());
+      }
     });
   }
 }

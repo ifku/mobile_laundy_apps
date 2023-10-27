@@ -22,7 +22,6 @@ class LaundryListBloc extends Bloc<LaundryListEvent, LaundryListState> {
               "token": event.token,
             },
           );
-
           final data = UserLaundryModel.fromJson(json.decode(response.body));
           switch (data.code) {
             case 200:

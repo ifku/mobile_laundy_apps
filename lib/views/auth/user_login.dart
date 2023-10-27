@@ -4,9 +4,6 @@ import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:WashWoosh/views/mitra/mitra_dashboard.dart';
 import 'package:WashWoosh/views/user/user_laundry/user_laundry_list.dart';
 import 'package:WashWoosh/views/widgets/custom_button.dart';
-import 'package:WashWoosh/views/widgets/custom_checkbox_with_text.dart';
-import 'package:WashWoosh/views/widgets/custom_divider_with_text.dart';
-import 'package:WashWoosh/views/widgets/custom_google_outlined_button.dart';
 import 'package:WashWoosh/views/widgets/custom_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,10 +92,11 @@ class _UserLoginState extends State<UserLogin> {
                               .setLabelFontSize(15)
                               .setObscureText(true)
                               .build(context),
-                          CustomCheckboxWithText()
+                          /*CustomCheckboxWithText()
                               .setOnChanged((p0) {})
                               .setText("Ingat saya?")
-                              .build(context),
+                              .build(context),*/
+                          const SizedBox(height: 20),
                           SizedBox(
                             width: GetScreenSize.getScreenWidth(context),
                             child: BlocBuilder<LoginBloc, LoginState>(
@@ -148,14 +146,14 @@ class _UserLoginState extends State<UserLogin> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          CustomDividerWithText()
+                          /*CustomDividerWithText()
                               .setLabel("Atau masuk dengan email")
                               .build(context),
                           const SizedBox(height: 20),
                           CustomGoogleOutlinedButton()
                               .setLabel("Masuk dengan Google")
                               .setSizedBoxHeight(10)
-                              .build(context),
+                              .build(context),*/
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -173,7 +171,7 @@ class _UserLoginState extends State<UserLogin> {
                                         .addPostFrameCallback((_) {
                                       Navigator.of(context)
                                           .pushReplacementNamed(
-                                              AppRoutes.userRegister);
+                                              AppRoutes.welcomeScreen);
                                     });
                                   },
                                   child: Text(" Daftar ?",

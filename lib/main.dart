@@ -5,6 +5,7 @@ import 'package:WashWoosh/bloc/mitra/mitra_register/mitra_register_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry/laundry_list_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
 import 'package:WashWoosh/bloc/user/user_register/user_register_bloc.dart';
+import 'package:WashWoosh/dummy.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/theme.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
         ),
         brightness: Brightness.light,
       ),
-      // home: const MitraDetailOrder(),
+      // home: const Dummy(),
     );
   }
 }

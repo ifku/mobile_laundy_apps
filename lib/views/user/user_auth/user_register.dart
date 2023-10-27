@@ -126,14 +126,14 @@ class _UserRegisterState extends State<UserRegister> {
                             ).build(context),
                           ),
                           const SizedBox(height: 20),
-                          CustomDividerWithText()
+                          /*CustomDividerWithText()
                               .setLabel("Atau masuk dengan email")
-                              .build(context),
-                          const SizedBox(height: 20),
-                          CustomGoogleOutlinedButton()
+                              .build(context),*/
+                          // const SizedBox(height: 20),
+                          /*CustomGoogleOutlinedButton()
                               .setLabel("Masuk dengan Google")
                               .setSizedBoxHeight(10)
-                              .build(context),
+                              .build(context),*/
                           // const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
