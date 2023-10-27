@@ -14,7 +14,7 @@ class LaundryDetailBloc extends Bloc<LaundryDetailEvent, LaundryDetailState> {
   LaundryDetailBloc() : super(LaundryDetailInitial()) {
     on<LaundryDetailEvent>((event, emit) async {
       if (event is LaundryListItemClicked) {
-        emit(LaundryDetailLoading());
+        // emit(LaundryDetailLoading());
         final laundryId = event.laundryId;
         try {
           final response = await http.get(
@@ -23,6 +23,7 @@ class LaundryDetailBloc extends Bloc<LaundryDetailEvent, LaundryDetailState> {
               headers: {
                 "token": event.token,
               });
+          print(response.body);
           final data =
               UserLaundryDetailModel.fromJson(json.decode(response.body));
           switch (response.statusCode) {
@@ -55,7 +56,6 @@ class LaundryDetailBloc extends Bloc<LaundryDetailEvent, LaundryDetailState> {
               UserLaundryJoinMembership.fromJson(json.decode(response.body));
           switch (data.code) {
             case 200:
-              print(response.body);
               emit(LaundryDetailJoinSuccess(data.message));
               break;
             case 400:

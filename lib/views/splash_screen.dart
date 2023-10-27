@@ -23,27 +23,10 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     Future.delayed(const Duration(seconds: 5), () {
-      checkIfUserLoggedIn();
       Navigator.of(context).pushReplacementNamed(
-        AppRoutes.welcomeScreen,
+        AppRoutes.shadowPage,
       );
     });
-  }
-
-  Future<void> checkIfUserLoggedIn() async {
-    final token = await UserPreferences.getToken();
-    final isMitra = token['is_mitra'];
-    if (token['token'] != null) {
-      if (isMitra) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushReplacementNamed(context, AppRoutes.mitraDashboard);
-        });
-      } else {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushReplacementNamed(context, AppRoutes.userLaundryList);
-        });
-      }
-    }
   }
 
   @override

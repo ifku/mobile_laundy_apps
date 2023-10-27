@@ -13,7 +13,6 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +56,7 @@ class _WelcomeState extends State<Welcome> {
                       .setLabel("Daftar Sebagai Pengguna")
                       .setOnPressed(() {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.pushReplacementNamed(context, AppRoutes.userRegister);
+                      Navigator.pushNamed(context, AppRoutes.underConstruction);
                     });
                   }).build(context),
                 ),
@@ -67,7 +66,7 @@ class _WelcomeState extends State<Welcome> {
                     .setFontSize(15)
                     .setOnPressed(() {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.pushReplacementNamed(context, AppRoutes.mitraRegister);
+                    Navigator.pushNamed(context, AppRoutes.underConstruction);
                   });
                 }).build(context),
                 const SizedBox(height: 20),
@@ -85,7 +84,8 @@ class _WelcomeState extends State<Welcome> {
                     InkWell(
                         onTap: () {
                           WidgetsBinding.instance.addPostFrameCallback((_) {
-                            Navigator.pushReplacementNamed(context, AppRoutes.userLogin);
+                            Navigator.pushReplacementNamed(
+                                context, AppRoutes.userLogin);
                           });
                         },
                         child: Text(" di sini",

@@ -1,3 +1,4 @@
+import 'package:WashWoosh/bloc/auth/login/login_bloc.dart';
 import 'package:WashWoosh/bloc/mitra/mitra_dashboard/mitra_dashboard_bloc.dart';
 import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
 import 'package:WashWoosh/data/models/mitra_laundry_membership_model.dart';
@@ -77,11 +78,13 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () async {
-                                    await UserPreferences.removeToken();
                                     WidgetsBinding.instance
                                         .addPostFrameCallback((_) {
+                                      final loginBloc =
+                                          BlocProvider.of<LoginBloc>(context);
+                                      loginBloc.add(LogoutButtonPressed());
                                       Navigator.pushReplacementNamed(
-                                          context, AppRoutes.welcomeScreen);
+                                          context, AppRoutes.shadowPage);
                                     });
                                   },
                                   child: const Text("Logout"),
@@ -89,15 +92,15 @@ class _MitraDashboardState extends State<MitraDashboard> {
                               ],
                             ),
                             const SizedBox(height: 30),
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text("Pesanan Terbaru",
+                                Text("Pesanan Terbaru",
                                     style: TextStyle(
                                         fontFamily: "Lato",
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold)),
-                                InkWell(
+                                /*InkWell(
                                   onTap: () {},
                                   child: Text(
                                     "Lihat Semua",
@@ -106,7 +109,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                           Theme.of(context).colorScheme.primary,
                                     ),
                                   ),
-                                ),
+                                ),*/
                               ],
                             ),
                           ],
