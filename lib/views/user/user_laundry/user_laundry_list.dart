@@ -5,6 +5,7 @@ import 'package:WashWoosh/bloc/user/laundry/laundry_list_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
 import 'package:WashWoosh/const/laundry_list.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
+import 'package:WashWoosh/laundry_list_shimmer.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/truncate_text_ellipsis.dart';
 import 'package:WashWoosh/views/widgets/custom_filter_button.dart';
@@ -64,7 +65,7 @@ class _LaundryListState extends State<LaundryList> {
                         final loginBloc = BlocProvider.of<LoginBloc>(context);
                         loginBloc.add(LogoutButtonPressed());
                         Navigator.pushReplacementNamed(
-                            context, AppRoutes.welcomeScreen);
+                            context, AppRoutes.shadowPage);
                       });
                     },
                     child: const Text("Logout")),
@@ -85,7 +86,7 @@ class _LaundryListState extends State<LaundryList> {
             BlocBuilder<LaundryListBloc, LaundryListState>(
               builder: (context, state) {
                 if (state is LaundryListLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const LaundryListShimmer();
                 } else if (state is LaundryListSuccess) {
                   return ListView.builder(
                     shrinkWrap: true,
@@ -96,7 +97,9 @@ class _LaundryListState extends State<LaundryList> {
                       return Column(
                         children: [
                           LaundryListContainer()
-                              .setNamaLaundry(laundryItem.nama)
+                              .setNamaLaundry(
+                                  TruncateTextWithEllipsis.truncateWithEllipsis(
+                                      laundryItem.nama, 20))
                               .setImageLaundry(
                                   laundryList[randomIndex].imageLaundry)
                               .setAlamatLaundry(
@@ -113,6 +116,7 @@ class _LaundryListState extends State<LaundryList> {
                     },
                   );
                 } else if (state is LaundryListError) {
+                  print(state.errorMessage);
                   return Center(
                     child: Text('Error: ${state.errorMessage}'),
                   );

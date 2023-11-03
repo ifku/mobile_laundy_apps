@@ -5,6 +5,7 @@ import 'package:WashWoosh/views/widgets/custom_divider_with_text.dart';
 import 'package:WashWoosh/views/widgets/custom_google_outlined_button.dart';
 import 'package:WashWoosh/views/widgets/custom_input_field.dart';
 import 'package:flutter/material.dart';
+
 class UserRegister extends StatefulWidget {
   const UserRegister({super.key});
 
@@ -55,123 +56,114 @@ class _UserRegisterState extends State<UserRegister> {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(top: 36, left: 36, right: 36),
-                child: LayoutBuilder(builder: (context, constraints) {
-                  if (constraints.maxWidth > 300) {
-                    return SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Yuk, Daftar Akun Barumu!",
-                            style: TextStyle(
-                                fontFamily: "Lato",
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18,
-                                color: Theme.of(context).colorScheme.primary),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            "Mohon isi semua kolom dengan benar",
-                            style: TextStyle(
-                                fontFamily: "Inter",
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onBackground
-                                    .withOpacity(0.5)),
-                          ),
-                          const SizedBox(height: 15),
-                          CustomInputField()
-                              .setController(nameController)
-                              .setLabel("Nama")
-                              .setLabelFontSize(15)
-                              .setIcon(const Icon(Icons.person_outline))
-                              .setSizedBoxHeight(20)
-                              .build(context),
-                          CustomInputField()
-                              .setController(userNameController)
-                              .setLabel("Username")
-                              .setLabelFontSize(15)
-                              .setIcon(const Icon(Icons.person_outline))
-                              .setSizedBoxHeight(20)
-                              .build(context),
-                          CustomInputField()
-                              .setController(emailController)
-                              .setLabel("Email")
-                              .setLabelFontSize(15)
-                              .setIcon(const Icon(Icons.email_outlined))
-                              .setSizedBoxHeight(20)
-                              .build(context),
-                          CustomInputField()
-                              .setController(passwordController)
-                              .setLabel("Password")
-                              .setLabelFontSize(15)
-                              .setObscureText(true)
-                              .setIcon(const Icon(Icons.lock_outline))
-                              .setSizedBoxHeight(20)
-                              .build(context),
-                          SizedBox(
-                            width: GetScreenSize.getScreenWidth(context),
-                            child:
-                                CustomButton().setLabel("Daftar").setOnPressed(
-                              () {
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((_) {
-                                  Navigator.of(context)
-                                      .pushNamed(AppRoutes.authCheck);
-                                });
-                              },
-                            ).build(context),
-                          ),
-                          const SizedBox(height: 20),
-                          /*CustomDividerWithText()
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Yuk, Daftar Akun Barumu!",
+                        style: TextStyle(
+                            fontFamily: "Lato",
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18,
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "Mohon isi semua kolom dengan benar",
+                        style: TextStyle(
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.normal,
+                            fontSize: 12,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onBackground
+                                .withOpacity(0.5)),
+                      ),
+                      const SizedBox(height: 15),
+                      CustomInputField()
+                          .setController(nameController)
+                          .setLabel("Nama")
+                          .setLabelFontSize(15)
+                          .setIcon(const Icon(Icons.person_outline))
+                          .setSizedBoxHeight(20)
+                          .build(context),
+                      CustomInputField()
+                          .setController(userNameController)
+                          .setLabel("Username")
+                          .setLabelFontSize(15)
+                          .setIcon(const Icon(Icons.person_outline))
+                          .setSizedBoxHeight(20)
+                          .build(context),
+                      CustomInputField()
+                          .setController(emailController)
+                          .setLabel("Email")
+                          .setLabelFontSize(15)
+                          .setIcon(const Icon(Icons.email_outlined))
+                          .setSizedBoxHeight(20)
+                          .build(context),
+                      CustomInputField()
+                          .setController(passwordController)
+                          .setLabel("Password")
+                          .setLabelFontSize(15)
+                          .setObscureText(true)
+                          .setIcon(const Icon(Icons.lock_outline))
+                          .setSizedBoxHeight(20)
+                          .build(context),
+                      SizedBox(
+                        width: GetScreenSize.getScreenWidth(context),
+                        child: CustomButton().setLabel("Daftar").setOnPressed(
+                          () {
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              Navigator.of(context)
+                                  .pushNamed(AppRoutes.authCheck);
+                            });
+                          },
+                        ).build(context),
+                      ),
+                      const SizedBox(height: 20),
+                      /*CustomDividerWithText()
                               .setLabel("Atau masuk dengan email")
                               .build(context),*/
-                          // const SizedBox(height: 20),
-                          /*CustomGoogleOutlinedButton()
+                      // const SizedBox(height: 20),
+                      /*CustomGoogleOutlinedButton()
                               .setLabel("Masuk dengan Google")
                               .setSizedBoxHeight(10)
                               .build(context),*/
-                          // const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Sudah punya akun? Masuk aja",
+                      // const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Sudah punya akun? Masuk aja",
+                              style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontSize: 13,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground
+                                      .withOpacity(0.5))),
+                          InkWell(
+                              onTap: () {
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  Navigator.of(context)
+                                      .pushNamed(AppRoutes.userLogin);
+                                });
+                              },
+                              child: Text(" di sini",
                                   style: TextStyle(
                                       fontFamily: "Inter",
                                       fontSize: 13,
+                                      fontWeight: FontWeight.bold,
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground
-                                          .withOpacity(0.5))),
-                              InkWell(
-                                  onTap: () {
-                                    WidgetsBinding.instance
-                                        .addPostFrameCallback((_) {
-                                      Navigator.of(context)
-                                          .pushNamed(AppRoutes.userLogin);
-                                    });
-                                  },
-                                  child: Text(" di sini",
-                                      style: TextStyle(
-                                          fontFamily: "Inter",
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary)))
-                            ],
-                          ),
+                                          .primary)))
                         ],
                       ),
-                    );
-                  } else {
-                    /*Implement bigger screen size*/
-                    return const Text("Wide");
-                  }
-                }),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],

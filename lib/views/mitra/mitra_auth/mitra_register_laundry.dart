@@ -46,105 +46,97 @@ class _MitraRegisterLaundryState extends State<MitraRegisterLaundry> {
             ),
             child: Padding(
               padding: const EdgeInsets.only(top: 36, left: 36, right: 36),
-              child: LayoutBuilder(builder: (context, constraints) {
-                if (constraints.maxWidth > 300) {
-                  return SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Masukkan Data Laundry!",
-                          style: TextStyle(
-                              fontFamily: "Lato",
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                              color: Theme.of(context).colorScheme.primary),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Mohon isi semua kolom dengan benar",
-                          style: TextStyle(
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onBackground
-                                  .withOpacity(0.5)),
-                        ),
-                        const SizedBox(height: 15),
-                        CustomInputField()
-                            .setController(laundryNameController)
-                            .setLabel("Nama Laundry")
-                            .setIcon(const Icon(Icons.home_outlined))
-                            .setSizedBoxHeight(20)
-                            .build(context),
-                        CustomTextArea()
-                            .setController(laundryAddressController)
-                            .setSizedBoxHeight(20)
-                            .setIcon(const Icon(Icons.location_on_outlined))
-                            .setLabel("Alamat Laundry")
-                            .build(context),
-                        CustomInputField()
-                            .setController(laundryPhoneController)
-                            .setLabel("No. Telepon Laundry")
-                            .setIcon(const Icon(Icons.call_outlined))
-                            .setKeyboardType(TextInputType.phone)
-                            .setSizedBoxHeight(20)
-                            .build(context),
-                        CustomInputField()
-                            .setController(laundryPriceRangeController)
-                            .setLabel("Kisaran Harga Laundry per Kilo")
-                            .setIcon(const Icon(Icons.price_change_outlined))
-                            .setSizedBoxHeight(20)
-                            .build(context),
-                        CustomTextArea()
-                            .setController(laundryDescriptionController)
-                            .setSizedBoxHeight(20)
-                            .setIcon(const Icon(Icons.short_text_rounded))
-                            .setLabel("Deskripsi Laundry")
-                            .build(context),
-                        SizedBox(
-                            width: GetScreenSize.getScreenWidth(context),
-                            child: BlocBuilder<MitraRegisterBloc,
-                                MitraRegisterState>(
-                              builder: (context, state) {
-                                if (state is MitraRegisterLoading) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (state is MitraRegisterSuccess) {
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                        builder: (context) => const Dummy(),
-                                      ),
-                                    );
-                                  });
-                                }
-                                return CustomButton()
-                                    .setLabel("Daftar")
-                                    .setOnPressed(
-                                  () {
-                                    WidgetsBinding.instance
-                                        .addPostFrameCallback((_) {
-                                      Navigator.of(context)
-                                          .pushNamed(AppRoutes.authCheck);
-                                    });
-                                  },
-                                ).build(context);
-                              },
-                            )),
-                      ],
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Masukkan Data Laundry!",
+                      style: TextStyle(
+                          fontFamily: "Lato",
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                          color: Theme.of(context).colorScheme.primary),
                     ),
-                  );
-                } else {
-                  /*Implement bigger screen size*/
-                  return const Text("Wide");
-                }
-              }),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Mohon isi semua kolom dengan benar",
+                      style: TextStyle(
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.normal,
+                          fontSize: 12,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(0.5)),
+                    ),
+                    const SizedBox(height: 15),
+                    CustomInputField()
+                        .setController(laundryNameController)
+                        .setLabel("Nama Laundry")
+                        .setIcon(const Icon(Icons.home_outlined))
+                        .setSizedBoxHeight(20)
+                        .build(context),
+                    CustomTextArea()
+                        .setController(laundryAddressController)
+                        .setSizedBoxHeight(20)
+                        .setIcon(const Icon(Icons.location_on_outlined))
+                        .setLabel("Alamat Laundry")
+                        .build(context),
+                    CustomInputField()
+                        .setController(laundryPhoneController)
+                        .setLabel("No. Telepon Laundry")
+                        .setIcon(const Icon(Icons.call_outlined))
+                        .setKeyboardType(TextInputType.phone)
+                        .setSizedBoxHeight(20)
+                        .build(context),
+                    CustomInputField()
+                        .setController(laundryPriceRangeController)
+                        .setLabel("Kisaran Harga Laundry per Kilo")
+                        .setIcon(const Icon(Icons.price_change_outlined))
+                        .setSizedBoxHeight(20)
+                        .build(context),
+                    CustomTextArea()
+                        .setController(laundryDescriptionController)
+                        .setSizedBoxHeight(20)
+                        .setIcon(const Icon(Icons.short_text_rounded))
+                        .setLabel("Deskripsi Laundry")
+                        .build(context),
+                    SizedBox(
+                        width: GetScreenSize.getScreenWidth(context),
+                        child:
+                            BlocBuilder<MitraRegisterBloc, MitraRegisterState>(
+                          builder: (context, state) {
+                            if (state is MitraRegisterLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (state is MitraRegisterSuccess) {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => const Dummy(),
+                                  ),
+                                );
+                              });
+                            }
+                            return CustomButton()
+                                .setLabel("Daftar")
+                                .setOnPressed(
+                              () {
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  Navigator.of(context)
+                                      .pushNamed(AppRoutes.authCheck);
+                                });
+                              },
+                            ).build(context);
+                          },
+                        )),
+                  ],
+                ),
+              ),
             ),
           ),
           Positioned(

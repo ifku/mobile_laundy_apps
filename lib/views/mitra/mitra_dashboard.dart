@@ -3,6 +3,7 @@ import 'package:WashWoosh/bloc/mitra/mitra_dashboard/mitra_dashboard_bloc.dart';
 import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
 import 'package:WashWoosh/data/models/mitra_laundry_membership_model.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
+import 'package:WashWoosh/laundry_list_shimmer.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/date_formatter.dart';
 import 'package:WashWoosh/views/widgets/custom_button.dart';
@@ -25,7 +26,9 @@ class _MitraDashboardState extends State<MitraDashboard> {
     super.initState();
     fetchDataMember();
     Future.delayed(const Duration(seconds: 3), () {
-      fetchOrderList();
+      if (mounted) {
+        fetchOrderList();
+      }
     });
   }
 
@@ -41,9 +44,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
           }
         }
         if (state is MitraDashboardLoading) {
-          return const Center(
-            child: Scaffold(body: Center(child: CircularProgressIndicator())),
-          );
+          return const Scaffold(body: LaundryListShimmer());
         } else if (state is MitraDashboardFailure) {
           return Scaffold(
             body: Center(

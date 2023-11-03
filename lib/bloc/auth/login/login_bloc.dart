@@ -31,17 +31,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           final token = data.data.apiKey;
           final is_mitra = data.data.isMitra;
           await UserPreferences.saveToken(token, is_mitra);
-          if (data.code == 200) {
-            if (data.data.isMitra) {
-              emit((LoginIsMitra()));
-            } else {
-              emit(LoginSuccess());
-            }
-          } else {
-            emit(LoginFailure(error: "Username atau password salah"));
+          switch (data.code) {
+            case 200:
+              if (data.data.isMitra) {
+                emit((LoginIsMitra()));
+              } else {
+                emit(LoginSuccess());
+              }
+              break;
+            default:
+              print("error");
+              emit(LoginFailure(error: "Username atau password salah"));
+              break;
           }
         } catch (error) {
-          emit(LoginFailure(error: error.toString()));
+          print(error.toString());
+          emit(LoginFailure(error: "Terjadi kesalahan saat login"));
         }
       }
       if (event is LogoutButtonPressed) {
