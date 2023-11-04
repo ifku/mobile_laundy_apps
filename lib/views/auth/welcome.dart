@@ -56,7 +56,7 @@ class _WelcomeState extends State<Welcome> {
                       .setLabel("Daftar Sebagai Pengguna")
                       .setOnPressed(() {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.pushNamed(context, AppRoutes.underConstruction);
+                      Navigator.pushNamed(context, AppRoutes.userRegister);
                     });
                   }).build(context),
                 ),
@@ -66,7 +66,7 @@ class _WelcomeState extends State<Welcome> {
                     .setFontSize(15)
                     .setOnPressed(() {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.pushNamed(context, AppRoutes.underConstruction);
+                    Navigator.pushNamed(context, AppRoutes.mitraRegister);
                   });
                 }).build(context),
                 const SizedBox(height: 20),

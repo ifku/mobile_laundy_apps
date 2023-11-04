@@ -1,4 +1,4 @@
-import 'package:WashWoosh/bloc/mitra/mitra_register/mitra_register_bloc.dart';
+import 'package:WashWoosh/bloc/auth/mitra_register/mitra_register_bloc.dart';
 import 'package:WashWoosh/data/models/auth/mitra_data.dart';
 import 'package:WashWoosh/dummy.dart';
 import 'package:WashWoosh/routes/routes.dart';

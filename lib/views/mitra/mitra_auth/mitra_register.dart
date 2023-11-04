@@ -196,6 +196,12 @@ class _MitraRegisterState extends State<MitraRegister> {
               ),
             ),
           ),
+          Positioned(
+            top: 0,
+            height: 104,
+            width: 104,
+            child: Image.asset("lib/assets/images/iron.png"),
+          ),
         ],
       ),
     ));

@@ -100,7 +100,7 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
             ));
           } else if (state is LaundryDetailError) {
             print("Error");
-            return const Center(child: Text("Terjadi kesalahan dalam pengambiland data"));
+            return const Center(child: Text("Terjadi kesalahan dalam pengambilan data"));
           }
           return const Center(child: CircularProgressIndicator());
         },
