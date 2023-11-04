@@ -136,7 +136,10 @@ class MitraLaundry {
   String alamat;
   String noTelepon;
   String deskripsi;
-  int hargaPerKilo;
+  double hargaRapi;
+  double hargaKering;
+  double hargaBasah;
+  double hargaSatuan;
   String jamBuka;
   String gambar;
   dynamic rating;
@@ -150,7 +153,10 @@ class MitraLaundry {
     required this.alamat,
     required this.noTelepon,
     required this.deskripsi,
-    required this.hargaPerKilo,
+    required this.hargaRapi,
+    required this.hargaKering,
+    required this.hargaBasah,
+    required this.hargaSatuan,
     required this.jamBuka,
     required this.gambar,
     required this.rating,
@@ -165,7 +171,10 @@ class MitraLaundry {
     alamat: json["alamat"],
     noTelepon: json["no_telepon"],
     deskripsi: json["deskripsi"],
-    hargaPerKilo: json["harga_per_kilo"],
+    hargaRapi: json["harga_rapi"]?.toDouble(),
+    hargaKering: json["harga_kering"]?.toDouble(),
+    hargaBasah: json["harga_basah"]?.toDouble(),
+    hargaSatuan: json["harga_satuan"]?.toDouble(),
     jamBuka: json["jam_buka"],
     gambar: json["gambar"],
     rating: json["rating"],
@@ -180,7 +189,10 @@ class MitraLaundry {
     "alamat": alamat,
     "no_telepon": noTelepon,
     "deskripsi": deskripsi,
-    "harga_per_kilo": hargaPerKilo,
+    "harga_rapi": hargaRapi,
+    "harga_kering": hargaKering,
+    "harga_basah": hargaBasah,
+    "harga_satuan": hargaSatuan,
     "jam_buka": jamBuka,
     "gambar": gambar,
     "rating": rating,
