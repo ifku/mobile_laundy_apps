@@ -48,7 +48,7 @@ class LaundryData {
   double hargaKering;
   double hargaBasah;
   double hargaSatuan;
-  JamBuka jamBuka;
+  String jamBuka;
   Gambar gambar;
   String gambarLink;
   dynamic rating;
@@ -81,11 +81,11 @@ class LaundryData {
     alamat: json["alamat"],
     noTelepon: json["no_telepon"],
     deskripsi: json["deskripsi"],
-    hargaRapi: json["harga_rapi"],
-    hargaKering: json["harga_kering"],
-    hargaBasah: json["harga_basah"],
-    hargaSatuan: json["harga_satuan"],
-    jamBuka: jamBukaValues.map[json["jam_buka"]]!,
+    hargaRapi: json["harga_rapi"]?.toDouble(),
+    hargaKering: json["harga_kering"]?.toDouble(),
+    hargaBasah: json["harga_basah"]?.toDouble(),
+    hargaSatuan: json["harga_satuan"]?.toDouble(),
+    jamBuka: json["jam_buka"],
     gambar: gambarValues.map[json["gambar"]]!,
     gambarLink: json["gambar_link"],
     rating: json["rating"],
