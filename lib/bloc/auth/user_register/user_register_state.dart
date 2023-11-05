@@ -1,4 +1,4 @@
-part of 'user_register_bloc.dart';
+part of '../../auth/user_register/user_register_bloc.dart';
 
 @immutable
 abstract class UserRegisterState {}

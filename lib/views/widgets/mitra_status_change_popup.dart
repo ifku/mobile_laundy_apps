@@ -119,7 +119,7 @@ void changeStatus(
   final token = await UserPreferences.getToken();
   final changeStatusBloc = BlocProvider.of<MitraDetailBloc>(context);
   changeStatusBloc.add(OrderStatusChanged(
-      token: token['token'], laundryId: laundryId, status: selectedValue));
+      token: token['token']!, laundryId: laundryId, status: selectedValue));
   changeStatusBloc.stream.listen((state) {
     if (state is MitraChangeOrderStatusSuccess) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

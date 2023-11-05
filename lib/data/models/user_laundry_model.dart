@@ -53,6 +53,9 @@ class LaundryData {
   String gambarLink;
   dynamic rating;
   String ownerId;
+  List<Owner> memberLaundry;
+  List<Order> order;
+  Owner owner;
 
   LaundryData({
     required this.id,
@@ -71,13 +74,16 @@ class LaundryData {
     required this.gambarLink,
     required this.rating,
     required this.ownerId,
+    required this.memberLaundry,
+    required this.order,
+    required this.owner,
   });
 
   factory LaundryData.fromJson(Map<String, dynamic> json) => LaundryData(
     id: json["id"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    nama: json["nama"]!,
+    nama: json["nama"],
     alamat: json["alamat"],
     noTelepon: json["no_telepon"],
     deskripsi: json["deskripsi"],
@@ -90,6 +96,9 @@ class LaundryData {
     gambarLink: json["gambar_link"],
     rating: json["rating"],
     ownerId: json["owner_id"],
+    memberLaundry: List<Owner>.from(json["member_laundry"].map((x) => Owner.fromJson(x))),
+    order: List<Order>.from(json["order"].map((x) => Order.fromJson(x))),
+    owner: Owner.fromJson(json["owner"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -108,128 +117,102 @@ class LaundryData {
     "gambar": gambarValues.reverse[gambar],
     "gambar_link": gambarLink,
     "rating": rating,
+    "owner_id": ownerId,
+    "member_laundry": List<dynamic>.from(memberLaundry.map((x) => x.toJson())),
+    "order": List<dynamic>.from(order.map((x) => x.toJson())),
+    "owner": owner.toJson(),
   };
 }
 
 enum Gambar {
-  NULL,
+  EMPTY,
   TEST,
   THE_20231023134834_D_W5_U_YW1_L_ZC5_WBMC_PNG
 }
 
 final gambarValues = EnumValues({
-  "null": Gambar.NULL,
+  "": Gambar.EMPTY,
   "test": Gambar.TEST,
   "20231023134834dW5uYW1lZC5wbmc=.png": Gambar.THE_20231023134834_D_W5_U_YW1_L_ZC5_WBMC_PNG
 });
 
-enum JamBuka {
-  NULL,
-  THE_0000_AM_0000_PM
-}
-
-final jamBukaValues = EnumValues({
-  "null": JamBuka.NULL,
-  "00.00 AM - 00.00 PM": JamBuka.THE_0000_AM_0000_PM
-});
-
-class MemberLaundry {
+class Owner {
   String userId;
-  String nik;
   String nama;
   String noHp;
   String email;
   String username;
-  String password;
-  Gambar passwordSalt;
-  int rolesId;
-  dynamic isAktif;
-  int? jumlahSalahLogin;
-  dynamic terkunciPada;
-  DateTime createdAt;
-  DateTime updatedAt;
-  Gambar checksumId;
-  Gambar apiKey;
-  Pivot? pivot;
 
-  MemberLaundry({
+  Owner({
     required this.userId,
-    required this.nik,
     required this.nama,
     required this.noHp,
     required this.email,
     required this.username,
-    required this.password,
-    required this.passwordSalt,
-    required this.rolesId,
-    required this.isAktif,
-    required this.jumlahSalahLogin,
-    required this.terkunciPada,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.checksumId,
-    required this.apiKey,
-    this.pivot,
   });
 
-  factory MemberLaundry.fromJson(Map<String, dynamic> json) => MemberLaundry(
+  factory Owner.fromJson(Map<String, dynamic> json) => Owner(
     userId: json["user_id"],
-    nik: json["nik"],
     nama: json["nama"],
     noHp: json["no_hp"],
     email: json["email"],
     username: json["username"],
-    password: json["password"],
-    passwordSalt: gambarValues.map[json["password_salt"]]!,
-    rolesId: json["roles_id"],
-    isAktif: json["is_aktif"],
-    jumlahSalahLogin: json["jumlah_salah_login"],
-    terkunciPada: json["terkunci_pada"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    checksumId: gambarValues.map[json["checksum_id"]]!,
-    apiKey: gambarValues.map[json["api_key"]]!,
-    pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
   );
 
   Map<String, dynamic> toJson() => {
     "user_id": userId,
-    "nik": nik,
     "nama": nama,
     "no_hp": noHp,
     "email": email,
     "username": username,
-    "password": password,
-    "password_salt": gambarValues.reverse[passwordSalt],
-    "roles_id": rolesId,
-    "is_aktif": isAktif,
-    "jumlah_salah_login": jumlahSalahLogin,
-    "terkunci_pada": terkunciPada,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "checksum_id": gambarValues.reverse[checksumId],
-    "api_key": gambarValues.reverse[apiKey],
-    "pivot": pivot?.toJson(),
   };
 }
 
-class Pivot {
+class Order {
+  int id;
+  DateTime tanggalPesan;
+  int berat;
+  int harga;
+  int isDibayar;
+  DateTime estimasiTanggalSelesai;
+  String tanggalSelesai;
+  int statusPemesananId;
   int mitraLaundryId;
-  String memberId;
 
-  Pivot({
+  Order({
+    required this.id,
+    required this.tanggalPesan,
+    required this.berat,
+    required this.harga,
+    required this.isDibayar,
+    required this.estimasiTanggalSelesai,
+    required this.tanggalSelesai,
+    required this.statusPemesananId,
     required this.mitraLaundryId,
-    required this.memberId,
   });
 
-  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
+  factory Order.fromJson(Map<String, dynamic> json) => Order(
+    id: json["id"],
+    tanggalPesan: DateTime.parse(json["tanggal_pesan"]),
+    berat: json["berat"],
+    harga: json["harga"],
+    isDibayar: json["is_dibayar"],
+    estimasiTanggalSelesai: DateTime.parse(json["estimasi_tanggal_selesai"]),
+    tanggalSelesai: json["tanggal_selesai"],
+    statusPemesananId: json["status_pemesanan_id"],
     mitraLaundryId: json["mitra_laundry_id"],
-    memberId: json["member_id"],
   );
 
   Map<String, dynamic> toJson() => {
+    "id": id,
+    "tanggal_pesan": tanggalPesan.toIso8601String(),
+    "berat": berat,
+    "harga": harga,
+    "is_dibayar": isDibayar,
+    "estimasi_tanggal_selesai": estimasiTanggalSelesai.toIso8601String(),
+    "tanggal_selesai": tanggalSelesai,
+    "status_pemesanan_id": statusPemesananId,
     "mitra_laundry_id": mitraLaundryId,
-    "member_id": memberId,
   };
 }
 

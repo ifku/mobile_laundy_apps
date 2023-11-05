@@ -14,7 +14,7 @@ class LaundryDetailBloc extends Bloc<LaundryDetailEvent, LaundryDetailState> {
   LaundryDetailBloc() : super(LaundryDetailInitial()) {
     on<LaundryDetailEvent>((event, emit) async {
       if (event is LaundryListItemClicked) {
-        // emit(LaundryDetailLoading());
+        emit(LaundryDetailLoading());
         final laundryId = event.laundryId;
         try {
           final response = await http.get(

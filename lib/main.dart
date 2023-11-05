@@ -1,10 +1,10 @@
 import 'package:WashWoosh/bloc/auth/login/login_bloc.dart';
 import 'package:WashWoosh/bloc/mitra/mitra_dashboard/mitra_dashboard_bloc.dart';
 import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
-import 'package:WashWoosh/bloc/mitra/mitra_register/mitra_register_bloc.dart';
+import 'package:WashWoosh/bloc/auth/mitra_register/mitra_register_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry/laundry_list_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
-import 'package:WashWoosh/bloc/user/user_register/user_register_bloc.dart';
+import 'package:WashWoosh/bloc/auth/user_register/user_register_bloc.dart';
 import 'package:WashWoosh/dummy.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/theme.dart';

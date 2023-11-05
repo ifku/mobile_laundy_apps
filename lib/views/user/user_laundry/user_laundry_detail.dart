@@ -65,7 +65,7 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Daftar Pelayanan",
+                      "Daftar Layanan",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -100,11 +100,9 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
             ));
           } else if (state is LaundryDetailError) {
             print("Error");
-            return const Center(child: Text("Terjadi kesalahan"));
-          } else {
-            print("Default");
-            return const Center(child: Text("Terjadi kesalahan"));
+            return const Center(child: Text("Terjadi kesalahan dalam pengambilan data"));
           }
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

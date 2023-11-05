@@ -27,9 +27,6 @@ class LaundryListBloc extends Bloc<LaundryListEvent, LaundryListState> {
             case 200:
               emit(LaundryListSuccess(data.data));
               break;
-            case 400:
-              emit(LaundryListError("Username atau password salah"));
-              break;
             default:
               emit(LaundryListError("Terjadi kesalahan"));
               break;
