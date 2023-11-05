@@ -106,7 +106,7 @@ class _LaundryListState extends State<LaundryList> {
                                   TruncateTextWithEllipsis.truncateWithEllipsis(
                                       laundryItem.alamat, 20))
                               .setJam("07.00 AM - 09.00 PM")
-                              .setHarga(laundryItem.hargaPerKilo.toDouble())
+                              .setHarga(laundryItem.hargaRapi)
                               .setOnTap(() {
                             _onLaundryItemTap(context, laundryItem.id);
                           }).build(context),

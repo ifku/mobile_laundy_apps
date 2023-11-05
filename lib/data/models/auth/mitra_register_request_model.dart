@@ -11,7 +11,10 @@ class MitraRegisterRequestModel {
   String laundryName;
   String laundryAddress;
   String laundryPhone;
-  String laundryPriceRange;
+  String laundryPriceNeat;
+  String laundryPriceDry;
+  String laundryPriceWet;
+  String laundryPriceSingle;
   String laundryDescription;
 
   MitraRegisterRequestModel({
@@ -26,7 +29,10 @@ class MitraRegisterRequestModel {
     required this.laundryName,
     required this.laundryAddress,
     required this.laundryPhone,
-    required this.laundryPriceRange,
+    required this.laundryPriceNeat,
+    required this.laundryPriceDry,
+    required this.laundryPriceWet,
+    required this.laundryPriceSingle,
     required this.laundryDescription,
   });
 
@@ -44,7 +50,10 @@ class MitraRegisterRequestModel {
       "alamat": laundryAddress,
       "no_telepon": laundryPhone,
       "deskripsi": laundryDescription,
-      "harga_per_kilo": laundryPriceRange,
+      "harga_rapi": laundryPriceNeat,
+      "harga_kering": laundryPriceDry,
+      "harga_basah": laundryPriceWet,
+      "harga_satuan": laundryPriceSingle,
       /* *gambar
       * rating
       * jam_buka*/
