@@ -6,6 +6,7 @@ class ApiConstants{
   static const String REGISTER = "register";
 
   static const String LAUNDRY_LIST = "registered/laundry";
+  static const String LAUNDRY_ORDER = "user/order";
   static const String LAUNDRY_DETAIL = "registered/laundry/";
   static const String LAUNDRY_JOIN = "registered/laundry/join/";
   static const String MITRA_MEMBER = "mitra/member/";

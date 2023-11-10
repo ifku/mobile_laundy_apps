@@ -113,7 +113,7 @@ class LaundryData {
     "harga_kering": hargaKering,
     "harga_basah": hargaBasah,
     "harga_satuan": hargaSatuan,
-    "jam_buka": jamBukaValues.reverse[jamBuka],
+    // "jam_buka": jamBukaValues.reverse[jamBuka],
     "gambar": gambarValues.reverse[gambar],
     "gambar_link": gambarLink,
     "rating": rating,

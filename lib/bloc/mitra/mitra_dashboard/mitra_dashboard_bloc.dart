@@ -79,7 +79,7 @@ class MitraDashboardBloc
                 "token": event.token,
               },
               body: data.toJson());
-          switch(response.statusCode){
+          switch (response.statusCode) {
             case 200:
               emit(AddOrderSuccess());
               break;
@@ -92,6 +92,9 @@ class MitraDashboardBloc
           emit(AddOrderFailure(errorMessage: error.toString()));
         }
       }
+    });
+    on<MitraOrderListReset>((event, emit) async {
+      emit(MitraDashboardInitial());
     });
   }
 }

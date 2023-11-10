@@ -1,3 +1,4 @@
+import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:WashWoosh/utils/truncate_text_ellipsis.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,7 @@ class LaundryListContainer {
       onTap: _onTap,
       child: Container(
           height: 150,
-          width: 400,
+          width: GetScreenSize.getScreenWidth(context),
           decoration: BoxDecoration(
             border: Border.all(
               width: 1.5,
@@ -75,7 +76,7 @@ class LaundryListContainer {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _laundryName,
+                        TruncateTextWithEllipsis.truncateWithEllipsis(_laundryName, 18),
                         style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w800,
@@ -85,7 +86,7 @@ class LaundryListContainer {
                       const SizedBox(height: 10),
                       Text(
                           TruncateTextWithEllipsis.truncateWithEllipsis(
-                              _laundryAddress, 30),
+                              _laundryAddress, 25),
                           style: TextStyle(
                             fontFamily: "Lato",
                             fontSize: 14,
@@ -126,7 +127,7 @@ class LaundryListContainer {
                                     .withOpacity(0.3),
                               )),
                           const SizedBox(width: 5),
-                          Text("Rp.${_laundryPrice.toString()}/kg",
+                          Text(TruncateTextWithEllipsis.truncateWithEllipsis("Rp.${_laundryPrice.toString()}/kg", 15),
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Theme.of(context)

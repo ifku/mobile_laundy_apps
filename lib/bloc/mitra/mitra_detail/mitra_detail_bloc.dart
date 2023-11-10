@@ -13,7 +13,7 @@ part 'mitra_detail_state.dart';
 class MitraDetailBloc extends Bloc<MitraDetailEvent, MitraDetailState> {
   MitraDetailBloc() : super(MitraDetailInitial()) {
     on<MitraDetailEvent>((event, emit) async {
-      // emit(MitraDetailLoading());
+      emit(MitraDetailLoading());
       if (event is OrderListItemClicked) {
         emit(MitraDetailLoading());
         try {
@@ -40,7 +40,7 @@ class MitraDetailBloc extends Bloc<MitraDetailEvent, MitraDetailState> {
         }
       }
       if (event is OrderStatusChanged) {
-        // emit(MitraChangeOrderStatusLoading());
+        emit(MitraChangeOrderStatusLoading());
         try {
           final response = await http.post(
               Uri.parse(
