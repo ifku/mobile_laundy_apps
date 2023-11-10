@@ -5,7 +5,7 @@ class MitraRegisterRequestModel {
   String phone;
   String username;
   String email;
-  int role_id;
+  int rolesId;
   String password;
 
   String laundryName;
@@ -24,7 +24,7 @@ class MitraRegisterRequestModel {
     required this.phone,
     required this.username,
     required this.email,
-    required this.role_id,
+    required this.rolesId,
     required this.password,
     required this.laundryName,
     required this.laundryAddress,
@@ -41,7 +41,7 @@ class MitraRegisterRequestModel {
       "nik": nik,
       "nama": name,
       "no_hp": phone,
-      "role_id": role_id,
+      "roles_id": rolesId,
       "email": email,
       "username": username,
       "password": password,

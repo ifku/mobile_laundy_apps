@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MitraStatusChangePopup extends StatefulWidget {
+
   final int laundryId;
   final int currentStatus;
 
@@ -103,7 +104,7 @@ class _MitraStatusChangePopupState extends State<MitraStatusChangePopup> {
                   selectedValue = checkStatus(selectedValue);
                   changeStatus(
                       context, widget.laundryId, int.parse(selectedValue));
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                 }).build(context)
               ],
             ),

@@ -14,6 +14,8 @@ import 'package:WashWoosh/views/user/user_auth/user_register.dart';
 import 'package:WashWoosh/views/user/user_dashboard.dart';
 import 'package:WashWoosh/views/user/user_laundry/user_laundry_detail.dart';
 import 'package:WashWoosh/views/user/user_laundry/user_laundry_list.dart';
+import 'package:WashWoosh/views/user/user_order_history.dart';
+import 'package:WashWoosh/views/user/user_profile.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -28,10 +30,12 @@ class AppRoutes {
   static const String mitraRegister = '/mitra-register';
   static const String mitraRegisterLaundry = '/mitra-register-laundry';
 
-  /*Dashboard*/
+  /*User*/
   static const String userDashboard = '/user-dashboard';
   static const String userLaundryList = '/user-laundry-list';
   static const String userLaundryDetail = '/user-laundry-detail';
+  static const String userOrderHistory = '/user-order-history';
+  static const String userProfile = '/user-profile';
 
   /*Mitra*/
   static const String mitraDashboard = '/mitra-dashboard';
@@ -52,6 +56,8 @@ class AppRoutes {
     userDashboard: (context) => const UserDashboard(),
     userLaundryList: (context) => const LaundryList(),
     userLaundryDetail: (context) => const UserLaundryDetail(),
+    userOrderHistory: (context) => const UserOrderHistory(),
+    userProfile: (context) => const UserProfile(),
     mitraDashboard: (context) => const MitraDashboard(),
     dummy: (context) => const Dummy(),
     mitraDetailOrder: (context) => const MitraDetailOrder(),

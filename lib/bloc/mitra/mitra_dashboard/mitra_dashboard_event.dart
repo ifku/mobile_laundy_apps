@@ -24,3 +24,5 @@ class GetMitraMember extends MitraDashboardEvent {
 
   GetMitraMember({required this.token});
 }
+
+class MitraOrderListReset extends MitraDashboardEvent {}
