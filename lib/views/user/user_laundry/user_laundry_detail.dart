@@ -3,6 +3,7 @@ import 'package:WashWoosh/const/laundry_chooser_list.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/views/widgets/custom_button.dart';
+import 'package:WashWoosh/views/widgets/custom_join_member_button.dart';
 import 'package:WashWoosh/views/widgets/custom_outlined_button.dart';
 import 'package:WashWoosh/views/widgets/laundry_detail_chooser.dart';
 import 'package:flutter/material.dart';
@@ -86,8 +87,9 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: CustomButton()
+                        child: CustomJoinMemberButton()
                             .setLabel("Gabung Disini")
+                            .setIsActive(state.laundryDetailData.isJoined)
                             .setOnPressed(() {
                           _onJoinMembershipTapped(
                               context, state.laundryDetailData.id);
@@ -100,7 +102,8 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
             ));
           } else if (state is LaundryDetailError) {
             print("Error");
-            return const Center(child: Text("Terjadi kesalahan dalam pengambilan data"));
+            return const Center(
+                child: Text("Terjadi kesalahan dalam pengambilan data"));
           }
           return const Center(child: CircularProgressIndicator());
         },

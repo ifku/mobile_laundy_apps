@@ -1,11 +1,11 @@
 import 'package:WashWoosh/bloc/mitra/mitra_dashboard/mitra_dashboard_bloc.dart';
-import 'package:WashWoosh/data/models/auth/mitra_register_request_model.dart';
-import 'package:WashWoosh/data/models/mitra_laundry_membership_model.dart';
-import 'package:WashWoosh/data/models/mitra_membership_request_model.dart';
+import 'package:WashWoosh/data/models/mitra/mitra_laundry_membership_model.dart';
+import 'package:WashWoosh/data/models/mitra/mitra_membership_request_model.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:WashWoosh/views/widgets/custom_button.dart';
 import 'package:WashWoosh/views/widgets/custom_input_field.dart';
+import 'package:WashWoosh/views/widgets/custom_switcher_with_text.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -125,9 +125,13 @@ class _CustomPemesananPopupState extends State<CustomPemesananPopup> {
                         .setLabel("Estimasi Selesai")
                         .setController(_doneEstimationController!)
                         .setIcon(const Icon(Icons.calendar_month_outlined))
-                        .setSizedBoxHeight(20)
                         .build(context),
                   ),
+                ),
+                CustomSwitcherWithText(
+                  value: false,
+                  onSwitch: (value) {
+                  },
                 ),
                 CustomButton().setLabel("Tambah Pesanan").setOnPressed(() {
                   mitraMembershipRequestModel = MitraMembershipRequestModel(

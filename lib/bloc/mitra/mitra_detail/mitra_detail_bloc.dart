@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:WashWoosh/const/api_constants.dart';
-import 'package:WashWoosh/data/models/mitra_laundry_detail_model.dart';
+import 'package:WashWoosh/data/models/mitra/mitra_laundry_detail_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';

@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:WashWoosh/const/api_constants.dart';
-import 'package:WashWoosh/data/models/mitra_laundry_membership_model.dart';
-import 'package:WashWoosh/data/models/mitra_membership_request_model.dart';
-import 'package:WashWoosh/data/models/mitra_membership_response_model.dart';
-import 'package:WashWoosh/data/models/mitra_order_model.dart';
+import 'package:WashWoosh/data/models/auth/login_model.dart';
+import 'package:WashWoosh/data/models/mitra/mitra_laundry_membership_model.dart';
+import 'package:WashWoosh/data/models/mitra/mitra_membership_request_model.dart';
+import 'package:WashWoosh/data/models/mitra/mitra_membership_response_model.dart';
+import 'package:WashWoosh/data/models/mitra/mitra_order_model.dart';
+import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
@@ -26,11 +28,11 @@ class MitraDashboardBloc
               "token": event.token,
             },
           );
-
           final data = MitraOrder.fromJson(json.decode(response.body));
+          final userData = await UserPreferences.getUserData();
           switch (data.code) {
             case 200:
-              emit(MitraDashboardSuccess(data.data));
+              emit(MitraDashboardSuccess(data.data, userData!));
               break;
             case 400:
               emit(MitraDashboardFailure(

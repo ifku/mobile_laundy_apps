@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:WashWoosh/const/api_constants.dart';
-import 'package:WashWoosh/data/models/user_laundry_detail_model.dart';
-import 'package:WashWoosh/data/models/user_laundry_join_membership_model.dart';
+import 'package:WashWoosh/data/models/user/user_laundry_detail_model.dart';
+import 'package:WashWoosh/data/models/user/user_laundry_join_membership_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
@@ -23,7 +23,6 @@ class LaundryDetailBloc extends Bloc<LaundryDetailEvent, LaundryDetailState> {
               headers: {
                 "token": event.token,
               });
-          print(response.body);
           final data =
               UserLaundryDetailModel.fromJson(json.decode(response.body));
           switch (response.statusCode) {

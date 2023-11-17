@@ -1,9 +1,9 @@
 import 'package:WashWoosh/bloc/auth/login/login_bloc.dart';
 import 'package:WashWoosh/bloc/mitra/mitra_dashboard/mitra_dashboard_bloc.dart';
 import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
-import 'package:WashWoosh/data/models/mitra_laundry_membership_model.dart';
+import 'package:WashWoosh/data/models/mitra/mitra_laundry_membership_model.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
-import 'package:WashWoosh/laundry_list_shimmer.dart';
+import 'package:WashWoosh/views/widgets/shimmer/laundry_list_shimmer.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/date_formatter.dart';
 import 'package:WashWoosh/views/widgets/custom_button.dart';
@@ -78,9 +78,8 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                     child: UserMiniProfileCard()
                                         .setImageProfile(
                                             "lib/assets/images/avatar_dummy.png")
-                                        .setNameProfile("Mimin Laundry")
-                                        .setAddressProfile(
-                                            "Gebang Lor 73, Sukolilo, Surabaya")
+                                        .setNameProfile(state.userData.nama)
+                                        .setEmailProfile(state.userData.email)
                                         .build(context),
                                   ),
                                 ),

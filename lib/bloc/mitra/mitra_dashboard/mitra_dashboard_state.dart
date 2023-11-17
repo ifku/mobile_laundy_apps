@@ -10,8 +10,9 @@ class MitraDashboardLoading extends MitraDashboardState {}
 
 class MitraDashboardSuccess extends MitraDashboardState {
   final List<MitraOrderData> orderList;
+  final UserData userData;
 
-  MitraDashboardSuccess(this.orderList);
+  MitraDashboardSuccess(this.orderList, this.userData);
 }
 
 class MitraDashboardFailure extends MitraDashboardState {

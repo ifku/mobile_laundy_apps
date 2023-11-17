@@ -14,6 +14,7 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
     on<LoginEvent>((event, emit) async {
+      emit(LoginInitial());
       if (event is LoginButtonPressed) {
         emit(LoginLoading());
         final username = event.username;
@@ -31,6 +32,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           final token = data.data.apiKey;
           final is_mitra = data.data.isMitra;
           await UserPreferences.saveToken(token, is_mitra);
+          await UserPreferences.saveUserData(data.data.user);
           switch (data.code) {
             case 200:
               if (data.data.isMitra) {
@@ -40,7 +42,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               }
               break;
             default:
-              print("error");
               emit(LoginFailure(error: "Username atau password salah"));
               break;
           }
@@ -51,7 +52,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
       if (event is LogoutButtonPressed) {
         await UserPreferences.removeToken();
+        await UserPreferences.removeUserData();
         emit(LogoutSuccess());
+        emit(LoginInitial());
       }
     });
   }
