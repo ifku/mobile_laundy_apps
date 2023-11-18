@@ -132,8 +132,7 @@ class LaundryListContainer {
                                   fontWeight: FontWeight.w700,
                                   color: Theme.of(context)
                                       .colorScheme
-                                      .secondary
-                                      .withOpacity(0.8))),
+                                      .primary)),
                         ],
                       ),
                     ],

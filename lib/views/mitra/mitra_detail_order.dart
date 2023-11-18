@@ -48,6 +48,7 @@ class _MitraDetailOrder extends State<MitraDetailOrder> {
                           .mitraDetailData.data.estimasiTanggalSelesai
                           .toString(),
                       hargaTotal: state.mitraDetailData.data.harga.toDouble(),
+                      isDibayar: state.mitraDetailData.data.isDibayar,
                     ),
                     const SizedBox(
                       height: 20,

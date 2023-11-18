@@ -62,7 +62,7 @@ class AppRoutes {
     userOrderDetail: (context) => const UserOrderDetail(),
     userProfile: (context) => const UserProfile(),
     mitraDashboard: (context) => const MitraDashboard(),
-    dummy: (context) => const Dummy(),
+    // dummy: (context) => const Dummy(),
     mitraDetailOrder: (context) => const MitraDetailOrder(),
     underConstruction: (context) => const UnderConstruction(),
   };

@@ -8,3 +8,9 @@ class GetLaundryList extends LaundryListEvent {
 
   GetLaundryList({required this.token});
 }
+
+class SearchLaundry extends LaundryListEvent {
+  final String keyword;
+
+  SearchLaundry({required this.keyword});
+}

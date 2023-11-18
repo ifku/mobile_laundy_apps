@@ -40,5 +40,18 @@ class LaundryListBloc extends Bloc<LaundryListEvent, LaundryListState> {
         }
       }
     });
+    on<SearchLaundry>((event, emit) {
+      if (event.keyword.isEmpty) {
+        emit(LaundryListInitial());
+      } else {
+        final filteredLaundryList = (state as LaundryListSuccess)
+            .laundryList
+            .where((element) => element.nama
+                .toLowerCase()
+                .contains(event.keyword.toLowerCase()))
+            .toList();
+        emit(LaundryListFiltered(filteredLaundryList));
+      }
+    });
   }
 }

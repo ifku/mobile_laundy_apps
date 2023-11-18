@@ -40,6 +40,7 @@ class _UserOrderDetail extends State<UserOrderDetail> {
                           .laundryDetailData.data.estimasiTanggalSelesai
                           .toString(),
                       hargaTotal: state.laundryDetailData.data.harga.toDouble(),
+                      isDibayar: state.laundryDetailData.data.isDibayar,
                     ),
                     const SizedBox(
                       height: 20,
@@ -47,7 +48,7 @@ class _UserOrderDetail extends State<UserOrderDetail> {
                     CustomUserOrderStatus(
                         orderId: state.laundryDetailData.data.id,
                         currentStatus:
-                        state.laundryDetailData.data.statusPemesananId)
+                            state.laundryDetailData.data.statusPemesananId)
                   ],
                 ),
               ),
@@ -58,7 +59,7 @@ class _UserOrderDetail extends State<UserOrderDetail> {
               child: CircularProgressIndicator(),
             );
           }
-          if (state is LaundryHistoryDetailFailure){
+          if (state is LaundryHistoryDetailFailure) {
             return Center(
               child: Text(state.errorMessage),
             );

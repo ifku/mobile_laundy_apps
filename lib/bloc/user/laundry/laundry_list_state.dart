@@ -20,3 +20,9 @@ class LaundryListError extends LaundryListState {
 
   LaundryListError(this.errorMessage);
 }
+
+class LaundryListFiltered extends LaundryListState {
+  final List<LaundryData> filteredLaundryList;
+
+  LaundryListFiltered(this.filteredLaundryList);
+}

@@ -1,5 +1,6 @@
 import 'package:WashWoosh/bloc/auth/login/login_bloc.dart';
 import 'package:WashWoosh/bloc/user/bottom_navigation/bottom_navigation_bloc.dart';
+import 'package:WashWoosh/bloc/user/laundry/laundry_list_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry_history/laundry_history_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry_history_detail/laundry_history_detail_bloc.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
@@ -36,9 +37,18 @@ class _UserOrderHistoryState extends State<UserOrderHistory> {
           return Scaffold(
               bottomNavigationBar: CustomUserBottomNavbar(
                 currentIndex: state.index,
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                selectedItemColor: Theme.of(context).colorScheme.secondary,
-                unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
+                backgroundColor: Theme
+                    .of(context)
+                    .colorScheme
+                    .primary,
+                selectedItemColor: Theme
+                    .of(context)
+                    .colorScheme
+                    .secondary,
+                unselectedItemColor: Theme
+                    .of(context)
+                    .colorScheme
+                    .onPrimary,
                 showLabel: false,
                 onTap: (int value) {
                   BlocProvider.of<BottomNavigationBloc>(context)
@@ -50,8 +60,8 @@ class _UserOrderHistoryState extends State<UserOrderHistory> {
                   if (state is GetLaundryHistoryLoading) {
                     return const Scaffold(
                         body: Center(
-                      child: CircularProgressIndicator(),
-                    ));
+                          child: CircularProgressIndicator(),
+                        ));
                   } else if (state is GetLaundryHistorySuccess) {
                     return Scaffold(
                       body: Stack(
@@ -68,39 +78,58 @@ class _UserOrderHistoryState extends State<UserOrderHistory> {
                                         children: [
                                           Expanded(
                                             child: Align(
-                                              alignment: Alignment.topLeft,
-                                              child: UserMiniProfileCard()
-                                                  .setImageProfile(
-                                                      "lib/assets/images/avatar_dummy.png")
-                                                  .setNameProfile(
-                                                      "Mimin Laundry")
-                                                  .setEmailProfile(
-                                                      "Gebang Lor 73, Sukolilo, Surabaya")
-                                                  .build(context),
+                                                alignment: Alignment.topLeft,
+                                                child: BlocBuilder<
+                                                    LaundryListBloc,
+                                                    LaundryListState>(
+                                                  builder: (context, state) {
+                                                    if(state is LaundryListSuccess){
+                                                      return UserMiniProfileCard()
+                                                          .setImageProfile(
+                                                          "lib/assets/images/avatar_dummy.png")
+                                                          .setNameProfile(state.userData.nama)
+                                                          .setEmailProfile(state.userData.email)
+                                                          .build(context);
+                                                    }
+                                                    return const SizedBox();
+                                                  },
+                                                )
                                             ),
                                           ),
-                                          ElevatedButton(
+                                          IconButton(
                                             onPressed: () async {
                                               WidgetsBinding.instance
                                                   .addPostFrameCallback((_) {
                                                 final loginBloc =
-                                                    BlocProvider.of<LoginBloc>(
-                                                        context);
+                                                BlocProvider.of<LoginBloc>(
+                                                    context);
                                                 loginBloc
                                                     .add(LogoutButtonPressed());
-                                                Navigator.pushReplacementNamed(
+                                                Navigator
+                                                    .pushNamedAndRemoveUntil(
                                                     context,
-                                                    AppRoutes.shadowPage);
+                                                    AppRoutes.shadowPage,
+                                                        (Route<dynamic>
+                                                    route) =>
+                                                    false);
                                               });
                                             },
-                                            child: const Text("Logout"),
+                                            icon: Icon(
+                                              Icons.logout_rounded,
+                                              size: 25,
+                                              color: Theme
+                                                  .of(context)
+                                                  .colorScheme
+                                                  .onBackground
+                                                  .withOpacity(0.5),
+                                            ),
                                           ),
                                         ],
                                       ),
                                       const SizedBox(height: 30),
                                       const Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("Pesanan Terbaru",
                                               style: TextStyle(
@@ -129,27 +158,27 @@ class _UserOrderHistoryState extends State<UserOrderHistory> {
                                     shrinkWrap: true,
                                     itemCount: state.data.data.length,
                                     physics:
-                                        const NeverScrollableScrollPhysics(),
+                                    const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
                                       return OrderListCard()
                                           .setIdPemesanan(state
-                                              .data.data[index].id
-                                              .toString())
+                                          .data.data[index].id
+                                          .toString())
                                           .setLabel(state
-                                              .data.data[index].customer.nama)
+                                          .data.data[index].customer.nama)
                                           .setOrderDate(DateFormatter.format(
-                                              state
-                                                  .data.data[index].tanggalPesan
-                                                  .toString()))
-                                          .setEstDate(DateFormatter.format(state
-                                              .data
-                                              .data[index]
-                                              .estimasiTanggalSelesai
+                                          state
+                                              .data.data[index].tanggalPesan
                                               .toString()))
+                                          .setEstDate(DateFormatter.format(state
+                                          .data
+                                          .data[index]
+                                          .estimasiTanggalSelesai
+                                          .toString()))
                                           .setTotal(state.data.data[index].harga
-                                              .toString())
+                                          .toString())
                                           .setStatus(state.data.data[index]
-                                              .statusPemesananId)
+                                          .statusPemesananId)
                                           .setOnTap(() {
                                         _onOrderItemTap(
                                             context, state.data.data[index].id);
