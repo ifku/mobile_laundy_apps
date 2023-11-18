@@ -41,7 +41,7 @@ class UserOrderData {
   DateTime tanggalPesan;
   int berat;
   int harga;
-  int isDibayar;
+  bool isDibayar;
   DateTime estimasiTanggalSelesai;
   String tanggalSelesai;
   int statusPemesananId;

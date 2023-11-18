@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class UserMiniProfileCard {
   String _imageProfile = "";
   String _nameProfile = "";
-  String _addressProfile = "";
+  String _emailProfile = "";
 
   UserMiniProfileCard setImageProfile(String imageProfile) {
     _imageProfile = imageProfile;
@@ -15,8 +15,8 @@ class UserMiniProfileCard {
     return this;
   }
 
-  UserMiniProfileCard setAddressProfile(String addressProfile) {
-    _addressProfile = addressProfile;
+  UserMiniProfileCard setEmailProfile(String emailProfile) {
+    _emailProfile = emailProfile;
     return this;
   }
 
@@ -45,7 +45,7 @@ class UserMiniProfileCard {
                     fontWeight: FontWeight.w600,
                   )),
               const SizedBox(height: 5),
-              Text(_addressProfile,
+              Text(_emailProfile,
                   style: const TextStyle(
                     fontFamily: "Lato",
                     fontSize: 14,

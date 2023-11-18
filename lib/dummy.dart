@@ -1,5 +1,5 @@
 import 'package:WashWoosh/dummy.dart';
-import 'package:WashWoosh/laundry_list_shimmer.dart';
+import 'package:WashWoosh/views/widgets/shimmer/laundry_list_shimmer.dart';
 import 'package:flutter/material.dart';
 
 class Dummy extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:WashWoosh/const/api_constants.dart';
-import 'package:WashWoosh/data/models/user_order_history_model.dart';
+import 'package:WashWoosh/data/models/user/user_order_history_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
@@ -24,7 +24,6 @@ class LaundryHistoryBloc
               "token": event.token,
             });
         final data = UserOrderHistory.fromJson(json.decode(response.body));
-        print(data.data);
         switch (data.code) {
           case 200:
             emit(GetLaundryHistorySuccess(data));

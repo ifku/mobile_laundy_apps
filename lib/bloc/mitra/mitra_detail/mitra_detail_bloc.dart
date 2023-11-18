@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 import 'package:WashWoosh/const/api_constants.dart';
-import 'package:WashWoosh/data/models/mitra_laundry_detail_model.dart';
+import 'package:WashWoosh/data/models/mitra/mitra_laundry_detail_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 part 'mitra_detail_event.dart';
-
 part 'mitra_detail_state.dart';
 
 class MitraDetailBloc extends Bloc<MitraDetailEvent, MitraDetailState> {
@@ -23,6 +22,7 @@ class MitraDetailBloc extends Bloc<MitraDetailEvent, MitraDetailState> {
               headers: {
                 "token": event.token,
               });
+          print(response.statusCode);
           final data = MitraLaundryDetail.fromJson(json.decode(response.body));
           switch (data.code) {
             case 200:
@@ -50,6 +50,7 @@ class MitraDetailBloc extends Bloc<MitraDetailEvent, MitraDetailState> {
               },
               body: {
                 "status_pemesanan_id": event.status.toString(),
+                "is_dibayar": event.isDibayar.toString()
               });
           switch (response.statusCode) {
             case 200:
@@ -66,6 +67,20 @@ class MitraDetailBloc extends Bloc<MitraDetailEvent, MitraDetailState> {
         } catch (error) {
           emit(MitraChangeOrderStatusFailure(error.toString()));
         }
+      }
+    });
+    on<ResetMitraDetailState>((event, emit) async {
+      emit(MitraDetailInitial());
+    });
+  }
+}
+
+class MitraDetailActionBloc
+    extends Bloc<MitraDetailActionEvent, MitraDetailActionState> {
+  MitraDetailActionBloc() : super(DetailSwitchToggledState(false)) {
+    on<MitraDetailActionEvent>((event, emit) async {
+      if (event is DetailToggleSwitchClicked) {
+        emit(DetailSwitchToggledState(event.isSwitchOn));
       }
     });
   }

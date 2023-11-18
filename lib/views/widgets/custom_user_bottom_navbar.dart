@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomBottomNavbar extends StatelessWidget {
-  final List<BottomNavigationBarItem> items;
+class CustomUserBottomNavbar extends StatelessWidget {
   final Color backgroundColor;
   final Color unselectedItemColor;
   final Color selectedItemColor;
@@ -9,9 +8,8 @@ class CustomBottomNavbar extends StatelessWidget {
   final bool showLabel;
   final ValueChanged<int> onTap;
 
-  const CustomBottomNavbar({
+  const CustomUserBottomNavbar({
     super.key,
-    required this.items,
     this.backgroundColor = Colors.white,
     this.unselectedItemColor = Colors.grey,
     this.selectedItemColor = Colors.blue,
@@ -32,7 +30,12 @@ class CustomBottomNavbar extends StatelessWidget {
       selectedItemColor: selectedItemColor,
       currentIndex: currentIndex,
       onTap: onTap,
-      items: items,
+      items: const [
+        BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined), label: "Beranda"),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.dataset_outlined), label: "Pesanan"),
+      ],
     );
   }
 }

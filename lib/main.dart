@@ -1,35 +1,15 @@
-import 'package:WashWoosh/bloc/auth/login/login_bloc.dart';
-import 'package:WashWoosh/bloc/mitra/mitra_dashboard/mitra_dashboard_bloc.dart';
-import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
-import 'package:WashWoosh/bloc/auth/mitra_register/mitra_register_bloc.dart';
-import 'package:WashWoosh/bloc/user/laundry/laundry_list_bloc.dart';
-import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
-import 'package:WashWoosh/bloc/auth/user_register/user_register_bloc.dart';
-import 'package:WashWoosh/bloc/user/laundry_history/laundry_history_bloc.dart';
-import 'package:WashWoosh/bloc/user/laundry_history/laundry_history_bloc.dart';
-import 'package:WashWoosh/dummy.dart';
+import 'package:WashWoosh/bloc/bloc_providers.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/theme.dart';
-import 'package:WashWoosh/views/user/user_order_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
+  initializeDateFormatting('id');
   runApp(
     MultiBlocProvider(
-      providers: [
-        BlocProvider<LoginBloc>(create: (context) => LoginBloc()),
-        BlocProvider<UserRegisterBloc>(create: (context) => UserRegisterBloc()),
-        BlocProvider<MitraRegisterBloc>(
-            create: (context) => MitraRegisterBloc()),
-        BlocProvider<LaundryListBloc>(create: (context) => LaundryListBloc()),
-        BlocProvider<LaundryHistoryBloc>(create: (context) => LaundryHistoryBloc()),
-        BlocProvider<LaundryDetailBloc>(
-            create: (context) => LaundryDetailBloc()),
-        BlocProvider<MitraDashboardBloc>(
-            create: (context) => MitraDashboardBloc()),
-        BlocProvider<MitraDetailBloc>(create: (context) => MitraDetailBloc()),
-      ],
+      providers: BlocProviders.getProviders(),
       child: const MyApp(),
     ),
   );
@@ -55,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
         brightness: Brightness.light,
       ),
-      // home: const UserOrderHistory(),
+      // home: Scaffold(body: const LaundryListShimmer()),
     );
   }
 }

@@ -3,6 +3,8 @@ part of 'mitra_dashboard_bloc.dart';
 @immutable
 abstract class MitraDashboardState {}
 
+abstract class MitraActionState {}
+
 /*Get data state*/
 class MitraDashboardInitial extends MitraDashboardState {}
 
@@ -10,8 +12,9 @@ class MitraDashboardLoading extends MitraDashboardState {}
 
 class MitraDashboardSuccess extends MitraDashboardState {
   final List<MitraOrderData> orderList;
+  final UserData userData;
 
-  MitraDashboardSuccess(this.orderList);
+  MitraDashboardSuccess(this.orderList, this.userData);
 }
 
 class MitraDashboardFailure extends MitraDashboardState {
@@ -36,4 +39,10 @@ class MitraDashboardFetchMember extends MitraDashboardState {
   final MitraLaundryMembership users;
 
   MitraDashboardFetchMember({required this.users});
+}
+
+class SwitchToggledState extends MitraActionState {
+  final bool isSwitchOn;
+
+  SwitchToggledState(this.isSwitchOn);
 }

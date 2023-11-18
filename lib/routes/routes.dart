@@ -14,7 +14,8 @@ import 'package:WashWoosh/views/user/user_auth/user_register.dart';
 import 'package:WashWoosh/views/user/user_dashboard.dart';
 import 'package:WashWoosh/views/user/user_laundry/user_laundry_detail.dart';
 import 'package:WashWoosh/views/user/user_laundry/user_laundry_list.dart';
-import 'package:WashWoosh/views/user/user_order_history.dart';
+import 'package:WashWoosh/views/user/user_order/user_order_detail.dart';
+import 'package:WashWoosh/views/user/user_order/user_order_history.dart';
 import 'package:WashWoosh/views/user/user_profile.dart';
 import 'package:flutter/material.dart';
 
@@ -35,6 +36,7 @@ class AppRoutes {
   static const String userLaundryList = '/user-laundry-list';
   static const String userLaundryDetail = '/user-laundry-detail';
   static const String userOrderHistory = '/user-order-history';
+  static const String userOrderDetail = '/user-order-detail';
   static const String userProfile = '/user-profile';
 
   /*Mitra*/
@@ -57,6 +59,7 @@ class AppRoutes {
     userLaundryList: (context) => const LaundryList(),
     userLaundryDetail: (context) => const UserLaundryDetail(),
     userOrderHistory: (context) => const UserOrderHistory(),
+    userOrderDetail: (context) => const UserOrderDetail(),
     userProfile: (context) => const UserProfile(),
     mitraDashboard: (context) => const MitraDashboard(),
     dummy: (context) => const Dummy(),

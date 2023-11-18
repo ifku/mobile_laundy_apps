@@ -40,22 +40,58 @@ class Data {
   String apiKey;
   int rolesId;
   bool isMitra;
+  UserData user;
 
   Data({
     required this.apiKey,
     required this.rolesId,
     required this.isMitra,
+    required this.user,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     apiKey: json["api_key"],
     rolesId: json["roles_id"],
     isMitra: json["is_mitra"],
+    user: UserData.fromJson(json["user"]),
   );
 
   Map<String, dynamic> toJson() => {
     "api_key": apiKey,
     "roles_id": rolesId,
     "is_mitra": isMitra,
+    "user": user.toJson(),
+  };
+}
+
+class UserData {
+  String userId;
+  String nama;
+  String noHp;
+  String email;
+  String username;
+
+  UserData({
+    required this.userId,
+    required this.nama,
+    required this.noHp,
+    required this.email,
+    required this.username,
+  });
+
+  factory UserData.fromJson(Map<String, dynamic> json) => UserData(
+    userId: json["user_id"],
+    nama: json["nama"],
+    noHp: json["no_hp"],
+    email: json["email"],
+    username: json["username"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "user_id": userId,
+    "nama": nama,
+    "no_hp": noHp,
+    "email": email,
+    "username": username,
   };
 }

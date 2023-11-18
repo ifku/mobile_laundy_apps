@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:WashWoosh/const/api_constants.dart';
-import 'package:WashWoosh/data/models/user_laundry_model.dart';
+import 'package:WashWoosh/data/models/auth/login_model.dart';
+import 'package:WashWoosh/data/models/user/user_laundry_model.dart';
+import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
@@ -22,10 +24,11 @@ class LaundryListBloc extends Bloc<LaundryListEvent, LaundryListState> {
               "token": event.token,
             },
           );
+          final userData = await UserPreferences.getUserData();
           final data = UserLaundryModel.fromJson(json.decode(response.body));
           switch (data.code) {
             case 200:
-              emit(LaundryListSuccess(data.data));
+              emit(LaundryListSuccess(data.data, userData!));
               break;
             default:
               emit(LaundryListError("Terjadi kesalahan"));

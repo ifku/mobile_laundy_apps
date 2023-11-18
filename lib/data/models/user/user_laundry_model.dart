@@ -44,18 +44,19 @@ class LaundryData {
   String alamat;
   String noTelepon;
   String deskripsi;
-  double hargaRapi;
-  double hargaKering;
-  double hargaBasah;
-  double hargaSatuan;
+  int hargaRapi;
+  int hargaKering;
+  int hargaBasah;
+  int hargaSatuan;
   String jamBuka;
-  Gambar gambar;
+  String gambar;
   String gambarLink;
   dynamic rating;
   String ownerId;
   List<Owner> memberLaundry;
   List<Order> order;
   Owner owner;
+  bool isJoined;
 
   LaundryData({
     required this.id,
@@ -77,6 +78,7 @@ class LaundryData {
     required this.memberLaundry,
     required this.order,
     required this.owner,
+    required this.isJoined,
   });
 
   factory LaundryData.fromJson(Map<String, dynamic> json) => LaundryData(
@@ -87,18 +89,19 @@ class LaundryData {
     alamat: json["alamat"],
     noTelepon: json["no_telepon"],
     deskripsi: json["deskripsi"],
-    hargaRapi: json["harga_rapi"]?.toDouble(),
-    hargaKering: json["harga_kering"]?.toDouble(),
-    hargaBasah: json["harga_basah"]?.toDouble(),
-    hargaSatuan: json["harga_satuan"]?.toDouble(),
+    hargaRapi: json["harga_rapi"],
+    hargaKering: json["harga_kering"],
+    hargaBasah: json["harga_basah"],
+    hargaSatuan: json["harga_satuan"],
     jamBuka: json["jam_buka"],
-    gambar: gambarValues.map[json["gambar"]]!,
+    gambar: json["gambar"],
     gambarLink: json["gambar_link"],
     rating: json["rating"],
     ownerId: json["owner_id"],
     memberLaundry: List<Owner>.from(json["member_laundry"].map((x) => Owner.fromJson(x))),
     order: List<Order>.from(json["order"].map((x) => Order.fromJson(x))),
     owner: Owner.fromJson(json["owner"]),
+    isJoined: json["is_joined"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -113,28 +116,17 @@ class LaundryData {
     "harga_kering": hargaKering,
     "harga_basah": hargaBasah,
     "harga_satuan": hargaSatuan,
-    // "jam_buka": jamBukaValues.reverse[jamBuka],
-    "gambar": gambarValues.reverse[gambar],
+    "jam_buka": jamBuka,
+    "gambar": gambar,
     "gambar_link": gambarLink,
     "rating": rating,
     "owner_id": ownerId,
     "member_laundry": List<dynamic>.from(memberLaundry.map((x) => x.toJson())),
     "order": List<dynamic>.from(order.map((x) => x.toJson())),
     "owner": owner.toJson(),
+    "is_joined": isJoined,
   };
 }
-
-enum Gambar {
-  EMPTY,
-  TEST,
-  THE_20231023134834_D_W5_U_YW1_L_ZC5_WBMC_PNG
-}
-
-final gambarValues = EnumValues({
-  "": Gambar.EMPTY,
-  "test": Gambar.TEST,
-  "20231023134834dW5uYW1lZC5wbmc=.png": Gambar.THE_20231023134834_D_W5_U_YW1_L_ZC5_WBMC_PNG
-});
 
 class Owner {
   String userId;
@@ -173,7 +165,7 @@ class Order {
   DateTime tanggalPesan;
   int berat;
   int harga;
-  int isDibayar;
+  bool isDibayar;
   DateTime estimasiTanggalSelesai;
   String tanggalSelesai;
   int statusPemesananId;
@@ -214,16 +206,4 @@ class Order {
     "status_pemesanan_id": statusPemesananId,
     "mitra_laundry_id": mitraLaundryId,
   };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

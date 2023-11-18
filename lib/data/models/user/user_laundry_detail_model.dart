@@ -44,18 +44,19 @@ class LaundryDetailData {
   String alamat;
   String noTelepon;
   String deskripsi;
-  double hargaRapi;
-  double hargaKering;
-  double hargaBasah;
-  double hargaSatuan;
+  int hargaRapi;
+  int hargaKering;
+  int hargaBasah;
+  int hargaSatuan;
   String jamBuka;
   String gambar;
   String gambarLink;
-  double rating;
+  dynamic rating;
   String ownerId;
-  List<MemberLaundry> memberLaundry;
+  List<dynamic> memberLaundry;
   List<dynamic> order;
-  dynamic owner;
+  Owner owner;
+  bool isJoined;
 
   LaundryDetailData({
     required this.id,
@@ -77,6 +78,7 @@ class LaundryDetailData {
     required this.memberLaundry,
     required this.order,
     required this.owner,
+    required this.isJoined,
   });
 
   factory LaundryDetailData.fromJson(Map<String, dynamic> json) => LaundryDetailData(
@@ -87,18 +89,19 @@ class LaundryDetailData {
     alamat: json["alamat"],
     noTelepon: json["no_telepon"],
     deskripsi: json["deskripsi"],
-    hargaRapi: json["harga_rapi"]?.toDouble(),
-    hargaKering: json["harga_kering"]?.toDouble(),
-    hargaBasah: json["harga_basah"]?.toDouble(),
-    hargaSatuan: json["harga_satuan"]?.toDouble(),
+    hargaRapi: json["harga_rapi"],
+    hargaKering: json["harga_kering"],
+    hargaBasah: json["harga_basah"],
+    hargaSatuan: json["harga_satuan"],
     jamBuka: json["jam_buka"],
     gambar: json["gambar"],
     gambarLink: json["gambar_link"],
-    rating: json["rating"]?.toDouble(),
+    rating: json["rating"],
     ownerId: json["owner_id"],
-    memberLaundry: List<MemberLaundry>.from(json["member_laundry"].map((x) => MemberLaundry.fromJson(x))),
+    memberLaundry: List<dynamic>.from(json["member_laundry"].map((x) => x)),
     order: List<dynamic>.from(json["order"].map((x) => x)),
-    owner: json["owner"],
+    owner: Owner.fromJson(json["owner"]),
+    isJoined: json["is_joined"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -118,20 +121,21 @@ class LaundryDetailData {
     "gambar_link": gambarLink,
     "rating": rating,
     "owner_id": ownerId,
-    "member_laundry": List<dynamic>.from(memberLaundry.map((x) => x.toJson())),
+    "member_laundry": List<dynamic>.from(memberLaundry.map((x) => x)),
     "order": List<dynamic>.from(order.map((x) => x)),
-    "owner": owner,
+    "owner": owner.toJson(),
+    "is_joined": isJoined,
   };
 }
 
-class MemberLaundry {
+class Owner {
   String userId;
   String nama;
   String noHp;
   String email;
   String username;
 
-  MemberLaundry({
+  Owner({
     required this.userId,
     required this.nama,
     required this.noHp,
@@ -139,7 +143,7 @@ class MemberLaundry {
     required this.username,
   });
 
-  factory MemberLaundry.fromJson(Map<String, dynamic> json) => MemberLaundry(
+  factory Owner.fromJson(Map<String, dynamic> json) => Owner(
     userId: json["user_id"],
     nama: json["nama"],
     noHp: json["no_hp"],

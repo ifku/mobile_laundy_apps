@@ -1,27 +1,27 @@
 // To parse this JSON data, do
 //
-//     final mitraLaundryDetail = mitraLaundryDetailFromJson(jsonString);
+//     final userOrderHistoryDetail = userOrderHistoryDetailFromJson(jsonString);
 
 import 'dart:convert';
 
-MitraLaundryDetail mitraLaundryDetailFromJson(String str) => MitraLaundryDetail.fromJson(json.decode(str));
+UserOrderHistoryDetail userOrderHistoryDetailFromJson(String str) => UserOrderHistoryDetail.fromJson(json.decode(str));
 
-String mitraLaundryDetailToJson(MitraLaundryDetail data) => json.encode(data.toJson());
+String userOrderHistoryDetailToJson(UserOrderHistoryDetail data) => json.encode(data.toJson());
 
-class MitraLaundryDetail {
+class UserOrderHistoryDetail {
   int code;
   String message;
   Data data;
   String error;
 
-  MitraLaundryDetail({
+  UserOrderHistoryDetail({
     required this.code,
     required this.message,
     required this.data,
     required this.error,
   });
 
-  factory MitraLaundryDetail.fromJson(Map<String, dynamic> json) => MitraLaundryDetail(
+  factory UserOrderHistoryDetail.fromJson(Map<String, dynamic> json) => UserOrderHistoryDetail(
     code: json["code"],
     message: json["message"],
     data: Data.fromJson(json["data"]),
@@ -39,11 +39,11 @@ class MitraLaundryDetail {
 class Data {
   int id;
   DateTime tanggalPesan;
-  dynamic berat;
+  int berat;
   int harga;
-  int isDibayar;
+  bool isDibayar;
   DateTime estimasiTanggalSelesai;
-  dynamic tanggalSelesai;
+  String tanggalSelesai;
   int statusPemesananId;
   int mitraLaundryId;
   StatusPemesanan statusPemesanan;
@@ -136,13 +136,13 @@ class MitraLaundry {
   String alamat;
   String noTelepon;
   String deskripsi;
-  double hargaRapi;
-  double hargaKering;
-  double hargaBasah;
-  double hargaSatuan;
+  int hargaRapi;
+  int hargaKering;
+  int hargaBasah;
+  int hargaSatuan;
   String jamBuka;
   String gambar;
-  dynamic rating;
+  double rating;
   String ownerId;
 
   MitraLaundry({
@@ -171,13 +171,13 @@ class MitraLaundry {
     alamat: json["alamat"],
     noTelepon: json["no_telepon"],
     deskripsi: json["deskripsi"],
-    hargaRapi: json["harga_rapi"]?.toDouble(),
-    hargaKering: json["harga_kering"]?.toDouble(),
-    hargaBasah: json["harga_basah"]?.toDouble(),
-    hargaSatuan: json["harga_satuan"]?.toDouble(),
+    hargaRapi: json["harga_rapi"],
+    hargaKering: json["harga_kering"],
+    hargaBasah: json["harga_basah"],
+    hargaSatuan: json["harga_satuan"],
     jamBuka: json["jam_buka"],
     gambar: json["gambar"],
-    rating: json["rating"],
+    rating: json["rating"]?.toDouble(),
     ownerId: json["owner_id"],
   );
 

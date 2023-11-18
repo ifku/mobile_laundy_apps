@@ -9,8 +9,9 @@ class LaundryListLoading extends LaundryListState {}
 
 class LaundryListSuccess extends LaundryListState {
   final List<LaundryData> laundryList;
+  final UserData userData;
 
-  LaundryListSuccess(this.laundryList);
+  LaundryListSuccess(this.laundryList, this.userData);
 
 }
 
