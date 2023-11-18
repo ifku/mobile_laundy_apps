@@ -2,6 +2,7 @@ part of 'mitra_dashboard_bloc.dart';
 
 @immutable
 abstract class MitraDashboardEvent {}
+abstract class MitraActionEvent {}
 
 class AddOrderClicked extends MitraDashboardEvent {
   final String token;
@@ -25,4 +26,9 @@ class GetMitraMember extends MitraDashboardEvent {
   GetMitraMember({required this.token});
 }
 
+class ToggleSwitchClicked extends MitraActionEvent {
+  final bool isSwitchOn;
+
+  ToggleSwitchClicked({required this.isSwitchOn});
+}
 class MitraOrderListReset extends MitraDashboardEvent {}

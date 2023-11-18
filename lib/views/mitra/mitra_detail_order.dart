@@ -1,4 +1,5 @@
 import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
+import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/views/widgets/custom_detail.dart';
 import 'package:WashWoosh/views/widgets/custom_order_status.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,14 @@ class _MitraDetailOrder extends State<MitraDetailOrder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<MitraDetailBloc, MitraDetailState>(
+      body: BlocConsumer<MitraDetailBloc, MitraDetailState>(
+        listener: (context, state) {
+          if (state is MitraChangeOrderStatusSuccess) {
+            Navigator.pushNamed(context, AppRoutes.mitraDashboard);
+            BlocProvider.of<MitraDetailBloc>(context)
+                .add(ResetMitraDetailState());
+          }
+        },
         builder: (context, state) {
           if (state is MitraDetailSuccess) {
             return SingleChildScrollView(
@@ -51,6 +59,21 @@ class _MitraDetailOrder extends State<MitraDetailOrder> {
                   ],
                 ),
               ),
+            );
+          }
+          if (state is MitraDetailFailure){
+            return Center(
+              child: Text(state.errorMessage),
+            );
+          }
+          if (state is MitraChangeOrderStatusLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if(state is MitraChangeOrderStatusFailure){
+            return Center(
+              child: Text(state.errorMessage),
             );
           }
           return const Center(

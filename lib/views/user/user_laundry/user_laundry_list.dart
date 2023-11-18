@@ -9,9 +9,8 @@ import 'package:WashWoosh/const/laundry_list.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/truncate_text_ellipsis.dart';
-import 'package:WashWoosh/views/widgets/custom_user_bottom_navbar.dart';
-import 'package:WashWoosh/views/widgets/custom_filter_button.dart';
 import 'package:WashWoosh/views/widgets/custom_search_field.dart';
+import 'package:WashWoosh/views/widgets/custom_user_bottom_navbar.dart';
 import 'package:WashWoosh/views/widgets/laundry_list_container.dart';
 import 'package:WashWoosh/views/widgets/shimmer/laundry_list_shimmer.dart';
 import 'package:WashWoosh/views/widgets/user_mini_profile_card.dart';
@@ -37,10 +36,8 @@ class _LaundryListState extends State<LaundryList> {
   Future<void> initializeData() async {
     final laundryListBloc = BlocProvider.of<LaundryListBloc>(context);
     final token = await UserPreferences.getToken();
-    if (token != null) {
-      laundryListBloc.add(GetLaundryList(token: token['token']));
+    laundryListBloc.add(GetLaundryList(token: token['token']));
     }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,18 +88,28 @@ class _LaundryListState extends State<LaundryList> {
                                       .setEmailProfile(state.userData.email)
                                       .build(context)),
                               const Spacer(),
-                              ElevatedButton(
-                                  onPressed: () async {
-                                    WidgetsBinding.instance
-                                        .addPostFrameCallback((_) {
-                                      final loginBloc =
-                                          BlocProvider.of<LoginBloc>(context);
-                                      loginBloc.add(LogoutButtonPressed());
-                                      Navigator.pushReplacementNamed(
-                                          context, AppRoutes.shadowPage);
-                                    });
-                                  },
-                                  child: const Text("Logout")),
+                              IconButton(
+                                onPressed: () async {
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    final loginBloc =
+                                        BlocProvider.of<LoginBloc>(context);
+                                    loginBloc.add(LogoutButtonPressed());
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        AppRoutes.shadowPage,
+                                        (Route<dynamic> route) => false);
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.logout_rounded,
+                                  size: 25,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground
+                                      .withOpacity(0.5),
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 20),
@@ -113,10 +120,10 @@ class _LaundryListState extends State<LaundryList> {
                                     .setLabel("Cari Laundry Terdekat")
                                     .build(context),
                               ),
-                              const SizedBox(width: 20),
-                              CustomFilterButton()
-                                  .setOnPressed(() {})
-                                  .build(context),
+                              // const SizedBox(width: 20),
+                              // CustomFilterButton()
+                              //     .setOnPressed(() {})
+                              //     .build(context),
                             ],
                           ),
                           BlocBuilder<LaundryListBloc, LaundryListState>(
@@ -142,7 +149,9 @@ class _LaundryListState extends State<LaundryList> {
                                             .setAlamatLaundry(
                                                 laundryItem.alamat)
                                             .setJam("07.00 AM - 09.00 PM")
-                                            .setHarga(laundryItem.hargaRapi)
+                                            .setHarga(double.parse(laundryItem
+                                                .hargaRapi
+                                                .toString()))
                                             .setOnTap(() {
                                           _onLaundryItemTap(
                                               context, laundryItem.id);
@@ -188,13 +197,11 @@ class _LaundryListState extends State<LaundryList> {
 void _onLaundryItemTap(BuildContext context, int laundryId) async {
   final laundryListBloc = BlocProvider.of<LaundryDetailBloc>(context);
   final token = await UserPreferences.getToken();
-  if (token != null) {
-    laundryListBloc.add(
-        LaundryListItemClicked(token: token['token'], laundryId: laundryId));
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushNamed(context, AppRoutes.userLaundryDetail);
-    });
-  }
+  laundryListBloc.add(
+      LaundryListItemClicked(token: token['token'], laundryId: laundryId));
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Navigator.pushNamed(context, AppRoutes.userLaundryDetail);
+  });
 }
 
 Future<void> getOrderHistory(BuildContext context) async {

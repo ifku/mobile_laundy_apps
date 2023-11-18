@@ -4,7 +4,6 @@ import 'package:WashWoosh/const/api_constants.dart';
 import 'package:WashWoosh/data/models/auth/login_model.dart';
 import 'package:WashWoosh/data/models/mitra/mitra_laundry_membership_model.dart';
 import 'package:WashWoosh/data/models/mitra/mitra_membership_request_model.dart';
-import 'package:WashWoosh/data/models/mitra/mitra_membership_response_model.dart';
 import 'package:WashWoosh/data/models/mitra/mitra_order_model.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:bloc/bloc.dart';
@@ -43,6 +42,7 @@ class MitraDashboardBloc
               break;
           }
         } catch (error) {
+          print(error);
           emit(MitraDashboardFailure(errorMessage: error.toString()));
         }
       }
@@ -60,6 +60,9 @@ class MitraDashboardBloc
             case 200:
               emit(MitraDashboardFetchMember(users: data));
               break;
+            default:
+              emit(MitraDashboardFailure(errorMessage: "Terjadi kesalahan"));
+              break;
           }
         } catch (error) {
           emit(MitraDashboardFailure(errorMessage: error.toString()));
@@ -74,7 +77,8 @@ class MitraDashboardBloc
                   event.mitraMembershipRequestModel!.estimasiTanggalSelesai,
               customerId: event.mitraMembershipRequestModel!.customerId,
               statusPemesananId:
-                  event.mitraMembershipRequestModel!.statusPemesananId);
+                  event.mitraMembershipRequestModel!.statusPemesananId,
+              isDibayar: event.mitraMembershipRequestModel!.isDibayar);
           final response = await http.post(
               Uri.parse(ApiConstants.BASE_URL + ApiConstants.MITRA_ORDER),
               headers: {
@@ -89,7 +93,6 @@ class MitraDashboardBloc
               emit(AddOrderFailure(errorMessage: "Terjadi kesalahan"));
               break;
           }
-          print(response.body);
         } catch (error) {
           emit(AddOrderFailure(errorMessage: error.toString()));
         }
@@ -97,6 +100,16 @@ class MitraDashboardBloc
     });
     on<MitraOrderListReset>((event, emit) async {
       emit(MitraDashboardInitial());
+    });
+  }
+}
+
+class MitraActionBloc extends Bloc<MitraActionEvent, MitraActionState> {
+  MitraActionBloc() : super(SwitchToggledState(false)) {
+    on<MitraActionEvent>((event, emit) async {
+      if (event is ToggleSwitchClicked) {
+        emit(SwitchToggledState(event.isSwitchOn));
+      }
     });
   }
 }

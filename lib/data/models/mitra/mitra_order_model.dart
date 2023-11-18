@@ -12,38 +12,34 @@ class MitraOrder {
   int code;
   String message;
   List<MitraOrderData> data;
-  String error;
 
   MitraOrder({
     required this.code,
     required this.message,
     required this.data,
-    required this.error,
   });
 
   factory MitraOrder.fromJson(Map<String, dynamic> json) => MitraOrder(
     code: json["code"],
     message: json["message"],
     data: List<MitraOrderData>.from(json["data"].map((x) => MitraOrderData.fromJson(x))),
-    error: json["error"],
   );
 
   Map<String, dynamic> toJson() => {
     "code": code,
     "message": message,
     "data": List<dynamic>.from(data.map((x) => x.toJson())),
-    "error": error,
   };
 }
 
 class MitraOrderData {
   int id;
   DateTime tanggalPesan;
-  dynamic berat;
+  int berat;
   int harga;
-  int isDibayar;
+  bool isDibayar;
   DateTime estimasiTanggalSelesai;
-  dynamic tanggalSelesai;
+  String tanggalSelesai;
   int statusPemesananId;
   int mitraLaundryId;
   Customer customer;

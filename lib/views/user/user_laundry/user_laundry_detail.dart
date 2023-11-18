@@ -2,7 +2,6 @@ import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
 import 'package:WashWoosh/const/laundry_chooser_list.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:WashWoosh/routes/routes.dart';
-import 'package:WashWoosh/views/widgets/custom_button.dart';
 import 'package:WashWoosh/views/widgets/custom_join_member_button.dart';
 import 'package:WashWoosh/views/widgets/custom_outlined_button.dart';
 import 'package:WashWoosh/views/widgets/laundry_detail_chooser.dart';
@@ -74,7 +73,14 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
                       ),
                     ),
                   ),
-                  LaundryChooserList(),
+                  LaundryChooserList(
+                    prices: [
+                      state.laundryDetailData.hargaRapi,
+                      state.laundryDetailData.hargaKering,
+                      state.laundryDetailData.hargaBasah,
+                      state.laundryDetailData.hargaSatuan,
+                    ],
+                  ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -102,8 +108,7 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
             ));
           } else if (state is LaundryDetailError) {
             print("Error");
-            return const Center(
-                child: Text("Terjadi kesalahan dalam pengambilan data"));
+            return Center(child: Text(state.errorMessage));
           }
           return const Center(child: CircularProgressIndicator());
         },
@@ -113,18 +118,25 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
 }
 
 class LaundryChooserList extends StatelessWidget {
+  final List<int> prices;
+
+  const LaundryChooserList({
+    Key? key,
+    required this.prices,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: laundryChooserList.length,
+      itemCount: prices.length,
       itemBuilder: (context, index) {
         return Column(
           children: [
             LaundryDetailChooser()
                 .setLaundryLabel(laundryChooserList[index].label)
-                .setLaundryPrice(laundryChooserList[index].price),
+                .setLaundryPrice(prices[index].toDouble()),
             const SizedBox(height: 10)
           ],
         );
@@ -136,11 +148,9 @@ class LaundryChooserList extends StatelessWidget {
 void _onJoinMembershipTapped(BuildContext context, int laundryId) async {
   final laundryListBloc = BlocProvider.of<LaundryDetailBloc>(context);
   final token = await UserPreferences.getToken();
-  if (token != null) {
-    laundryListBloc.add(
-        LaundryJoinButtonClicked(token: token['token'], laundryId: laundryId));
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushReplacementNamed(context, AppRoutes.userLaundryList);
-    });
-  }
+  laundryListBloc.add(
+      LaundryJoinButtonClicked(token: token['token'], laundryId: laundryId));
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Navigator.pushReplacementNamed(context, AppRoutes.userLaundryList);
+  });
 }

@@ -2,10 +2,7 @@ import 'package:WashWoosh/data/models/auth/mitra_data.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:WashWoosh/views/widgets/custom_button.dart';
-import 'package:WashWoosh/views/widgets/custom_divider_with_text.dart';
-import 'package:WashWoosh/views/widgets/custom_google_outlined_button.dart';
 import 'package:WashWoosh/views/widgets/custom_input_field.dart';
-import 'package:WashWoosh/views/widgets/custom_text_area.dart';
 import 'package:flutter/material.dart';
 
 class MitraRegister extends StatefulWidget {
@@ -18,7 +15,6 @@ class MitraRegister extends StatefulWidget {
 class _MitraRegisterState extends State<MitraRegister> {
   TextEditingController nameController = TextEditingController();
   TextEditingController nikController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -29,7 +25,6 @@ class _MitraRegisterState extends State<MitraRegister> {
     super.dispose();
     nameController.dispose();
     nikController.dispose();
-    addressController.dispose();
     usernameController.dispose();
     emailController.dispose();
     phoneController.dispose();
@@ -56,7 +51,7 @@ class _MitraRegisterState extends State<MitraRegister> {
               color: Colors.white,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(36),
+              padding: const EdgeInsets.only(top: 36, right: 36, left: 36),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -93,15 +88,10 @@ class _MitraRegisterState extends State<MitraRegister> {
                     CustomInputField()
                         .setController(nikController)
                         .setLabel("NIK")
+                        .setKeyboardType(TextInputType.number)
                         .setLabelFontSize(15)
                         .setIcon(const Icon(Icons.credit_card_outlined))
                         .setSizedBoxHeight(20)
-                        .build(context),
-                    CustomTextArea()
-                        .setController(addressController)
-                        .setSizedBoxHeight(20)
-                        .setIcon(const Icon(Icons.location_on_outlined))
-                        .setLabel("Alamat Laundry")
                         .build(context),
                     CustomInputField()
                         .setController(phoneController)
@@ -122,6 +112,7 @@ class _MitraRegisterState extends State<MitraRegister> {
                         .setController(emailController)
                         .setLabel("Email")
                         .setLabelFontSize(15)
+                        .setKeyboardType(TextInputType.emailAddress)
                         .setIcon(const Icon(Icons.email_outlined))
                         .setSizedBoxHeight(20)
                         .build(context),
@@ -144,7 +135,6 @@ class _MitraRegisterState extends State<MitraRegister> {
                                     arguments: MitraData(
                                       name: nameController.text,
                                       nik: nikController.text,
-                                      address: addressController.text,
                                       phone: phoneController.text,
                                       username: usernameController.text,
                                       email: emailController.text,

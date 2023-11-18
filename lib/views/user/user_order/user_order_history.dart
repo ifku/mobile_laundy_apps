@@ -5,8 +5,6 @@ import 'package:WashWoosh/bloc/user/laundry_history_detail/laundry_history_detai
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/date_formatter.dart';
-import 'package:WashWoosh/views/widgets/custom_button.dart';
-import 'package:WashWoosh/views/widgets/custom_pemesanan_popup.dart';
 import 'package:WashWoosh/views/widgets/custom_user_bottom_navbar.dart';
 import 'package:WashWoosh/views/widgets/order_list_card.dart';
 import 'package:WashWoosh/views/widgets/user_mini_profile_card.dart';
@@ -21,13 +19,6 @@ class UserOrderHistory extends StatefulWidget {
 }
 
 class _UserOrderHistoryState extends State<UserOrderHistory> {
-  @override
-  void dispose() {
-    super.dispose();
-    final laundryHistoryBloc = BlocProvider.of<LaundryHistoryBloc>(context);
-    laundryHistoryBloc.close();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BottomNavigationBloc, BottomNavigationState>(
@@ -192,11 +183,9 @@ class _UserOrderHistoryState extends State<UserOrderHistory> {
 void _onOrderItemTap(BuildContext context, int laundryId) async {
   final laundryListBloc = BlocProvider.of<LaundryHistoryDetailBloc>(context);
   final token = await UserPreferences.getToken();
-  if (token != null) {
-    laundryListBloc
-        .add(OrderListItemClicked(token: token['token'], laundryId: laundryId));
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushNamed(context, AppRoutes.userOrderDetail);
-    });
-  }
+  laundryListBloc
+      .add(OrderListItemClicked(token: token['token'], laundryId: laundryId));
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Navigator.pushNamed(context, AppRoutes.userOrderDetail);
+  });
 }

@@ -29,6 +29,7 @@ class _CustomPemesananPopupState extends State<CustomPemesananPopup> {
   TextEditingController? _doneEstimationController;
   String? selectedValue;
   MitraMembershipRequestModel? mitraMembershipRequestModel;
+  bool isDibayar = false;
 
   @override
   void initState() {
@@ -95,14 +96,14 @@ class _CustomPemesananPopupState extends State<CustomPemesananPopup> {
                   onChanged: (String? value) {
                     if (value != null) {
                       setState(() {
-                        selectedValue = value; // Update the selectedValue
+                        selectedValue = value;
                       });
                     }
                   },
                   onSaved: (value) {
                     if (value != null) {
                       setState(() {
-                        selectedValue = value; // Update the selectedValue
+                        selectedValue = value;
                       });
                     }
                   },
@@ -128,9 +129,19 @@ class _CustomPemesananPopupState extends State<CustomPemesananPopup> {
                         .build(context),
                   ),
                 ),
-                CustomSwitcherWithText(
-                  value: false,
-                  onSwitch: (value) {
+                BlocBuilder<MitraActionBloc, MitraActionState>(
+                  builder: (context, state) {
+                    if (state is SwitchToggledState) {
+                      isDibayar = state.isSwitchOn;
+                      return CustomSwitcherWithText(
+                        value: state.isSwitchOn,
+                        onSwitch: (value) {
+                          BlocProvider.of<MitraActionBloc>(context)
+                              .add(ToggleSwitchClicked(isSwitchOn: value));
+                        },
+                      );
+                    }
+                    return Container();
                   },
                 ),
                 CustomButton().setLabel("Tambah Pesanan").setOnPressed(() {
@@ -138,7 +149,8 @@ class _CustomPemesananPopupState extends State<CustomPemesananPopup> {
                       harga: _priceController!.text,
                       estimasiTanggalSelesai: _doneEstimationController!.text,
                       customerId: selectedValue.toString(),
-                      statusPemesananId: "1");
+                      statusPemesananId: "1",
+                      isDibayar: isDibayar);
                   addOrder(mitraMembershipRequestModel);
                   _priceController?.clear();
                   _doneEstimationController?.clear();
@@ -159,13 +171,11 @@ class _CustomPemesananPopupState extends State<CustomPemesananPopup> {
       firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     ))!;
-    if (picked != null) {
-      setState(() {
-        _doneEstimationController!.text = picked.toLocal().toString();
-        widget.onDateSelected(picked);
-      });
+    setState(() {
+      _doneEstimationController!.text = picked.toLocal().toString();
+      widget.onDateSelected(picked);
+    });
     }
-  }
 
   Future<void> addOrder(
       MitraMembershipRequestModel? mitraMembershipRequestModel) async {

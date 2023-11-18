@@ -41,7 +41,7 @@ class Data {
   DateTime tanggalPesan;
   dynamic berat;
   int harga;
-  int isDibayar;
+  bool isDibayar;
   DateTime estimasiTanggalSelesai;
   dynamic tanggalSelesai;
   int statusPemesananId;

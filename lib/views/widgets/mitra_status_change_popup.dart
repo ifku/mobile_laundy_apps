@@ -1,19 +1,17 @@
 import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
-import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:WashWoosh/views/widgets/custom_button.dart';
+import 'package:WashWoosh/views/widgets/custom_switcher_with_text.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MitraStatusChangePopup extends StatefulWidget {
-
   final int laundryId;
   final int currentStatus;
 
-  MitraStatusChangePopup({
+  const MitraStatusChangePopup({super.key,
     required this.laundryId,
     required this.currentStatus,
   });
@@ -24,6 +22,7 @@ class MitraStatusChangePopup extends StatefulWidget {
 
 class _MitraStatusChangePopupState extends State<MitraStatusChangePopup> {
   String selectedValue = "";
+  bool isDibayar = false;
 
   @override
   Widget build(BuildContext context) {
@@ -99,12 +98,26 @@ class _MitraStatusChangePopupState extends State<MitraStatusChangePopup> {
                     });
                   },
                 ),
-                const SizedBox(height: 30),
+                BlocBuilder<MitraDetailActionBloc, MitraDetailActionState>(
+                  builder: (context, state) {
+                    if (state is DetailSwitchToggledState) {
+                      isDibayar = state.isSwitchOn;
+                      return CustomSwitcherWithText(
+                        value: state.isSwitchOn,
+                        onSwitch: (value) {
+                          BlocProvider.of<MitraDetailActionBloc>(context).add(
+                              DetailToggleSwitchClicked(isSwitchOn: value));
+                        },
+                      );
+                    }
+                    return Container();
+                  },
+                ),
                 CustomButton().setLabel("Ubah Status").setOnPressed(() {
                   selectedValue = checkStatus(selectedValue);
-                  changeStatus(
-                      context, widget.laundryId, int.parse(selectedValue));
-                  // Navigator.pop(context);
+                  changeStatus(context, widget.laundryId,
+                      int.parse(selectedValue), isDibayar);
+                  Navigator.pop(context);
                 }).build(context)
               ],
             ),
@@ -116,18 +129,14 @@ class _MitraStatusChangePopupState extends State<MitraStatusChangePopup> {
 }
 
 void changeStatus(
-    BuildContext context, int laundryId, int selectedValue) async {
+    BuildContext context, int laundryId, int status, bool isDibayar) async {
   final token = await UserPreferences.getToken();
   final changeStatusBloc = BlocProvider.of<MitraDetailBloc>(context);
   changeStatusBloc.add(OrderStatusChanged(
-      token: token['token']!, laundryId: laundryId, status: selectedValue));
-  changeStatusBloc.stream.listen((state) {
-    if (state is MitraChangeOrderStatusSuccess) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushReplacementNamed(context, AppRoutes.mitraDashboard);
-      });
-    }
-  });
+      token: token['token']!,
+      laundryId: laundryId,
+      status: status,
+      isDibayar: isDibayar));
 }
 
 String checkStatus(String selectedValue) {

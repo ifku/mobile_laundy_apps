@@ -9,6 +9,7 @@ class CustomOrderStatus extends StatelessWidget {
   CustomOrderStatus(
       {super.key, required this.orderId, required this.currentStatus});
 
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 190,

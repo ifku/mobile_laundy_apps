@@ -1,6 +1,5 @@
 import 'package:WashWoosh/bloc/user/laundry_history_detail/laundry_history_detail_bloc.dart';
 import 'package:WashWoosh/views/widgets/custom_detail.dart';
-import 'package:WashWoosh/views/widgets/custom_order_status.dart';
 import 'package:WashWoosh/views/widgets/custom_user_order_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,15 +12,6 @@ class UserOrderDetail extends StatefulWidget {
 }
 
 class _UserOrderDetail extends State<UserOrderDetail> {
-  @override
-  void dispose() {
-    super.dispose();
-    print("dispose");
-    final laundryHistoryDetailBloc =
-        BlocProvider.of<LaundryHistoryDetailBloc>(context);
-    laundryHistoryDetailBloc.add(ResetLaundryHistoryDetailEvent());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,8 +58,13 @@ class _UserOrderDetail extends State<UserOrderDetail> {
               child: CircularProgressIndicator(),
             );
           }
+          if (state is LaundryHistoryDetailFailure){
+            return Center(
+              child: Text(state.errorMessage),
+            );
+          }
           return const Center(
-            child: const Text("Tidak ada data!"),
+            child: Text("Tidak ada data!"),
           );
         },
       ),

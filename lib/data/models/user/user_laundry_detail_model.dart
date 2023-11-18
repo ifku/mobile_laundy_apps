@@ -51,9 +51,9 @@ class LaundryDetailData {
   String jamBuka;
   String gambar;
   String gambarLink;
-  double rating;
+  dynamic rating;
   String ownerId;
-  List<Owner> memberLaundry;
+  List<dynamic> memberLaundry;
   List<dynamic> order;
   Owner owner;
   bool isJoined;
@@ -96,9 +96,9 @@ class LaundryDetailData {
     jamBuka: json["jam_buka"],
     gambar: json["gambar"],
     gambarLink: json["gambar_link"],
-    rating: json["rating"]?.toDouble(),
+    rating: json["rating"],
     ownerId: json["owner_id"],
-    memberLaundry: List<Owner>.from(json["member_laundry"].map((x) => Owner.fromJson(x))),
+    memberLaundry: List<dynamic>.from(json["member_laundry"].map((x) => x)),
     order: List<dynamic>.from(json["order"].map((x) => x)),
     owner: Owner.fromJson(json["owner"]),
     isJoined: json["is_joined"],
@@ -121,7 +121,7 @@ class LaundryDetailData {
     "gambar_link": gambarLink,
     "rating": rating,
     "owner_id": ownerId,
-    "member_laundry": List<dynamic>.from(memberLaundry.map((x) => x.toJson())),
+    "member_laundry": List<dynamic>.from(memberLaundry.map((x) => x)),
     "order": List<dynamic>.from(order.map((x) => x)),
     "owner": owner.toJson(),
     "is_joined": isJoined,

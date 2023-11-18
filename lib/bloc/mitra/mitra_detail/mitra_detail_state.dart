@@ -2,6 +2,7 @@ part of 'mitra_detail_bloc.dart';
 
 @immutable
 abstract class MitraDetailState {}
+abstract class MitraDetailActionState {}
 
 class MitraDetailInitial extends MitraDetailState {}
 
@@ -23,4 +24,10 @@ class MitraChangeOrderStatusFailure extends MitraDetailState{
   final String errorMessage;
 
   MitraChangeOrderStatusFailure(this.errorMessage);
+}
+
+class DetailSwitchToggledState extends MitraDetailActionState {
+  final bool isSwitchOn;
+
+  DetailSwitchToggledState(this.isSwitchOn);
 }

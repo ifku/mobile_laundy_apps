@@ -35,13 +35,6 @@ class _MitraDashboardState extends State<MitraDashboard> {
   List<MitraLaundryMembershipData> namaMember = [];
 
   @override
-  void dispose() {
-    super.dispose();
-    final mitraOrderBloc = BlocProvider.of<MitraDashboardBloc>(context);
-    mitraOrderBloc.close();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<MitraDashboardBloc, MitraDashboardState>(
       builder: (context, state) {
@@ -83,18 +76,27 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                         .build(context),
                                   ),
                                 ),
-                                ElevatedButton(
+                                IconButton(
                                   onPressed: () async {
                                     WidgetsBinding.instance
                                         .addPostFrameCallback((_) {
                                       final loginBloc =
                                           BlocProvider.of<LoginBloc>(context);
                                       loginBloc.add(LogoutButtonPressed());
-                                      Navigator.pushReplacementNamed(
-                                          context, AppRoutes.shadowPage);
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          AppRoutes.shadowPage,
+                                          (Route<dynamic> route) => false);
                                     });
                                   },
-                                  child: const Text("Logout"),
+                                  icon: Icon(
+                                    Icons.logout_rounded,
+                                    size: 25,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground
+                                        .withOpacity(0.5),
+                                  ),
                                 ),
                               ],
                             ),
@@ -107,16 +109,6 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                         fontFamily: "Lato",
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold)),
-                                /*InkWell(
-                                  onTap: () {},
-                                  child: Text(
-                                    "Lihat Semua",
-                                    style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
-                                  ),
-                                ),*/
                               ],
                             ),
                           ],
@@ -191,6 +183,13 @@ class _MitraDashboardState extends State<MitraDashboard> {
         if (state is AddOrderSuccess) {
           fetchOrderList();
         }
+        if (state is AddOrderFailure) {
+          return Scaffold(
+            body: Center(
+              child: Text(state.errorMessage),
+            ),
+          );
+        }
         return const Scaffold(body: Center(child: CircularProgressIndicator()));
       },
     );
@@ -211,12 +210,11 @@ class _MitraDashboardState extends State<MitraDashboard> {
   void _onOrderItemTap(BuildContext context, int laundryId) async {
     final laundryListBloc = BlocProvider.of<MitraDetailBloc>(context);
     final token = await UserPreferences.getToken();
-    if (token != null) {
-      laundryListBloc.add(
-          OrderListItemClicked(token: token['token'], laundryId: laundryId));
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushNamed(context, AppRoutes.mitraDetailOrder);
-      });
-    }
+    print(laundryId);
+    laundryListBloc
+        .add(OrderListItemClicked(token: token['token'], laundryId: laundryId));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.pushNamed(context, AppRoutes.mitraDetailOrder);
+    });
   }
 }

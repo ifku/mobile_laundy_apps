@@ -8,6 +8,7 @@ class UserPreferences {
   static const String isMitra = 'is_mitra';
   static const String userDataKey = 'user_data';
 
+
   static Future<void> saveToken(String token, bool is_mitra) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(tokenKey, token);
