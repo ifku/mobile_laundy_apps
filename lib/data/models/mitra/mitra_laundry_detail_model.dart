@@ -140,8 +140,8 @@ class MitraLaundry {
   double hargaKering;
   double hargaBasah;
   double hargaSatuan;
-  String jamBuka;
-  String gambar;
+  dynamic jamBuka;
+  dynamic gambar;
   dynamic rating;
   String ownerId;
 

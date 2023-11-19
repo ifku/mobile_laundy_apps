@@ -1,6 +1,9 @@
 import 'package:WashWoosh/bloc/bloc_providers.dart';
+import 'package:WashWoosh/dummy.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/theme.dart';
+import 'package:WashWoosh/views/widgets/custom_detail.dart';
+import 'package:WashWoosh/views/widgets/custom_order_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
         ),
         brightness: Brightness.light,
       ),
-      // home: Scaffold(body: const LaundryListShimmer()),
+      // home: Scaffold(body: Center(child: CustomDetail(tanggalPemesanan: '2021-10-20', estimasiPemesanan: '2021-10-20', hargaTotal: 20000, isDibayar: true,))),
     );
   }
 }

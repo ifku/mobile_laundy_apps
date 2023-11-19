@@ -11,9 +11,7 @@ class BottomNavigationBloc
     extends Bloc<BottomNavigationEvent, BottomNavigationState> {
   BottomNavigationBloc() : super(BottomNavigationInitial(0)) {
     on<BottomNavigationItemClicked>((event, emit) {
-      if (event is BottomNavigationItemClicked) {
-        emit(BottomNavigationInitial(event.index));
-      }
+      emit(BottomNavigationInitial(event.index));
     });
   }
 }

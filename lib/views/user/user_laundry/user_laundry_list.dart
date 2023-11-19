@@ -37,7 +37,7 @@ class _LaundryListState extends State<LaundryList> {
     final laundryListBloc = BlocProvider.of<LaundryListBloc>(context);
     final token = await UserPreferences.getToken();
     laundryListBloc.add(GetLaundryList(token: token['token']));
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,46 +126,76 @@ class _LaundryListState extends State<LaundryList> {
                               //     .build(context),
                             ],
                           ),
-                          BlocBuilder<LaundryListBloc, LaundryListState>(
-                            builder: (context, state) {
-                              if (state is LaundryListSuccess) {
-                                return ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: state.laundryList.length,
-                                  itemBuilder: (context, index) {
-                                    final laundryItem =
-                                        state.laundryList[index];
-                                    return Column(
-                                      children: [
-                                        LaundryListContainer()
-                                            .setNamaLaundry(
-                                                TruncateTextWithEllipsis
-                                                    .truncateWithEllipsis(
-                                                        laundryItem.nama, 20))
-                                            .setImageLaundry(
-                                                laundryList[randomIndex]
-                                                    .imageLaundry)
-                                            .setAlamatLaundry(
-                                                laundryItem.alamat)
-                                            .setJam("07.00 AM - 09.00 PM")
-                                            .setHarga(double.parse(laundryItem
-                                                .hargaRapi
-                                                .toString()))
-                                            .setOnTap(() {
-                                          _onLaundryItemTap(
-                                              context, laundryItem.id);
-                                        }).build(context),
-                                        const SizedBox(height: 20),
-                                      ],
-                                    );
-                                  },
-                                );
-                              } else {
-                                return const Center(
-                                  child: Text('Tidak ada data.'),
-                                );
-                              }
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: state.laundryList.length,
+                            itemBuilder: (context, index) {
+                              final laundryItem = state.laundryList[index];
+                              return Column(
+                                children: [
+                                  LaundryListContainer()
+                                      .setNamaLaundry(TruncateTextWithEllipsis
+                                          .truncateWithEllipsis(
+                                              laundryItem.nama, 20))
+                                      .setImageLaundry(
+                                          laundryList[randomIndex].imageLaundry)
+                                      .setAlamatLaundry(laundryItem.alamat)
+                                      .setJam("07.00 AM - 09.00 PM")
+                                      .setHarga(double.parse(
+                                          laundryItem.hargaRapi.toString()))
+                                      .setOnTap(() {
+                                    _onLaundryItemTap(context, laundryItem.id);
+                                  }).build(context),
+                                  const SizedBox(height: 20),
+                                ],
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                if (state is LaundryListFiltered) {
+                  return SingleChildScrollView(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 14, right: 14, top: 50),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Hasil Pencarian",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: state.filteredLaundryList.length,
+                            itemBuilder: (context, index) {
+                              final laundryItem =
+                                  state.filteredLaundryList[index];
+                              return Column(
+                                children: [
+                                  LaundryListContainer()
+                                      .setNamaLaundry(TruncateTextWithEllipsis
+                                          .truncateWithEllipsis(
+                                              laundryItem.nama, 20))
+                                      .setImageLaundry(
+                                          laundryList[randomIndex].imageLaundry)
+                                      .setAlamatLaundry(laundryItem.alamat)
+                                      .setJam("07.00 AM - 09.00 PM")
+                                      .setHarga(double.parse(
+                                          laundryItem.hargaRapi.toString()))
+                                      .setOnTap(() {
+                                    _onLaundryItemTap(context, laundryItem.id);
+                                  }).build(context),
+                                  const SizedBox(height: 20),
+                                ],
+                              );
                             },
                           ),
                         ],
@@ -197,8 +227,8 @@ class _LaundryListState extends State<LaundryList> {
 void _onLaundryItemTap(BuildContext context, int laundryId) async {
   final laundryListBloc = BlocProvider.of<LaundryDetailBloc>(context);
   final token = await UserPreferences.getToken();
-  laundryListBloc.add(
-      LaundryListItemClicked(token: token['token'], laundryId: laundryId));
+  laundryListBloc
+      .add(LaundryListItemClicked(token: token['token'], laundryId: laundryId));
   WidgetsBinding.instance.addPostFrameCallback((_) {
     Navigator.pushNamed(context, AppRoutes.userLaundryDetail);
   });
