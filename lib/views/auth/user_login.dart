@@ -15,10 +15,10 @@ class UserLogin extends StatefulWidget {
   State<UserLogin> createState() => _UserLoginState();
 }
 
-
 class _UserLoginState extends State<UserLogin> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final _formState = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -69,101 +69,122 @@ class _UserLoginState extends State<UserLogin> {
                         padding:
                             const EdgeInsets.only(top: 36, left: 36, right: 36),
                         child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Hai, Selamat Datang!",
-                                style: TextStyle(
-                                  fontFamily: "Lato",
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                "Mohon isi semua kolom dengan benar",
-                                style: TextStyle(
-                                  fontFamily: "Inter",
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 12,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground
-                                      .withOpacity(0.5),
-                                ),
-                              ),
-                              const SizedBox(height: 15),
-                              CustomInputField()
-                                  .setController(nameController)
-                                  .setLabel("Email/Username")
-                                  .setLabelFontSize(15)
-                                  .setIcon(const Icon(Icons.email_outlined))
-                                  .setSizedBoxHeight(20)
-                                  .build(context),
-                              CustomInputField()
-                                  .setController(passwordController)
-                                  .setLabel("Password")
-                                  .setIcon(const Icon(Icons.lock_outline))
-                                  .setLabelFontSize(15)
-                                  .setObscureText(true)
-                                  .build(context),
-                              const SizedBox(height: 20),
-                              CustomButton()
-                                  .setOnPressed(() {
-                                    BlocProvider.of<LoginBloc>(context).add(
-                                      LoginButtonPressed(
-                                        username: nameController.text,
-                                        password: passwordController.text,
-                                      ),
-                                    );
-                                  })
-                                  .setLabel("Masuk")
-                                  .setSizedBoxHeight(20)
-                                  .build(context),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                            physics: const BouncingScrollPhysics(),
+                            child: Form(
+                              key: _formState,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Akunnya belum ada nih, mau",
+                                    "Hai, Selamat Datang!",
+                                    style: TextStyle(
+                                      fontFamily: "Lato",
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    "Mohon isi semua kolom dengan benar",
                                     style: TextStyle(
                                       fontFamily: "Inter",
-                                      fontSize: 13,
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 12,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onBackground
                                           .withOpacity(0.5),
                                     ),
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      WidgetsBinding.instance
-                                          .addPostFrameCallback((_) {
-                                        Navigator.of(context)
-                                            .pushReplacementNamed(
-                                                AppRoutes.welcomeScreen);
-                                      });
-                                    },
-                                    child: Text(
-                                      " Daftar ?",
-                                      style: TextStyle(
-                                        fontFamily: "Inter",
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
+                                  const SizedBox(height: 15),
+                                  CustomInputField()
+                                      .setValidator((value) {
+                                        if (value!.isEmpty) {
+                                          return "Email atau username tidak boleh kosong";
+                                        }
+                                        return null;
+                                      })
+                                      .setController(nameController)
+                                      .setLabel("Email/Username")
+                                      .setLabelFontSize(15)
+                                      .setIcon(const Icon(Icons.email_outlined))
+                                      .setSizedBoxHeight(20)
+                                      .build(context),
+                                  CustomInputField()
+                                      .setController(passwordController)
+                                      .setValidator((value) {
+                                        if (value!.isEmpty) {
+                                          return "Password tidak boleh kosong";
+                                        } else if (value.length < 4) {
+                                          return "Password tidak boleh kurang dari 4 karakter";
+                                        }
+                                        return null;
+                                      })
+                                      .setLabel("Password")
+                                      .setIcon(const Icon(Icons.lock_outline))
+                                      .setLabelFontSize(15)
+                                      .setObscureText(true)
+                                      .build(context),
+                                  const SizedBox(height: 20),
+                                  CustomButton()
+                                      .setOnPressed(() {
+                                        if (_formState.currentState!
+                                            .validate()) {
+                                          BlocProvider.of<LoginBloc>(context)
+                                              .add(
+                                            LoginButtonPressed(
+                                              username: nameController.text,
+                                              password: passwordController.text,
+                                            ),
+                                          );
+                                        }
+                                      })
+                                      .setLabel("Masuk")
+                                      .setSizedBoxHeight(20)
+                                      .build(context),
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Akunnya belum ada nih, mau",
+                                        style: TextStyle(
+                                          fontFamily: "Inter",
+                                          fontSize: 13,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onBackground
+                                              .withOpacity(0.5),
+                                        ),
                                       ),
-                                    ),
+                                      InkWell(
+                                        onTap: () {
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) {
+                                            Navigator.of(context)
+                                                .pushReplacementNamed(
+                                                    AppRoutes.welcomeScreen);
+                                          });
+                                        },
+                                        child: Text(
+                                          " Daftar ?",
+                                          style: TextStyle(
+                                            fontFamily: "Inter",
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
+                            )),
                       ),
                     ),
                   ],
