@@ -19,7 +19,8 @@ class MitraRegisterBloc extends Bloc<MitraRegisterEvent, MitraRegisterState> {
               Uri.parse(ApiConstants.BASE_URL + ApiConstants.REGISTER),
               body: mitraRegisterRequestModel.toJson());
           print(mitraRegisterRequestModel.toJson());
-          // print(response.body);
+          print(response.body);
+          print(response.statusCode);
           switch (response.statusCode) {
             case 200:
               emit(MitraRegisterSuccess());

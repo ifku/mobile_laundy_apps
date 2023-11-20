@@ -143,7 +143,7 @@ class _LaundryListState extends State<LaundryList> {
                                       .setAlamatLaundry(laundryItem.alamat)
                                       .setJam("07.00 AM - 09.00 PM")
                                       .setHarga(double.parse(
-                                          laundryItem.hargaRapi.toString()))
+                                          laundryItem.hargaMulai.toString()))
                                       .setOnTap(() {
                                     _onLaundryItemTap(context, laundryItem.id);
                                   }).build(context),
@@ -189,7 +189,7 @@ class _LaundryListState extends State<LaundryList> {
                                       .setAlamatLaundry(laundryItem.alamat)
                                       .setJam("07.00 AM - 09.00 PM")
                                       .setHarga(double.parse(
-                                          laundryItem.hargaRapi.toString()))
+                                          laundryItem.hargaMulai.toString()))
                                       .setOnTap(() {
                                     _onLaundryItemTap(context, laundryItem.id);
                                   }).build(context),

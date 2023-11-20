@@ -48,10 +48,11 @@ class LaundryData {
   int hargaKering;
   int hargaBasah;
   int hargaSatuan;
+  int hargaMulai;
   String jamBuka;
-  String gambar;
+  Gambar gambar;
   String gambarLink;
-  dynamic rating;
+  double rating;
   String ownerId;
   List<Owner> memberLaundry;
   List<Order> order;
@@ -70,6 +71,7 @@ class LaundryData {
     required this.hargaKering,
     required this.hargaBasah,
     required this.hargaSatuan,
+    required this.hargaMulai,
     required this.jamBuka,
     required this.gambar,
     required this.gambarLink,
@@ -93,10 +95,11 @@ class LaundryData {
     hargaKering: json["harga_kering"],
     hargaBasah: json["harga_basah"],
     hargaSatuan: json["harga_satuan"],
+    hargaMulai: json["harga_mulai"],
     jamBuka: json["jam_buka"],
-    gambar: json["gambar"],
+    gambar: gambarValues.map[json["gambar"]]!,
     gambarLink: json["gambar_link"],
-    rating: json["rating"],
+    rating: json["rating"]?.toDouble(),
     ownerId: json["owner_id"],
     memberLaundry: List<Owner>.from(json["member_laundry"].map((x) => Owner.fromJson(x))),
     order: List<Order>.from(json["order"].map((x) => Order.fromJson(x))),
@@ -116,8 +119,9 @@ class LaundryData {
     "harga_kering": hargaKering,
     "harga_basah": hargaBasah,
     "harga_satuan": hargaSatuan,
+    "harga_mulai": hargaMulai,
     "jam_buka": jamBuka,
-    "gambar": gambar,
+    "gambar": gambarValues.reverse[gambar],
     "gambar_link": gambarLink,
     "rating": rating,
     "owner_id": ownerId,
@@ -127,6 +131,20 @@ class LaundryData {
     "is_joined": isJoined,
   };
 }
+
+enum Gambar {
+  ASDASDA,
+  EMPTY,
+  TEST,
+  THE_20231023134834_D_W5_U_YW1_L_ZC5_WBMC_PNG
+}
+
+final gambarValues = EnumValues({
+  "asdasda": Gambar.ASDASDA,
+  "": Gambar.EMPTY,
+  "test": Gambar.TEST,
+  "20231023134834dW5uYW1lZC5wbmc=.png": Gambar.THE_20231023134834_D_W5_U_YW1_L_ZC5_WBMC_PNG
+});
 
 class Owner {
   String userId;
@@ -206,4 +224,16 @@ class Order {
     "status_pemesanan_id": statusPemesananId,
     "mitra_laundry_id": mitraLaundryId,
   };
+}
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

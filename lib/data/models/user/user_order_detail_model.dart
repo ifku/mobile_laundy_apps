@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-UserOrderHistoryDetail userOrderHistoryDetailFromJson(String str) => UserOrderHistoryDetail.fromJson(json.decode(str));
+UserOrderHistoryDetail userOrderHistoryDetailFromJson(String str) =>
+    UserOrderHistoryDetail.fromJson(json.decode(str));
 
-String userOrderHistoryDetailToJson(UserOrderHistoryDetail data) => json.encode(data.toJson());
+String userOrderHistoryDetailToJson(UserOrderHistoryDetail data) =>
+    json.encode(data.toJson());
 
 class UserOrderHistoryDetail {
   int code;
@@ -21,19 +23,20 @@ class UserOrderHistoryDetail {
     required this.error,
   });
 
-  factory UserOrderHistoryDetail.fromJson(Map<String, dynamic> json) => UserOrderHistoryDetail(
-    code: json["code"],
-    message: json["message"],
-    data: Data.fromJson(json["data"]),
-    error: json["error"],
-  );
+  factory UserOrderHistoryDetail.fromJson(Map<String, dynamic> json) =>
+      UserOrderHistoryDetail(
+        code: json["code"],
+        message: json["message"],
+        data: Data.fromJson(json["data"]),
+        error: json["error"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "code": code,
-    "message": message,
-    "data": data.toJson(),
-    "error": error,
-  };
+        "code": code,
+        "message": message,
+        "data": data.toJson(),
+        "error": error,
+      };
 }
 
 class Data {
@@ -66,34 +69,35 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    id: json["id"],
-    tanggalPesan: DateTime.parse(json["tanggal_pesan"]),
-    berat: json["berat"],
-    harga: json["harga"],
-    isDibayar: json["is_dibayar"],
-    estimasiTanggalSelesai: DateTime.parse(json["estimasi_tanggal_selesai"]),
-    tanggalSelesai: json["tanggal_selesai"],
-    statusPemesananId: json["status_pemesanan_id"],
-    mitraLaundryId: json["mitra_laundry_id"],
-    statusPemesanan: StatusPemesanan.fromJson(json["status_pemesanan"]),
-    mitraLaundry: MitraLaundry.fromJson(json["mitra_laundry"]),
-    customer: Customer.fromJson(json["customer"]),
-  );
+        id: json["id"],
+        tanggalPesan: DateTime.parse(json["tanggal_pesan"]),
+        berat: json["berat"],
+        harga: json["harga"],
+        isDibayar: json["is_dibayar"],
+        estimasiTanggalSelesai:
+            DateTime.parse(json["estimasi_tanggal_selesai"]),
+        tanggalSelesai: json["tanggal_selesai"],
+        statusPemesananId: json["status_pemesanan_id"],
+        mitraLaundryId: json["mitra_laundry_id"],
+        statusPemesanan: StatusPemesanan.fromJson(json["status_pemesanan"]),
+        mitraLaundry: MitraLaundry.fromJson(json["mitra_laundry"]),
+        customer: Customer.fromJson(json["customer"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "tanggal_pesan": tanggalPesan.toIso8601String(),
-    "berat": berat,
-    "harga": harga,
-    "is_dibayar": isDibayar,
-    "estimasi_tanggal_selesai": estimasiTanggalSelesai.toIso8601String(),
-    "tanggal_selesai": tanggalSelesai,
-    "status_pemesanan_id": statusPemesananId,
-    "mitra_laundry_id": mitraLaundryId,
-    "status_pemesanan": statusPemesanan.toJson(),
-    "mitra_laundry": mitraLaundry.toJson(),
-    "customer": customer.toJson(),
-  };
+        "id": id,
+        "tanggal_pesan": tanggalPesan.toIso8601String(),
+        "berat": berat,
+        "harga": harga,
+        "is_dibayar": isDibayar,
+        "estimasi_tanggal_selesai": estimasiTanggalSelesai.toIso8601String(),
+        "tanggal_selesai": tanggalSelesai,
+        "status_pemesanan_id": statusPemesananId,
+        "mitra_laundry_id": mitraLaundryId,
+        "status_pemesanan": statusPemesanan.toJson(),
+        "mitra_laundry": mitraLaundry.toJson(),
+        "customer": customer.toJson(),
+      };
 }
 
 class Customer {
@@ -112,20 +116,20 @@ class Customer {
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
-    userId: json["user_id"],
-    nama: json["nama"],
-    noHp: json["no_hp"],
-    email: json["email"],
-    username: json["username"],
-  );
+        userId: json["user_id"],
+        nama: json["nama"],
+        noHp: json["no_hp"],
+        email: json["email"],
+        username: json["username"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "user_id": userId,
-    "nama": nama,
-    "no_hp": noHp,
-    "email": email,
-    "username": username,
-  };
+        "user_id": userId,
+        "nama": nama,
+        "no_hp": noHp,
+        "email": email,
+        "username": username,
+      };
 }
 
 class MitraLaundry {
@@ -140,8 +144,8 @@ class MitraLaundry {
   int hargaKering;
   int hargaBasah;
   int hargaSatuan;
-  String jamBuka;
-  String gambar;
+  dynamic jamBuka;
+  dynamic gambar;
   double rating;
   String ownerId;
 
@@ -164,40 +168,40 @@ class MitraLaundry {
   });
 
   factory MitraLaundry.fromJson(Map<String, dynamic> json) => MitraLaundry(
-    id: json["id"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    nama: json["nama"],
-    alamat: json["alamat"],
-    noTelepon: json["no_telepon"],
-    deskripsi: json["deskripsi"],
-    hargaRapi: json["harga_rapi"],
-    hargaKering: json["harga_kering"],
-    hargaBasah: json["harga_basah"],
-    hargaSatuan: json["harga_satuan"],
-    jamBuka: json["jam_buka"],
-    gambar: json["gambar"],
-    rating: json["rating"]?.toDouble(),
-    ownerId: json["owner_id"],
-  );
+        id: json["id"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        nama: json["nama"],
+        alamat: json["alamat"],
+        noTelepon: json["no_telepon"],
+        deskripsi: json["deskripsi"],
+        hargaRapi: json["harga_rapi"],
+        hargaKering: json["harga_kering"],
+        hargaBasah: json["harga_basah"],
+        hargaSatuan: json["harga_satuan"],
+        jamBuka: json["jam_buka"],
+        gambar: json["gambar"],
+        rating: json["rating"]?.toDouble(),
+        ownerId: json["owner_id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "nama": nama,
-    "alamat": alamat,
-    "no_telepon": noTelepon,
-    "deskripsi": deskripsi,
-    "harga_rapi": hargaRapi,
-    "harga_kering": hargaKering,
-    "harga_basah": hargaBasah,
-    "harga_satuan": hargaSatuan,
-    "jam_buka": jamBuka,
-    "gambar": gambar,
-    "rating": rating,
-    "owner_id": ownerId,
-  };
+        "id": id,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "nama": nama,
+        "alamat": alamat,
+        "no_telepon": noTelepon,
+        "deskripsi": deskripsi,
+        "harga_rapi": hargaRapi,
+        "harga_kering": hargaKering,
+        "harga_basah": hargaBasah,
+        "harga_satuan": hargaSatuan,
+        "jam_buka": jamBuka,
+        "gambar": gambar,
+        "rating": rating,
+        "owner_id": ownerId,
+      };
 }
 
 class StatusPemesanan {
@@ -209,13 +213,14 @@ class StatusPemesanan {
     required this.nama,
   });
 
-  factory StatusPemesanan.fromJson(Map<String, dynamic> json) => StatusPemesanan(
-    id: json["id"],
-    nama: json["nama"],
-  );
+  factory StatusPemesanan.fromJson(Map<String, dynamic> json) =>
+      StatusPemesanan(
+        id: json["id"],
+        nama: json["nama"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "nama": nama,
-  };
+        "id": id,
+        "nama": nama,
+      };
 }

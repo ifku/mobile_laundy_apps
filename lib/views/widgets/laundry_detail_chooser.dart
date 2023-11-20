@@ -5,6 +5,8 @@ class LaundryDetailChooser extends StatefulWidget {
   String _laundryLabel = "Label";
   double _laundryPrice = 0;
 
+  LaundryDetailChooser({super.key});
+
   LaundryDetailChooser setLaundryLabel(String label) {
     _laundryLabel = label;
     return this;
@@ -47,23 +49,25 @@ class _LaundryDetailChooserState extends State<LaundryDetailChooser> {
                   color: _isSelected
                       ? Colors.white
                       : Theme.of(context)
-                      .colorScheme
-                      .onBackground
-                      .withOpacity(0.5),
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.5),
                   fontWeight: FontWeight.w500,
                   fontFamily: "Lato",
                 )),
-            Text("Rp.${widget._laundryPrice}/kg",
-                style: TextStyle(
-                  color: _isSelected
-                      ? Colors.white
-                      : Theme.of(context)
-                      .colorScheme
-                      .onBackground
-                      .withOpacity(0.5),
-                  fontWeight: FontWeight.w500,
-                  fontFamily: "Lato",
-                )),
+            Text(
+              widget._laundryPrice != 0 ? "Rp.${widget._laundryPrice}/kg" : "Rp. -/kg",
+              style: TextStyle(
+                color: _isSelected
+                    ? Colors.white
+                    : Theme.of(context)
+                        .colorScheme
+                        .onBackground
+                        .withOpacity(0.5),
+                fontWeight: FontWeight.w500,
+                fontFamily: "Lato",
+              ),
+            ),
           ],
         ),
       ),

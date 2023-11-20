@@ -24,13 +24,28 @@ class _UserLoginState extends State<UserLogin> {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
+      print(state);
         if (state is LoginSuccess || state is LoginIsMitra) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => state is LoginIsMitra
+                builder: (context) =>
+                state is LoginIsMitra
                     ? const MitraDashboard()
                     : const LaundryList(),
+              ),
+            );
+          });
+        }
+        if (state is LoginFailure) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            final userRegister = BlocProvider.of<LoginBloc>(context);
+            userRegister.add(LoginReset());
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                    "Terjadi kesalahan! Silakan periksa data diri anda!"),
+                backgroundColor: Colors.red,
               ),
             );
           });
@@ -44,7 +59,10 @@ class _UserLoginState extends State<UserLogin> {
                   alignment: Alignment.bottomCenter,
                   children: [
                     Container(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Theme
+                          .of(context)
+                          .colorScheme
+                          .primary,
                       height: GetScreenSize.getScreenHeight(context),
                     ),
                     Positioned(
@@ -57,7 +75,10 @@ class _UserLoginState extends State<UserLogin> {
                       ),
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.7,
+                      height: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.7,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40),
@@ -67,7 +88,7 @@ class _UserLoginState extends State<UserLogin> {
                       ),
                       child: Padding(
                         padding:
-                            const EdgeInsets.only(top: 36, left: 36, right: 36),
+                        const EdgeInsets.only(top: 36, left: 36, right: 36),
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
                           child: Column(
@@ -79,7 +100,10 @@ class _UserLoginState extends State<UserLogin> {
                                   fontFamily: "Lato",
                                   fontWeight: FontWeight.w700,
                                   fontSize: 18,
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .primary,
                                 ),
                               ),
                               const SizedBox(height: 10),
@@ -89,7 +113,8 @@ class _UserLoginState extends State<UserLogin> {
                                   fontFamily: "Inter",
                                   fontWeight: FontWeight.normal,
                                   fontSize: 12,
-                                  color: Theme.of(context)
+                                  color: Theme
+                                      .of(context)
                                       .colorScheme
                                       .onBackground
                                       .withOpacity(0.5),
@@ -113,13 +138,13 @@ class _UserLoginState extends State<UserLogin> {
                               const SizedBox(height: 20),
                               CustomButton()
                                   .setOnPressed(() {
-                                    BlocProvider.of<LoginBloc>(context).add(
-                                      LoginButtonPressed(
-                                        username: nameController.text,
-                                        password: passwordController.text,
-                                      ),
-                                    );
-                                  })
+                                BlocProvider.of<LoginBloc>(context).add(
+                                  LoginButtonPressed(
+                                    username: nameController.text,
+                                    password: passwordController.text,
+                                  ),
+                                );
+                              })
                                   .setLabel("Masuk")
                                   .setSizedBoxHeight(20)
                                   .build(context),
@@ -132,7 +157,8 @@ class _UserLoginState extends State<UserLogin> {
                                     style: TextStyle(
                                       fontFamily: "Inter",
                                       fontSize: 13,
-                                      color: Theme.of(context)
+                                      color: Theme
+                                          .of(context)
                                           .colorScheme
                                           .onBackground
                                           .withOpacity(0.5),
@@ -144,7 +170,7 @@ class _UserLoginState extends State<UserLogin> {
                                           .addPostFrameCallback((_) {
                                         Navigator.of(context)
                                             .pushReplacementNamed(
-                                                AppRoutes.welcomeScreen);
+                                            AppRoutes.welcomeScreen);
                                       });
                                     },
                                     child: Text(
@@ -153,7 +179,8 @@ class _UserLoginState extends State<UserLogin> {
                                         fontFamily: "Inter",
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold,
-                                        color: Theme.of(context)
+                                        color: Theme
+                                            .of(context)
                                             .colorScheme
                                             .primary,
                                       ),

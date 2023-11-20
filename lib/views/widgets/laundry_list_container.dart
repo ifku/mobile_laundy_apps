@@ -30,8 +30,8 @@ class LaundryListContainer {
     return this;
   }
 
-  LaundryListContainer setHarga(double harga) {
-    _laundryPrice = harga;
+  LaundryListContainer setHarga(double? harga) {
+    _laundryPrice = harga ?? 0;
     return this;
   }
 
@@ -76,7 +76,8 @@ class LaundryListContainer {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        TruncateTextWithEllipsis.truncateWithEllipsis(_laundryName, 18),
+                        TruncateTextWithEllipsis.truncateWithEllipsis(
+                            _laundryName, 18),
                         style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w800,
@@ -127,12 +128,16 @@ class LaundryListContainer {
                                     .withOpacity(0.3),
                               )),
                           const SizedBox(width: 5),
-                          Text(TruncateTextWithEllipsis.truncateWithEllipsis("Rp.${_laundryPrice.toString()}/kg", 15),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary)),
+                          Text(
+                            _laundryPrice == 0
+                                ? "-"
+                                : TruncateTextWithEllipsis.truncateWithEllipsis(
+                                    "Rp.${_laundryPrice.toString()}/kg", 15),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
                         ],
                       ),
                     ],
