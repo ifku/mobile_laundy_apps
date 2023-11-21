@@ -1,3 +1,4 @@
+import 'package:WashWoosh/utils/format_currency.dart';
 import 'package:WashWoosh/views/widgets/order_list_status_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -102,7 +103,7 @@ class OrderListCard {
                     children: [
                       const SizedBox(width: 50),
                       Expanded(
-                        child: Text("Tanggal Order =",
+                        child: Text("Tanggal Order",
                             style: TextStyle(
                                 fontFamily: "Lato",
                                 fontSize: 14,
@@ -129,7 +130,7 @@ class OrderListCard {
                     children: [
                       const SizedBox(width: 50),
                       Expanded(
-                        child: Text("Estimasi Selesai =",
+                        child: Text("Estimasi Selesai",
                             style: TextStyle(
                                 fontFamily: "Lato",
                                 fontSize: 14,
@@ -156,7 +157,7 @@ class OrderListCard {
                     children: [
                       const SizedBox(width: 50),
                       Expanded(
-                        child: Text("Total =",
+                        child: Text("Total",
                             style: TextStyle(
                                 fontFamily: "Lato",
                                 fontSize: 14,
@@ -166,7 +167,9 @@ class OrderListCard {
                                     .onBackground
                                     .withOpacity(0.5))),
                       ),
-                      Text("Rp. $_total",
+                      Text(
+                          CurrencyFormatter.formatCurrency(
+                              double.parse(_total)),
                           style: TextStyle(
                               fontFamily: "Lato",
                               fontSize: 14,

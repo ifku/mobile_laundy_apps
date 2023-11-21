@@ -1,3 +1,4 @@
+import 'package:WashWoosh/utils/format_currency.dart';
 import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:WashWoosh/utils/truncate_text_ellipsis.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class LaundryListContainer {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Image.asset(
@@ -71,53 +72,27 @@ class LaundryListContainer {
                           fit: BoxFit.cover),
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        TruncateTextWithEllipsis.truncateWithEllipsis(
-                            _laundryName, 18),
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: "Lato",
-                            fontSize: 16),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                          TruncateTextWithEllipsis.truncateWithEllipsis(
-                              _laundryAddress, 25),
-                          style: TextStyle(
-                            fontFamily: "Lato",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onBackground
-                                .withOpacity(0.3),
-                          )),
-                      const SizedBox(height: 10),
-                      Row(
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(Icons.access_time, size: 20),
-                          const SizedBox(width: 5),
-                          Text(_laundryOpenHour,
-                              style: TextStyle(
-                                fontFamily: "Lato",
-                                fontSize: 14,
+                          Text(
+                            _laundryName,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                color: Colors.black,
                                 fontWeight: FontWeight.w800,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onBackground
-                                    .withOpacity(0.5),
-                              )),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Text("Harga mulai",
+                                fontFamily: "Lato",
+                                fontSize: 16),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                              TruncateTextWithEllipsis.truncateWithEllipsis(
+                                  _laundryAddress, 18),
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontFamily: "Lato",
                                 fontSize: 14,
@@ -127,20 +102,59 @@ class LaundryListContainer {
                                     .onBackground
                                     .withOpacity(0.3),
                               )),
-                          const SizedBox(width: 5),
-                          Text(
-                            _laundryPrice == 0
-                                ? "-"
-                                : TruncateTextWithEllipsis.truncateWithEllipsis(
-                                    "Rp.${_laundryPrice.toString()}/kg", 15),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              const Icon(Icons.access_time, size: 20),
+                              const SizedBox(width: 5),
+                              Expanded(
+                                child: Text(_laundryOpenHour,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontFamily: "Lato",
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w800,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground
+                                          .withOpacity(0.5),
+                                    )),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Harga mulai",
+                                  style: TextStyle(
+                                    fontFamily: "Lato",
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground
+                                        .withOpacity(0.3),
+                                  )),
+                              const SizedBox(width: 5),
+                              Expanded(
+                                child: Text(
+                                  _laundryPrice == 0
+                                      ? "-"
+                                      : "${CurrencyFormatter.formatCurrency(_laundryPrice)}/kg",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),

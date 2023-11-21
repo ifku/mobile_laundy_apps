@@ -4,6 +4,7 @@ import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/theme.dart';
 import 'package:WashWoosh/views/widgets/custom_detail.dart';
 import 'package:WashWoosh/views/widgets/custom_order_status.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -11,6 +12,20 @@ import 'package:intl/date_symbol_data_local.dart';
 void main() {
   initializeDateFormatting('id');
   runApp(
+    /*Development*/
+    // DevicePreview(
+    //   enabled: true,
+    //   tools: const [
+    //     ...DevicePreview.defaultTools,
+    //   ],
+    //   builder: (BuildContext context) {
+    //     return MultiBlocProvider(
+    //       providers: BlocProviders.getProviders(),
+    //       child: const MyApp(),
+    //     );
+    //   },
+
+    /*Production*/
     MultiBlocProvider(
       providers: BlocProviders.getProviders(),
       child: const MyApp(),

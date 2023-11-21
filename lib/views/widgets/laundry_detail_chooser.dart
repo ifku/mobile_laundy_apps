@@ -1,3 +1,4 @@
+import 'package:WashWoosh/utils/format_currency.dart';
 import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:flutter/material.dart';
 
@@ -56,7 +57,7 @@ class _LaundryDetailChooserState extends State<LaundryDetailChooser> {
                   fontFamily: "Lato",
                 )),
             Text(
-              widget._laundryPrice != 0 ? "Rp.${widget._laundryPrice}/kg" : "Rp. -/kg",
+              widget._laundryPrice != 0 ? CurrencyFormatter.formatCurrency(widget._laundryPrice) : "Rp. -/kg",
               style: TextStyle(
                 color: _isSelected
                     ? Colors.white

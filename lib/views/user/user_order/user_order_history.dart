@@ -20,6 +20,12 @@ class UserOrderHistory extends StatefulWidget {
 }
 
 class _UserOrderHistoryState extends State<UserOrderHistory> {
+  Future<void> refreshData() async {
+    final laundryHistory = BlocProvider.of<LaundryHistoryBloc>(context);
+    final token = await UserPreferences.getToken();
+    laundryHistory.add(GetLaundryHistory(token: token['token']));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BottomNavigationBloc, BottomNavigationState>(
@@ -37,18 +43,9 @@ class _UserOrderHistoryState extends State<UserOrderHistory> {
           return Scaffold(
               bottomNavigationBar: CustomUserBottomNavbar(
                 currentIndex: state.index,
-                backgroundColor: Theme
-                    .of(context)
-                    .colorScheme
-                    .primary,
-                selectedItemColor: Theme
-                    .of(context)
-                    .colorScheme
-                    .secondary,
-                unselectedItemColor: Theme
-                    .of(context)
-                    .colorScheme
-                    .onPrimary,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                selectedItemColor: Theme.of(context).colorScheme.secondary,
+                unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
                 showLabel: false,
                 onTap: (int value) {
                   BlocProvider.of<BottomNavigationBloc>(context)
@@ -60,136 +57,145 @@ class _UserOrderHistoryState extends State<UserOrderHistory> {
                   if (state is GetLaundryHistoryLoading) {
                     return const Scaffold(
                         body: Center(
-                          child: CircularProgressIndicator(),
-                        ));
+                      child: CircularProgressIndicator(),
+                    ));
                   } else if (state is GetLaundryHistorySuccess) {
                     return Scaffold(
-                      body: Stack(
-                        children: [
-                          SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 14, right: 14, top: 50),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Align(
-                                                alignment: Alignment.topLeft,
-                                                child: BlocBuilder<
-                                                    LaundryListBloc,
-                                                    LaundryListState>(
-                                                  builder: (context, state) {
-                                                    if(state is LaundryListSuccess){
-                                                      return UserMiniProfileCard()
-                                                          .setImageProfile(
-                                                          "lib/assets/images/avatar_dummy.png")
-                                                          .setNameProfile(state.userData.nama)
-                                                          .setEmailProfile(state.userData.email)
-                                                          .build(context);
-                                                    }
-                                                    return const SizedBox();
-                                                  },
-                                                )
+                      body: RefreshIndicator(
+                        onRefresh: refreshData,
+                        child: Stack(
+                          children: [
+                            SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 14, right: 14, top: 50),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Align(
+                                                  alignment: Alignment.topLeft,
+                                                  child: BlocBuilder<
+                                                      LaundryListBloc,
+                                                      LaundryListState>(
+                                                    builder: (context, state) {
+                                                      if (state
+                                                          is LaundryListSuccess) {
+                                                        return UserMiniProfileCard()
+                                                            .setImageProfile(
+                                                                "lib/assets/images/avatar_dummy.png")
+                                                            .setNameProfile(
+                                                                state.userData
+                                                                    .nama)
+                                                            .setEmailProfile(
+                                                                state.userData
+                                                                    .email)
+                                                            .build(context);
+                                                      }
+                                                      return const SizedBox();
+                                                    },
+                                                  )),
                                             ),
-                                          ),
-                                          IconButton(
-                                            onPressed: () async {
-                                              WidgetsBinding.instance
-                                                  .addPostFrameCallback((_) {
-                                                final loginBloc =
-                                                BlocProvider.of<LoginBloc>(
-                                                    context);
-                                                loginBloc
-                                                    .add(LogoutButtonPressed());
-                                                Navigator
-                                                    .pushNamedAndRemoveUntil(
-                                                    context,
-                                                    AppRoutes.shadowPage,
-                                                        (Route<dynamic>
-                                                    route) =>
-                                                    false);
-                                              });
-                                            },
-                                            icon: Icon(
-                                              Icons.logout_rounded,
-                                              size: 25,
-                                              color: Theme
-                                                  .of(context)
-                                                  .colorScheme
-                                                  .onBackground
-                                                  .withOpacity(0.5),
+                                            IconButton(
+                                              onPressed: () async {
+                                                WidgetsBinding.instance
+                                                    .addPostFrameCallback((_) {
+                                                  final loginBloc = BlocProvider
+                                                      .of<LoginBloc>(context);
+                                                  loginBloc.add(
+                                                      LogoutButtonPressed());
+                                                  Navigator
+                                                      .pushNamedAndRemoveUntil(
+                                                          context,
+                                                          AppRoutes.shadowPage,
+                                                          (Route<dynamic>
+                                                                  route) =>
+                                                              false);
+                                                });
+                                              },
+                                              icon: Icon(
+                                                Icons.logout_rounded,
+                                                size: 25,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onBackground
+                                                    .withOpacity(0.5),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
+                                        const SizedBox(height: 30),
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Pesanan Terbaru",
+                                                style: TextStyle(
+                                                    fontFamily: "Lato",
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            /*InkWell(
+                                    onTap: () {},
+                                    child: Text(
+                                      "Lihat Semua",
+                                      style: TextStyle(
+                                        color:
+                                            Theme.of(context).colorScheme.primary,
                                       ),
-                                      const SizedBox(height: 30),
-                                      const Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text("Pesanan Terbaru",
-                                              style: TextStyle(
-                                                  fontFamily: "Lato",
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold)),
-                                          /*InkWell(
-                                  onTap: () {},
-                                  child: Text(
-                                    "Lihat Semua",
-                                    style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),*/
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),*/
-                                        ],
-                                      ),
-                                    ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 14,
+                                        right: 14,
+                                        top: 0,
+                                        bottom: 80),
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: state.data.data.length,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return OrderListCard()
+                                            .setIdPemesanan(state
+                                                .data.data[index].id
+                                                .toString())
+                                            .setLabel(state
+                                                .data.data[index].customer.nama)
+                                            .setOrderDate(DateFormatter.format(
+                                                state.data.data[index]
+                                                    .tanggalPesan
+                                                    .toString()))
+                                            .setEstDate(DateFormatter.format(state
+                                                .data
+                                                .data[index]
+                                                .estimasiTanggalSelesai
+                                                .toString()))
+                                            .setTotal(state.data.data[index].harga
+                                                .toString())
+                                            .setStatus(state.data.data[index]
+                                                .statusPemesananId)
+                                            .setOnTap(() {
+                                          _onOrderItemTap(context,
+                                              state.data.data[index].id);
+                                        }).build(context);
+                                      },
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 14, right: 14, top: 0, bottom: 80),
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: state.data.data.length,
-                                    physics:
-                                    const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return OrderListCard()
-                                          .setIdPemesanan(state
-                                          .data.data[index].id
-                                          .toString())
-                                          .setLabel(state
-                                          .data.data[index].customer.nama)
-                                          .setOrderDate(DateFormatter.format(
-                                          state
-                                              .data.data[index].tanggalPesan
-                                              .toString()))
-                                          .setEstDate(DateFormatter.format(state
-                                          .data
-                                          .data[index]
-                                          .estimasiTanggalSelesai
-                                          .toString()))
-                                          .setTotal(state.data.data[index].harga
-                                          .toString())
-                                          .setStatus(state.data.data[index]
-                                          .statusPemesananId)
-                                          .setOnTap(() {
-                                        _onOrderItemTap(
-                                            context, state.data.data[index].id);
-                                      }).build(context);
-                                    },
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   }
