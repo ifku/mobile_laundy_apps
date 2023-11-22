@@ -53,130 +53,135 @@ class _MitraDashboardState extends State<MitraDashboard> {
           );
         } else if (state is MitraDashboardSuccess) {
           return Scaffold(
-            body: Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 14, right: 14, top: 50),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: UserMiniProfileCard()
-                                        .setImageProfile(
-                                            "lib/assets/images/avatar_dummy.png")
-                                        .setNameProfile(state.userData.nama)
-                                        .setEmailProfile(state.userData.email)
-                                        .build(context),
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () async {
-                                    WidgetsBinding.instance
-                                        .addPostFrameCallback((_) {
-                                      final loginBloc =
-                                          BlocProvider.of<LoginBloc>(context);
-                                      loginBloc.add(LogoutButtonPressed());
-                                      Navigator.pushNamedAndRemoveUntil(
-                                          context,
-                                          AppRoutes.shadowPage,
-                                          (Route<dynamic> route) => false);
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.logout_rounded,
-                                    size: 25,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground
-                                        .withOpacity(0.5),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 30),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Pesanan Terbaru",
-                                    style: TextStyle(
-                                        fontFamily: "Lato",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 14, right: 14, top: 0, bottom: 80),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: state.orderList.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return OrderListCard()
-                                .setIdPemesanan(
-                                    state.orderList[index].id.toString())
-                                .setLabel(state.orderList[index].customer.nama)
-                                .setOrderDate(DateFormatter.format(state
-                                    .orderList[index].tanggalPesan
-                                    .toString()))
-                                .setEstDate(DateFormatter.format(state
-                                    .orderList[index].estimasiTanggalSelesai
-                                    .toString()))
-                                .setTotal(
-                                    state.orderList[index].harga.toString())
-                                .setStatus(
-                                    state.orderList[index].statusPemesananId)
-                                .setOnTap(() {
-                              _onOrderItemTap(
-                                  context, state.orderList[index].id);
-                            }).build(context);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: CustomButton()
-                        .setOnPressed(() async {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return Center(
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(24)),
-                                  child: SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    child: CustomPemesananPopup(
-                                      onDateSelected: (selectedDate) {},
-                                      namaMember: namaMember,
+            body: RefreshIndicator(
+              onRefresh: () async {
+                fetchOrderList();
+              },
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: 14, right: 14, top: 50),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: UserMiniProfileCard()
+                                          .setImageProfile(
+                                              "lib/assets/images/avatar_dummy.png")
+                                          .setNameProfile(state.userData.nama)
+                                          .setEmailProfile(state.userData.email)
+                                          .build(context),
                                     ),
                                   ),
-                                ),
-                              );
+                                  IconButton(
+                                    onPressed: () async {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        final loginBloc =
+                                            BlocProvider.of<LoginBloc>(context);
+                                        loginBloc.add(LogoutButtonPressed());
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            AppRoutes.shadowPage,
+                                            (Route<dynamic> route) => false);
+                                      });
+                                    },
+                                    icon: Icon(
+                                      Icons.logout_rounded,
+                                      size: 25,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground
+                                          .withOpacity(0.5),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 30),
+                              const Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Pesanan Terbaru",
+                                      style: TextStyle(
+                                          fontFamily: "Lato",
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 14, right: 14, top: 0, bottom: 80),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: state.orderList.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return OrderListCard()
+                                  .setIdPemesanan(
+                                      state.orderList[index].id.toString())
+                                  .setLabel(state.orderList[index].customer.nama)
+                                  .setOrderDate(DateFormatter.format(state
+                                      .orderList[index].tanggalPesan
+                                      .toString()))
+                                  .setEstDate(DateFormatter.format(state
+                                      .orderList[index].estimasiTanggalSelesai
+                                      .toString()))
+                                  .setTotal(
+                                      state.orderList[index].harga.toString())
+                                  .setStatus(
+                                      state.orderList[index].statusPemesananId)
+                                  .setOnTap(() {
+                                _onOrderItemTap(
+                                    context, state.orderList[index].id);
+                              }).build(context);
                             },
-                          );
-                        })
-                        .setLabel("Tambah Laundry")
-                        .build(context),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: CustomButton()
+                          .setOnPressed(() async {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Center(
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(24)),
+                                    child: SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width * 0.8,
+                                      child: CustomPemesananPopup(
+                                        onDateSelected: (selectedDate) {},
+                                        namaMember: namaMember,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          })
+                          .setLabel("Tambah Laundry")
+                          .build(context),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }

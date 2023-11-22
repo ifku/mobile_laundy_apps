@@ -43,120 +43,122 @@ class _CustomPemesananPopupState extends State<CustomPemesananPopup> {
     return Material(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
-        child: Container(
-          height: GetScreenSize.getScreenHeight(context) * 0.5,
-          width: GetScreenSize.getScreenWidth(context),
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Form Pemesanan",
-                  style: TextStyle(
-                    fontFamily: "Lato",
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.primary,
+        child: SingleChildScrollView(
+          child: Container(
+            // height: GetScreenSize.getScreenHeight(context) * 0.7,
+            width: GetScreenSize.getScreenWidth(context),
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24, top: 24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Form Pemesanan",
+                    style: TextStyle(
+                      fontFamily: "Lato",
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "Mohon untuk mengisi data dibawah ini dengan benar",
-                  style: TextStyle(
-                    fontFamily: "Lato",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onBackground
-                        .withOpacity(0.3),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Mohon untuk mengisi data dibawah ini dengan benar",
+                    style: TextStyle(
+                      fontFamily: "Lato",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.3),
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 10),
-                DropdownButtonFormField2<String>(
-                  isExpanded: true,
-                  hint: const Text("Pilih Nama Member"),
-                  decoration: const InputDecoration(
-                      // ...
-                      ),
-                  items: widget.namaMember
-                      .map((item) => DropdownMenuItem<String>(
-                            value: item.userId,
-                            child: Text(
-                              item.nama,
-                              style: const TextStyle(
-                                fontSize: 14,
+                  const SizedBox(height: 10),
+                  DropdownButtonFormField2<String>(
+                    isExpanded: true,
+                    hint: const Text("Pilih Nama Member"),
+                    decoration: const InputDecoration(
+                        // ...
+                        ),
+                    items: widget.namaMember
+                        .map((item) => DropdownMenuItem<String>(
+                              value: item.userId,
+                              child: Text(
+                                item.nama,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
                               ),
-                            ),
-                          ))
-                      .toList(),
-                  onChanged: (String? value) {
-                    if (value != null) {
-                      setState(() {
-                        selectedValue = value;
-                      });
-                    }
-                  },
-                  onSaved: (value) {
-                    if (value != null) {
-                      setState(() {
-                        selectedValue = value;
-                      });
-                    }
-                  },
-                ),
-                const SizedBox(height: 15),
-                CustomInputField()
-                    .setLabel("Harga")
-                    .setController(_priceController!)
-                    .setKeyboardType(TextInputType.number)
-                    .setIcon(const Icon(Icons.money))
-                    .setSizedBoxHeight(15)
-                    .build(context),
-                GestureDetector(
-                  onTap: () {
-                    _selectDate(context);
-                  },
-                  child: AbsorbPointer(
-                    absorbing: true,
-                    child: CustomInputField()
-                        .setLabel("Estimasi Selesai")
-                        .setController(_doneEstimationController!)
-                        .setIcon(const Icon(Icons.calendar_month_outlined))
-                        .build(context),
+                            ))
+                        .toList(),
+                    onChanged: (String? value) {
+                      if (value != null) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                      }
+                    },
+                    onSaved: (value) {
+                      if (value != null) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                      }
+                    },
                   ),
-                ),
-                BlocBuilder<MitraActionBloc, MitraActionState>(
-                  builder: (context, state) {
-                    if (state is SwitchToggledState) {
-                      isDibayar = state.isSwitchOn;
-                      return CustomSwitcherWithText(
-                        value: state.isSwitchOn,
-                        onSwitch: (value) {
-                          BlocProvider.of<MitraActionBloc>(context)
-                              .add(ToggleSwitchClicked(isSwitchOn: value));
-                        },
-                      );
-                    }
-                    return Container();
-                  },
-                ),
-                CustomButton().setLabel("Tambah Pesanan").setOnPressed(() {
-                  mitraMembershipRequestModel = MitraMembershipRequestModel(
-                      harga: _priceController!.text,
-                      estimasiTanggalSelesai: _doneEstimationController!.text,
-                      customerId: selectedValue.toString(),
-                      statusPemesananId: "1",
-                      isDibayar: isDibayar);
-                  addOrder(mitraMembershipRequestModel);
-                  _priceController?.clear();
-                  _doneEstimationController?.clear();
-                  Navigator.pop(context);
-                }).build(context),
-              ],
+                  const SizedBox(height: 15),
+                  CustomInputField()
+                      .setLabel("Harga")
+                      .setController(_priceController!)
+                      .setKeyboardType(TextInputType.number)
+                      .setIcon(const Icon(Icons.money))
+                      .setSizedBoxHeight(15)
+                      .build(context),
+                  GestureDetector(
+                    onTap: () {
+                      _selectDate(context);
+                    },
+                    child: AbsorbPointer(
+                      absorbing: true,
+                      child: CustomInputField()
+                          .setLabel("Estimasi Selesai")
+                          .setController(_doneEstimationController!)
+                          .setIcon(const Icon(Icons.calendar_month_outlined))
+                          .build(context),
+                    ),
+                  ),
+                  BlocBuilder<MitraActionBloc, MitraActionState>(
+                    builder: (context, state) {
+                      if (state is SwitchToggledState) {
+                        isDibayar = state.isSwitchOn;
+                        return CustomSwitcherWithText(
+                          value: state.isSwitchOn,
+                          onSwitch: (value) {
+                            BlocProvider.of<MitraActionBloc>(context)
+                                .add(ToggleSwitchClicked(isSwitchOn: value));
+                          },
+                        );
+                      }
+                      return Container();
+                    },
+                  ),
+                  CustomButton().setLabel("Tambah Pesanan").setOnPressed(() {
+                    mitraMembershipRequestModel = MitraMembershipRequestModel(
+                        harga: _priceController!.text,
+                        estimasiTanggalSelesai: _doneEstimationController!.text,
+                        customerId: selectedValue.toString(),
+                        statusPemesananId: "1",
+                        isDibayar: isDibayar);
+                    addOrder(mitraMembershipRequestModel);
+                    _priceController?.clear();
+                    _doneEstimationController?.clear();
+                    Navigator.pop(context);
+                  }).build(context),
+                ],
+              ),
             ),
           ),
         ),

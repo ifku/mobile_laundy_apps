@@ -18,38 +18,49 @@ class _UserOrderDetail extends State<UserOrderDetail> {
       body: BlocBuilder<LaundryHistoryDetailBloc, LaundryHistoryDetailState>(
         builder: (context, state) {
           if (state is LaundryHistoryDetailSuccess) {
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
-                child: Column(
-                  children: [
-                    Text(
-                      'Details Pesanan ID#${state.laundryDetailData.data.id}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: "Lato",
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text("Detail Pesanan"),
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Details Pesanan ID#${state.laundryDetailData.data.id}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontFamily: "Lato",
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomDetail(
-                      tanggalPemesanan:
-                          state.laundryDetailData.data.tanggalPesan.toString(),
-                      estimasiPemesanan: state
-                          .laundryDetailData.data.estimasiTanggalSelesai
-                          .toString(),
-                      hargaTotal: state.laundryDetailData.data.harga.toDouble(),
-                      isDibayar: state.laundryDetailData.data.isDibayar,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomUserOrderStatus(
-                        orderId: state.laundryDetailData.data.id,
-                        currentStatus:
-                            state.laundryDetailData.data.statusPemesananId)
-                  ],
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomDetail(
+                        tanggalPemesanan:
+                            state.laundryDetailData.data.tanggalPesan.toString(),
+                        estimasiPemesanan: state
+                            .laundryDetailData.data.estimasiTanggalSelesai
+                            .toString(),
+                        hargaTotal: state.laundryDetailData.data.harga.toDouble(),
+                        isDibayar: state.laundryDetailData.data.isDibayar,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomUserOrderStatus(
+                          orderId: state.laundryDetailData.data.id,
+                          currentStatus:
+                              state.laundryDetailData.data.statusPemesananId)
+                    ],
+                  ),
                 ),
               ),
             );

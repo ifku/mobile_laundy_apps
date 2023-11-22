@@ -26,38 +26,49 @@ class _MitraDetailOrder extends State<MitraDetailOrder> {
         },
         builder: (context, state) {
           if (state is MitraDetailSuccess) {
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
-                child: Column(
-                  children: [
-                    Text(
-                      'Details Pesanan ID#${state.mitraDetailData.data.id}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: "Lato",
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text("Detail Pesanan"),
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Details Pesanan ID#${state.mitraDetailData.data.id}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontFamily: "Lato",
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomDetail(
-                      tanggalPemesanan:
-                          state.mitraDetailData.data.tanggalPesan.toString(),
-                      estimasiPemesanan: state
-                          .mitraDetailData.data.estimasiTanggalSelesai
-                          .toString(),
-                      hargaTotal: state.mitraDetailData.data.harga.toDouble(),
-                      isDibayar: state.mitraDetailData.data.isDibayar,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomOrderStatus(
-                        orderId: state.mitraDetailData.data.id,
-                        currentStatus:
-                            state.mitraDetailData.data.statusPemesananId)
-                  ],
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomDetail(
+                        tanggalPemesanan:
+                            state.mitraDetailData.data.tanggalPesan.toString(),
+                        estimasiPemesanan: state
+                            .mitraDetailData.data.estimasiTanggalSelesai
+                            .toString(),
+                        hargaTotal: state.mitraDetailData.data.harga.toDouble(),
+                        isDibayar: state.mitraDetailData.data.isDibayar,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomOrderStatus(
+                          orderId: state.mitraDetailData.data.id,
+                          currentStatus:
+                              state.mitraDetailData.data.statusPemesananId)
+                    ],
+                  ),
                 ),
               ),
             );

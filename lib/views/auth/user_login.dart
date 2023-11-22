@@ -15,22 +15,36 @@ class UserLogin extends StatefulWidget {
   State<UserLogin> createState() => _UserLoginState();
 }
 
-
 class _UserLoginState extends State<UserLogin> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
-      builder: (context, state) {
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: (context, state) {
         if (state is LoginSuccess || state is LoginIsMitra) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => state is LoginIsMitra
-                    ? const MitraDashboard()
-                    : const LaundryList(),
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => state is LoginIsMitra
+                      ? const MitraDashboard()
+                      : const LaundryList(),
+                ),
+                (Route<dynamic> route) => false);
+          });
+        }
+      },
+      builder: (context, state) {
+        if (state is LoginFailure) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            final userRegister = BlocProvider.of<LoginBloc>(context);
+            userRegister.add(LoginReset());
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content:
+                    Text("Terjadi kesalahan! Silakan periksa data diri anda!"),
+                backgroundColor: Colors.red,
               ),
             );
           });

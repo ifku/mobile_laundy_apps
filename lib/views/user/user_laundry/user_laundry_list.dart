@@ -71,134 +71,150 @@ class _LaundryListState extends State<LaundryList> {
             body: BlocBuilder<LaundryListBloc, LaundryListState>(
               builder: (context, state) {
                 if (state is LaundryListSuccess) {
-                  return SingleChildScrollView(
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 14, right: 14, top: 50),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Align(
-                                  alignment: Alignment.topLeft,
-                                  child: UserMiniProfileCard()
-                                      .setImageProfile(
-                                          "lib/assets/images/avatar_dummy.png")
-                                      .setNameProfile(state.userData.nama)
-                                      .setEmailProfile(state.userData.email)
-                                      .build(context)),
-                              const Spacer(),
-                              IconButton(
-                                onPressed: () async {
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    final loginBloc =
-                                        BlocProvider.of<LoginBloc>(context);
-                                    loginBloc.add(LogoutButtonPressed());
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        AppRoutes.shadowPage,
-                                        (Route<dynamic> route) => false);
-                                  });
-                                },
-                                icon: Icon(
-                                  Icons.logout_rounded,
-                                  size: 25,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground
-                                      .withOpacity(0.5),
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      await initializeData();
+                    },
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: 14, right: 14, top: 40),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Align(
+                                    alignment: Alignment.topLeft,
+                                    child: UserMiniProfileCard()
+                                        .setImageProfile(
+                                            "lib/assets/images/avatar_dummy.png")
+                                        .setNameProfile(state.userData.nama)
+                                        .setEmailProfile(state.userData.email)
+                                        .build(context)),
+                                const Spacer(),
+                                IconButton(
+                                  onPressed: () async {
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      final loginBloc =
+                                          BlocProvider.of<LoginBloc>(context);
+                                      loginBloc.add(LogoutButtonPressed());
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          AppRoutes.shadowPage,
+                                          (Route<dynamic> route) => false);
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.logout_rounded,
+                                    size: 25,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground
+                                        .withOpacity(0.5),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: CustomSearchField()
-                                    .setLabel("Cari Laundry Terdekat")
-                                    .build(context),
-                              ),
-                              // const SizedBox(width: 20),
-                              // CustomFilterButton()
-                              //     .setOnPressed(() {})
-                              //     .build(context),
-                            ],
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: state.laundryList.length,
-                            itemBuilder: (context, index) {
-                              final laundryItem = state.laundryList[index];
-                              return Column(
-                                children: [
-                                  LaundryListContainer()
-                                      .setNamaLaundry(TruncateTextWithEllipsis
-                                          .truncateWithEllipsis(
-                                              laundryItem.nama, 20))
-                                      .setImageLaundry(
-                                          laundryList[randomIndex].imageLaundry)
-                                      .setAlamatLaundry(laundryItem.alamat)
-                                      .setJam("07.00 AM - 09.00 PM")
-                                      .setHarga(double.parse(
-                                          laundryItem.hargaRapi.toString()))
-                                      .setOnTap(() {
-                                    _onLaundryItemTap(context, laundryItem.id);
-                                  }).build(context),
-                                  const SizedBox(height: 20),
-                                ],
-                              );
-                            },
-                          )
-                        ],
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: CustomSearchField()
+                                      .setLabel("Cari Laundry Terdekat")
+                                      .build(context),
+                                ),
+                                // const SizedBox(width: 20),
+                                // CustomFilterButton()
+                                //     .setOnPressed(() {})
+                                //     .build(context),
+                              ],
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: state.laundryList.length,
+                              itemBuilder: (context, index) {
+                                final laundryItem = state.laundryList[index];
+                                return Column(
+                                  children: [
+                                    LaundryListContainer()
+                                        .setNamaLaundry(TruncateTextWithEllipsis
+                                            .truncateWithEllipsis(
+                                                laundryItem.nama, 20))
+                                        .setImageLaundry(
+                                            laundryList[randomIndex].imageLaundry)
+                                        .setAlamatLaundry(laundryItem.alamat)
+                                        .setJam("07.00 AM - 09.00 PM")
+                                        .setHarga(double.parse(
+                                            laundryItem.hargaMulai.toString()))
+                                        .setOnTap(() {
+                                      _onLaundryItemTap(context, laundryItem.id);
+                                    }).build(context),
+                                    const SizedBox(height: 20),
+                                  ],
+                                );
+                              },
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   );
                 }
                 if (state is LaundryListFiltered) {
-                  return SingleChildScrollView(
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 14, right: 14, top: 50),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text("Hasil Pencarian",
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: state.filteredLaundryList.length,
-                            itemBuilder: (context, index) {
-                              final laundryItem =
-                                  state.filteredLaundryList[index];
-                              return Column(
-                                children: [
-                                  LaundryListContainer()
-                                      .setNamaLaundry(TruncateTextWithEllipsis
-                                          .truncateWithEllipsis(
-                                              laundryItem.nama, 20))
-                                      .setImageLaundry(
-                                          laundryList[randomIndex].imageLaundry)
-                                      .setAlamatLaundry(laundryItem.alamat)
-                                      .setJam("07.00 AM - 09.00 PM")
-                                      .setHarga(double.parse(
-                                          laundryItem.hargaRapi.toString()))
-                                      .setOnTap(() {
-                                    _onLaundryItemTap(context, laundryItem.id);
-                                  }).build(context),
-                                  const SizedBox(height: 20),
-                                ],
-                              );
-                            },
-                          ),
-                        ],
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: const Text("Hasil Pencarian"),
+                      leading: IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () {
+                          initializeData();
+                        },
+                      ),
+                    ),
+                    body: SingleChildScrollView(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: 14, right: 14, top: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Hasil Pencarian",
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: state.filteredLaundryList.length,
+                              itemBuilder: (context, index) {
+                                final laundryItem =
+                                    state.filteredLaundryList[index];
+                                return Column(
+                                  children: [
+                                    LaundryListContainer()
+                                        .setNamaLaundry(TruncateTextWithEllipsis
+                                            .truncateWithEllipsis(
+                                                laundryItem.nama, 20))
+                                        .setImageLaundry(
+                                            laundryList[randomIndex].imageLaundry)
+                                        .setAlamatLaundry(laundryItem.alamat)
+                                        .setJam("07.00 AM - 09.00 PM")
+                                        .setHarga(double.parse(
+                                            laundryItem.hargaMulai.toString()))
+                                        .setOnTap(() {
+                                      _onLaundryItemTap(context, laundryItem.id);
+                                    }).build(context),
+                                    const SizedBox(height: 20),
+                                  ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );

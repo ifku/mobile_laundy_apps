@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 part 'mitra_detail_event.dart';
+
 part 'mitra_detail_state.dart';
 
 class MitraDetailBloc extends Bloc<MitraDetailEvent, MitraDetailState> {

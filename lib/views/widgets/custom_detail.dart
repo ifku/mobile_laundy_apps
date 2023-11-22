@@ -1,6 +1,7 @@
 import 'package:WashWoosh/utils/date_formatter.dart';
 import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:WashWoosh/views/widgets/custom_detail.dart';
+import 'package:WashWoosh/utils/format_currency.dart';
 import 'package:WashWoosh/views/widgets/custom_payment_status.dart';
 import 'package:flutter/material.dart';
 
@@ -115,7 +116,7 @@ class CustomDetail extends StatelessWidget {
                               fontFamily: "Inter",
                               fontSize: 12,
                               color: Colors.black)),
-                      Text("Rp. $hargaTotal",
+                      Text( CurrencyFormatter.formatCurrency(hargaTotal),
                           style: const TextStyle(
                               fontFamily: "Inter",
                               fontSize: 12,

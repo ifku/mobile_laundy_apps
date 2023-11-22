@@ -22,90 +22,103 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
       body: BlocBuilder<LaundryDetailBloc, LaundryDetailState>(
         builder: (context, state) {
           if (state is LaundryDetailLoading) {
-            print("Loading");
             return const Center(child: CircularProgressIndicator());
           } else if (state is LaundryDetailSuccess) {
-            print("Sukses");
-            return SingleChildScrollView(
-                child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      state.laundryDetailData.nama,
-                      style: const TextStyle(
-                          fontFamily: "Lato",
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      'lib/assets/images/laundry_dummy.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    state.laundryDetailData.deskripsi,
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                        fontFamily: "Lato",
-                        fontSize: 14,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onBackground
-                            .withOpacity(0.3)),
-                  ),
-                  const SizedBox(height: 15),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Daftar Layanan",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Lato",
-                      ),
-                    ),
-                  ),
-                  LaundryChooserList(
-                    prices: [
-                      state.laundryDetailData.hargaRapi,
-                      state.laundryDetailData.hargaKering,
-                      state.laundryDetailData.hargaBasah,
-                      state.laundryDetailData.hargaSatuan,
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: CustomOutlinedButton()
-                            .setLabel("Jam Operasional")
-                            .setOnPressed(() {})
-                            .build(context),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: CustomJoinMemberButton()
-                            .setLabel("Gabung Disini")
-                            .setIsActive(state.laundryDetailData.isJoined)
-                            .setOnPressed(() {
-                          _onJoinMembershipTapped(
-                              context, state.laundryDetailData.id);
-                        }).build(context),
-                      ),
-                    ],
-                  ),
-                ],
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  state.laundryDetailData.nama,
+                  style: const TextStyle(fontSize: 18),
+                ),
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
               ),
-            ));
+              body: SingleChildScrollView(
+                  child: Padding(
+                padding: const EdgeInsets.only(bottom: 24, right: 24, left: 24),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        state.laundryDetailData.nama,
+                        style: const TextStyle(
+                            fontFamily: "Lato",
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        'lib/assets/images/laundry_dummy.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      state.laundryDetailData.deskripsi,
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                          fontFamily: "Lato",
+                          fontSize: 14,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(0.3)),
+                    ),
+                    const SizedBox(height: 15),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Daftar Layanan",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Lato",
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    LaundryChooserList(
+                      prices: [
+                        state.laundryDetailData.hargaRapi,
+                        state.laundryDetailData.hargaKering,
+                        state.laundryDetailData.hargaBasah,
+                        state.laundryDetailData.hargaSatuan,
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: CustomOutlinedButton()
+                              .setLabel("Jam Operasional")
+                              .setOnPressed(() {})
+                              .build(context),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: CustomJoinMemberButton()
+                              .setLabel("Gabung Disini")
+                              .setIsActive(state.laundryDetailData.isJoined)
+                              .setOnPressed(() {
+                            _onJoinMembershipTapped(
+                                context, state.laundryDetailData.id);
+                          }).build(context),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )),
+            );
           } else if (state is LaundryDetailError) {
             print("Error");
             return Center(child: Text(state.errorMessage));

@@ -1,9 +1,12 @@
+import 'package:WashWoosh/utils/format_currency.dart';
 import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:flutter/material.dart';
 
 class LaundryDetailChooser extends StatefulWidget {
   String _laundryLabel = "Label";
   double _laundryPrice = 0;
+
+  LaundryDetailChooser({super.key});
 
   LaundryDetailChooser setLaundryLabel(String label) {
     _laundryLabel = label;
@@ -47,23 +50,25 @@ class _LaundryDetailChooserState extends State<LaundryDetailChooser> {
                   color: _isSelected
                       ? Colors.white
                       : Theme.of(context)
-                      .colorScheme
-                      .onBackground
-                      .withOpacity(0.5),
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.5),
                   fontWeight: FontWeight.w500,
                   fontFamily: "Lato",
                 )),
-            Text("Rp.${widget._laundryPrice}/kg",
-                style: TextStyle(
-                  color: _isSelected
-                      ? Colors.white
-                      : Theme.of(context)
-                      .colorScheme
-                      .onBackground
-                      .withOpacity(0.5),
-                  fontWeight: FontWeight.w500,
-                  fontFamily: "Lato",
-                )),
+            Text(
+              widget._laundryPrice != 0 ? CurrencyFormatter.formatCurrency(widget._laundryPrice) : "Rp. -/kg",
+              style: TextStyle(
+                color: _isSelected
+                    ? Colors.white
+                    : Theme.of(context)
+                        .colorScheme
+                        .onBackground
+                        .withOpacity(0.5),
+                fontWeight: FontWeight.w500,
+                fontFamily: "Lato",
+              ),
+            ),
           ],
         ),
       ),
