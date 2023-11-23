@@ -1,5 +1,6 @@
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:WashWoosh/routes/routes.dart';
+import 'package:WashWoosh/views/widgets/custom_loading.dart';
 import 'package:flutter/material.dart';
 
 class ShadowPage extends StatefulWidget {
@@ -12,6 +13,7 @@ class ShadowPage extends StatefulWidget {
 class _ShadowPageState extends State<ShadowPage> {
   @override
   void initState() {
+    super.initState();
     Future.delayed(const Duration(seconds: 2), () {
       checkIfUserLoggedIn();
     });
@@ -40,8 +42,6 @@ class _ShadowPageState extends State<ShadowPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-        body: Center(
-      child: CircularProgressIndicator(),
-    ));
+        body: CustomLoading());
   }
 }

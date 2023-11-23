@@ -3,6 +3,7 @@ import 'package:WashWoosh/bloc/mitra/mitra_dashboard/mitra_dashboard_bloc.dart';
 import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
 import 'package:WashWoosh/data/models/mitra/mitra_laundry_membership_model.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
+import 'package:WashWoosh/views/widgets/custom_loading.dart';
 import 'package:WashWoosh/views/widgets/shimmer/laundry_list_shimmer.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/date_formatter.dart';
@@ -195,7 +196,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
             ),
           );
         }
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        return const Scaffold(body: CustomLoading());
       },
     );
   }

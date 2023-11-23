@@ -23,7 +23,6 @@ class MitraDetailBloc extends Bloc<MitraDetailEvent, MitraDetailState> {
               headers: {
                 "token": event.token,
               });
-          print(response.body);
           final data = MitraLaundryDetail.fromJson(json.decode(response.body));
           switch (data.code) {
             case 200:

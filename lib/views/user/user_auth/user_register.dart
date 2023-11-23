@@ -6,6 +6,7 @@ import 'package:WashWoosh/views/widgets/custom_button.dart';
 import 'package:WashWoosh/views/widgets/custom_divider_with_text.dart';
 import 'package:WashWoosh/views/widgets/custom_google_outlined_button.dart';
 import 'package:WashWoosh/views/widgets/custom_input_field.dart';
+import 'package:WashWoosh/views/widgets/custom_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -194,9 +195,7 @@ class _UserRegisterState extends State<UserRegister> {
             );
           }
           if (state is UserRegisterLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const CustomLoading();
           }
           if (state is UserRegisterSuccess) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -217,9 +216,7 @@ class _UserRegisterState extends State<UserRegister> {
               );
             });
           }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const CustomLoading();
         },
       ),
     );

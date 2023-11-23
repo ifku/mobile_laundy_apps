@@ -19,7 +19,7 @@ class LaundryDetailBloc extends Bloc<LaundryDetailEvent, LaundryDetailState> {
         try {
           final response = await http.get(
               Uri.parse(
-                  "${ApiConstants.BASE_URL}${ApiConstants.LAUNDRY_LIST}/$laundryId"),
+                  "${ApiConstants.BASE_URL}${ApiConstants.LAUNDRY_LIST}$laundryId"),
               headers: {
                 "token": event.token,
               });

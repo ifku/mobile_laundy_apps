@@ -1,3 +1,4 @@
+import 'package:WashWoosh/views/widgets/custom_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:WashWoosh/bloc/auth/login/login_bloc.dart';
@@ -188,9 +189,7 @@ class _UserLoginState extends State<UserLogin> {
               Positioned.fill(
                 child: Container(
                   color: Colors.black.withOpacity(0.6),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: const CustomLoading(),
                 ),
               ),
           ],

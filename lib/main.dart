@@ -24,6 +24,7 @@ void main() {
     //       child: const MyApp(),
     //     );
     //   },
+    // ),
 
     /*Production*/
     MultiBlocProvider(
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
         ),
         brightness: Brightness.light,
       ),
-      // home: Scaffold(body: Center(child: CustomDetail(tanggalPemesanan: '2021-10-20', estimasiPemesanan: '2021-10-20', hargaTotal: 20000, isDibayar: true,))),
+      // home: const Dummy(),
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:WashWoosh/const/laundry_list.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/truncate_text_ellipsis.dart';
+import 'package:WashWoosh/views/widgets/custom_loading.dart';
 import 'package:WashWoosh/views/widgets/custom_search_field.dart';
 import 'package:WashWoosh/views/widgets/custom_user_bottom_navbar.dart';
 import 'package:WashWoosh/views/widgets/laundry_list_container.dart';
@@ -232,9 +233,7 @@ class _LaundryListState extends State<LaundryList> {
             ),
           );
         }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const CustomLoading();
       },
     );
   }
