@@ -1,8 +1,12 @@
 import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
+import 'package:WashWoosh/bloc/user/laundry_jam_operasional/laundry_jam_operasional_bloc.dart';
 import 'package:WashWoosh/const/laundry_chooser_list.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
+import 'package:WashWoosh/dummy.dart';
 import 'package:WashWoosh/routes/routes.dart';
+import 'package:WashWoosh/views/widgets/custom_jam_operasional_card.dart';
 import 'package:WashWoosh/views/widgets/custom_join_member_button.dart';
+import 'package:WashWoosh/views/widgets/custom_loading.dart';
 import 'package:WashWoosh/views/widgets/custom_outlined_button.dart';
 import 'package:WashWoosh/views/widgets/laundry_detail_chooser.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +26,7 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
       body: BlocBuilder<LaundryDetailBloc, LaundryDetailState>(
         builder: (context, state) {
           if (state is LaundryDetailLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const CustomLoading();
           } else if (state is LaundryDetailSuccess) {
             return Scaffold(
               appBar: AppBar(
@@ -100,8 +104,10 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
                         Expanded(
                           child: CustomOutlinedButton()
                               .setLabel("Jam Operasional")
-                              .setOnPressed(() {})
-                              .build(context),
+                              .setOnPressed(() {
+                            _onJamOperasionalTapped(
+                                context, state.laundryDetailData.id);
+                          }).build(context),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
@@ -120,10 +126,9 @@ class _UserLaundryDetailState extends State<UserLaundryDetail> {
               )),
             );
           } else if (state is LaundryDetailError) {
-            print("Error");
             return Center(child: Text(state.errorMessage));
           }
-          return const Center(child: CircularProgressIndicator());
+          return const CustomLoading();
         },
       ),
     );
@@ -165,5 +170,22 @@ void _onJoinMembershipTapped(BuildContext context, int laundryId) async {
       LaundryJoinButtonClicked(token: token['token'], laundryId: laundryId));
   WidgetsBinding.instance.addPostFrameCallback((_) {
     Navigator.pushReplacementNamed(context, AppRoutes.userLaundryList);
+  });
+}
+
+void _onJamOperasionalTapped(BuildContext context, int laundryId) async {
+  final laundryListBloc = BlocProvider.of<LaundryJamOperasionalBloc>(context);
+  final token = await UserPreferences.getToken();
+  laundryListBloc.add(
+      LaundryGetJamOperasional(token: token['token'], laundryId: laundryId));
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomJamOperasionalCard(
+            token: token['token'],
+            laundryId: laundryId,
+          );
+        });
   });
 }

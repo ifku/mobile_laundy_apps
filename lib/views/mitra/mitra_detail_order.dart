@@ -1,6 +1,7 @@
 import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/views/widgets/custom_detail.dart';
+import 'package:WashWoosh/views/widgets/custom_loading.dart';
 import 'package:WashWoosh/views/widgets/custom_order_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,9 +20,9 @@ class _MitraDetailOrder extends State<MitraDetailOrder> {
       body: BlocConsumer<MitraDetailBloc, MitraDetailState>(
         listener: (context, state) {
           if (state is MitraChangeOrderStatusSuccess) {
-            Navigator.pushNamed(context, AppRoutes.mitraDashboard);
             BlocProvider.of<MitraDetailBloc>(context)
                 .add(ResetMitraDetailState());
+              Navigator.pushReplacementNamed(context, AppRoutes.mitraDashboard);
           }
         },
         builder: (context, state) {
@@ -73,24 +74,20 @@ class _MitraDetailOrder extends State<MitraDetailOrder> {
               ),
             );
           }
-          if (state is MitraDetailFailure){
+          if (state is MitraDetailFailure) {
             return Center(
               child: Text(state.errorMessage),
             );
           }
           if (state is MitraChangeOrderStatusLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const CustomLoading();
           }
-          if(state is MitraChangeOrderStatusFailure){
+          if (state is MitraChangeOrderStatusFailure) {
             return Center(
               child: Text(state.errorMessage),
             );
           }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const CustomLoading();
         },
       ),
     );

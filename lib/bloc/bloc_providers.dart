@@ -8,6 +8,8 @@ import 'package:WashWoosh/bloc/user/laundry/laundry_list_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry_detail/laundry_detail_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry_history/laundry_history_bloc.dart';
 import 'package:WashWoosh/bloc/user/laundry_history_detail/laundry_history_detail_bloc.dart';
+import 'package:WashWoosh/bloc/user/laundry_jam_operasional/laundry_jam_operasional_bloc.dart';
+import 'package:WashWoosh/bloc/user/laundry_jam_operasional/laundry_jam_operasional_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BlocProviders {
@@ -30,6 +32,7 @@ class BlocProviders {
       BlocProvider<MitraRegisterActionBloc>(create: (context) => MitraRegisterActionBloc()),
       BlocProvider<BottomNavigationBloc>(
           create: (context) => BottomNavigationBloc()),
+      BlocProvider<LaundryJamOperasionalBloc>(create: (context) => LaundryJamOperasionalBloc()),
     ];
   }
 }

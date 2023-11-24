@@ -6,6 +6,7 @@ import 'package:WashWoosh/bloc/user/laundry_history_detail/laundry_history_detai
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
 import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/date_formatter.dart';
+import 'package:WashWoosh/views/widgets/custom_loading.dart';
 import 'package:WashWoosh/views/widgets/custom_user_bottom_navbar.dart';
 import 'package:WashWoosh/views/widgets/order_list_card.dart';
 import 'package:WashWoosh/views/widgets/user_mini_profile_card.dart';
@@ -55,10 +56,7 @@ class _UserOrderHistoryState extends State<UserOrderHistory> {
               body: BlocBuilder<LaundryHistoryBloc, LaundryHistoryState>(
                 builder: (context, state) {
                   if (state is GetLaundryHistoryLoading) {
-                    return const Scaffold(
-                        body: Center(
-                      child: CircularProgressIndicator(),
-                    ));
+                    return const Scaffold(body: CustomLoading());
                   } else if (state is GetLaundryHistorySuccess) {
                     return Scaffold(
                       body: RefreshIndicator(
@@ -199,7 +197,7 @@ class _UserOrderHistoryState extends State<UserOrderHistory> {
                       ),
                     );
                   }
-                  return Scaffold(
+                  return const Scaffold(
                     body: Center(
                       child: Text("Data tidak tersedia"),
                     ),
@@ -207,9 +205,7 @@ class _UserOrderHistoryState extends State<UserOrderHistory> {
                 },
               ));
         }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const CustomLoading();
       },
     );
   }

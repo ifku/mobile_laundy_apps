@@ -1,5 +1,6 @@
 import 'package:WashWoosh/bloc/mitra/mitra_detail/mitra_detail_bloc.dart';
 import 'package:WashWoosh/data/repositories/local/user_preferences.dart';
+import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:WashWoosh/views/widgets/custom_button.dart';
 import 'package:WashWoosh/views/widgets/custom_switcher_with_text.dart';
@@ -11,7 +12,8 @@ class MitraStatusChangePopup extends StatefulWidget {
   final int laundryId;
   final int currentStatus;
 
-  const MitraStatusChangePopup({super.key,
+  const MitraStatusChangePopup({
+    super.key,
     required this.laundryId,
     required this.currentStatus,
   });
@@ -117,7 +119,6 @@ class _MitraStatusChangePopupState extends State<MitraStatusChangePopup> {
                   selectedValue = checkStatus(selectedValue);
                   changeStatus(context, widget.laundryId,
                       int.parse(selectedValue), isDibayar);
-                  Navigator.pop(context);
                 }).build(context)
               ],
             ),

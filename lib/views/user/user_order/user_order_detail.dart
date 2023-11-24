@@ -1,5 +1,6 @@
 import 'package:WashWoosh/bloc/user/laundry_history_detail/laundry_history_detail_bloc.dart';
 import 'package:WashWoosh/views/widgets/custom_detail.dart';
+import 'package:WashWoosh/views/widgets/custom_loading.dart';
 import 'package:WashWoosh/views/widgets/custom_user_order_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,9 +67,7 @@ class _UserOrderDetail extends State<UserOrderDetail> {
             );
           }
           if (state is LaundryHistoryDetailLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const CustomLoading();
           }
           if (state is LaundryHistoryDetailFailure) {
             return Center(

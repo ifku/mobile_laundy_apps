@@ -5,6 +5,7 @@ import 'package:WashWoosh/routes/routes.dart';
 import 'package:WashWoosh/utils/get_screen_size.dart';
 import 'package:WashWoosh/views/widgets/custom_button.dart';
 import 'package:WashWoosh/views/widgets/custom_input_field.dart';
+import 'package:WashWoosh/views/widgets/custom_loading.dart';
 import 'package:WashWoosh/views/widgets/custom_text_area.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _MitraRegisterLaundryState extends State<MitraRegisterLaundry> {
         },
         builder: (context, state) {
           if (state is MitraRegisterLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const CustomLoading();
           }
           if (state is MitraRegisterFailure) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
